@@ -1,0 +1,68 @@
+{
+  "name": "@rocklab/rocklab-utils",
+  "version": "0.1.0",
+  "description": "JavaScript utils",
+  "engines": {
+    "node": ">= 12",
+    "npm": ">= 6"
+  },
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "npm run lerna:bootstrap",
+    "test": "echo \"No test specified\"",
+    "lerna": "lerna",
+    "lerna:bootstrap": "lerna bootstrap",
+    "lerna:version": "lerna version",
+    "lerna:publish": "lerna publish",
+    "lint:js": "eslint packages/",
+    "lint:styles": "stylelint packages/**/*.css",
+    "lint": "npm run lint:js && npm run lint:styles",
+    "lint:fix": "npm run lint:js -- --fix && npm run lint:styles -- --fix",
+    "prettier": "prettier-eslint --write \"packages/**/*.{js,md}\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cstn/rocklab-utils.git"
+  },
+  "keywords": [
+    "rocklab",
+    "javascript",
+    "utils"
+  ],
+  "author": "Carsten Stein",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cstn/rocklab-utils/issues"
+  },
+  "homepage": "https://github.com/cstn/rocklab-utils#readme",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm test"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "prettier-eslint --write",
+      "git add"
+    ],
+    "*.css": [
+      "stylelint --fix",
+      "git add"
+    ]
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "@rocklab/eslint-config-rocklab": "1.2.1",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^5.16.0",
+    "husky": "^4.2.3",
+    "jest": "^25.2.7",
+    "lerna": "^3.20.2",
+    "lint-staged": "^10.1.1",
+    "prettier": "^2.0.2",
+    "prettier-eslint-cli": "^5.0.0"
+  }
+}
