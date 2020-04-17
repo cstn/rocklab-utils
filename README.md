@@ -1,6 +1,6 @@
 # Rocklab utils
 
-> Utilities for Javascript projects
+> Utilities for Javascript front-end projects with React and Redux
 
 ## Setup
 
@@ -14,7 +14,7 @@ npm install
 Install all dependencies
 
 ```shell script
-npm run lerna:bootstrap
+npm install
 ```
 
 Check own code conventions
@@ -28,17 +28,3 @@ Autoformat code
 ```shell script
 npm run prettier
 ```
-
-Publish a new version
-
-```shell script
-npm run lerna:publish
-```
-
-Publish a new version manually
-
-```shell script
-npm run lerna:version
-npm run lerna:publish -- from-package
-```
-
