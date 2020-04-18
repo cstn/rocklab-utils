@@ -9,7 +9,7 @@
   "main": "./es/index.js",
   "browser": "./dist/index.js",
   "scripts": {
-    "test": "echo \"No test specified\"",
+    "test": "jest --config config/jest.config.js",
     "build": "npm run build:commonjs && npm run build:es",
     "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir dist --ignore \"**/*.test.js\"",
     "build:es": "cross-env BABEL_ENV=es babel src --out-dir es --ignore \"**/*.test.js\"",
@@ -58,17 +58,21 @@
     "@babel/preset-env": "^7.9.0",
     "@rocklab/eslint-config-rocklab": "1.2.1",
     "babel-eslint": "^10.1.0",
+    "babel-jest": "^25.3.0",
     "cross-env": "^7.0.2",
     "eslint": "^5.16.0",
     "husky": "^4.2.3",
-    "jest": "^25.2.7",
+    "jest": "^25.3.0",
+    "jest-junit": "^10.0.0",
     "lint-staged": "^10.1.1",
     "prettier": "^2.0.2",
     "prettier-eslint-cli": "^5.0.0",
-    "react": "^16.13.1"
+    "react": "^16.13.1",
+    "reselect": "^4.0.0"
   },
   "peerDependencies": {
     "react": "^16.8.0",
-    "react-dom": "^16.8.0"
+    "react-dom": "^16.8.0",
+    "reselect": "^4.0.0"
   }
 }
