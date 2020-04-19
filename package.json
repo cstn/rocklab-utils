@@ -1,12 +1,13 @@
 {
   "name": "@rocklab/utils",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "JavaScript utils",
   "engines": {
     "node": ">= 12",
     "npm": ">= 6"
   },
-  "main": "./es/index.js",
+  "main": "./dist/index.js",
+  "module": "./es/index.js",
   "browser": "./dist/index.js",
   "scripts": {
     "test": "jest --config config/jest.config.js",
