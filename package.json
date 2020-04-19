@@ -1,6 +1,6 @@
 {
-  "name": "@rocklab/rocklab-utils",
-  "version": "0.2.0",
+  "name": "@rocklab/utils",
+  "version": "0.2.1",
   "description": "JavaScript utils",
   "engines": {
     "node": ">= 12",
