@@ -2,13 +2,32 @@
   "name": "@rocklab/utils",
   "version": "0.2.2",
   "description": "JavaScript utils",
+  "keywords": [
+    "rocklab",
+    "javascript",
+    "utils"
+  ],
+  "author": "Carsten Stein <carsten.stein@cast-it.de>",
+  "license": "MIT",
+  "homepage": "https://github.com/cstn/rocklab-utils#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cstn/rocklab-utils.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cstn/rocklab-utils/issues"
+  },
   "engines": {
     "node": ">= 12",
     "npm": ">= 6"
   },
   "main": "./dist/index.js",
   "module": "./es/index.js",
-  "browser": "./dist/index.js",
+  "files": [
+    "dist",
+    "src",
+    "es"
+  ],
   "scripts": {
     "test": "jest --config config/jest.config.js",
     "build": "npm run build:commonjs && npm run build:es",
@@ -21,21 +40,6 @@
     "lint:fix": "npm run lint:js -- --fix && npm run lint:styles -- --fix",
     "prettier": "prettier-eslint --write \"src/**/*.{js,md}\""
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/cstn/rocklab-utils.git"
-  },
-  "keywords": [
-    "rocklab",
-    "javascript",
-    "utils"
-  ],
-  "author": "Carsten Stein",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/cstn/rocklab-utils/issues"
-  },
-  "homepage": "https://github.com/cstn/rocklab-utils#readme",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
