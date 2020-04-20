@@ -1,11 +1,13 @@
 {
   "name": "@rocklab/utils",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "JavaScript utils",
   "keywords": [
     "rocklab",
     "javascript",
-    "utils"
+    "utils",
+    "react",
+    "redux"
   ],
   "author": "Carsten Stein <carsten.stein@cast-it.de>",
   "license": "MIT",
