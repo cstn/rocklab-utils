@@ -1,7 +1,7 @@
 export { STATUS, isIdle, isPending, isResolved, isRejected } from './status';
 export {
   createActionTypes as createListActionTypes,
-  createActions as createActionsListActions,
+  createActions as createListActions,
 } from './factories/listActionsFactory';
 export { default as listReducerFactory } from './factories/listReducerFactory';
 export { default as reducerFactory } from './factories/reducerFactory';
