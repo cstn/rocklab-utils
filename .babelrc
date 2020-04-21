@@ -7,7 +7,8 @@
           {
             "useBuiltIns": false
           }
-        ]
+        ],
+        "@babel/preset-react"
       ]
     },
     "es": {
@@ -18,7 +19,8 @@
             "useBuiltIns": false,
             "modules": false
           }
-        ]
+        ],
+        "@babel/preset-react"
       ]
     },
     "browser": {
@@ -28,7 +30,8 @@
           {
             "useBuiltIns": false
           }
-        ]
+        ],
+        "@babel/preset-react"
       ]
     },
     "test": {
@@ -38,7 +41,8 @@
           {
             "useBuiltIns": false
           }
-        ]
+        ],
+        "@babel/preset-react"
       ]
     }
   }

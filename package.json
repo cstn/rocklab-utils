@@ -1,6 +1,6 @@
 {
   "name": "@rocklab/utils",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "description": "JavaScript utils",
   "keywords": [
     "rocklab",
@@ -37,10 +37,9 @@
     "build:es": "cross-env BABEL_ENV=es babel src --out-dir es --ignore \"**/*.test.js\"",
     "prepublish": "npm run build",
     "lint:js": "eslint src/",
-    "lint:styles": "stylelint packages/**/*.css",
-    "lint": "npm run lint:js && npm run lint:styles",
+    "lint": "npm run lint:js",
     "lint:fix": "npm run lint:js -- --fix && npm run lint:styles -- --fix",
-    "prettier": "prettier-eslint --write \"src/**/*.{js,md}\""
+    "prettier": "prettier-eslint --write \"$PWD/src/**/*.{js,md}\""
   },
   "husky": {
     "hooks": {
@@ -63,23 +62,26 @@
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
+    "@babel/preset-react": "^7.9.4",
     "@rocklab/eslint-config-rocklab": "1.2.1",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^25.3.0",
     "cross-env": "^7.0.2",
-    "eslint": "^5.16.0",
+    "eslint": "^6.8.0",
     "husky": "^4.2.3",
     "jest": "^25.3.0",
     "jest-junit": "^10.0.0",
     "lint-staged": "^10.1.1",
     "prettier": "^2.0.2",
     "prettier-eslint-cli": "^5.0.0",
+    "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "reselect": "^4.0.0"
   },
   "peerDependencies": {
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0",
-    "reselect": "^4.0.0"
+    "prop-types": ">= 15.7",
+    "react": ">= 16.8",
+    "react-dom": ">= 16.8",
+    "reselect": ">= 4.0"
   }
 }
