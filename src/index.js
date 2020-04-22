@@ -8,6 +8,6 @@ export {
   createListActions,
   createListActionTypes,
   createListSelectors,
-  listReducerFactory,
-  reducerFactory,
+  createListReducer,
+  createReducer,
 } from './redux';

@@ -3,6 +3,6 @@ export {
   createActionTypes as createListActionTypes,
   createActions as createListActions,
 } from './factories/listActionsFactory';
-export { default as listReducerFactory } from './factories/listReducerFactory';
-export { default as reducerFactory } from './factories/reducerFactory';
+export { default as createListReducer } from './factories/listReducerFactory';
+export { default as createReducer } from './factories/reducerFactory';
 export { default as createListSelectors } from './factories/listSelectorsFactory';
