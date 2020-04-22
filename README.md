@@ -15,14 +15,16 @@
 npm install @rocklab/utils
 ```
 
-## Setup
+## Development
+
+### Setup
 
 ```shell script
 git clone https://github.com/cstn/rocklab-utils.git
 npm install
 ````
 
-## Commands
+### Commands
 
 Install all dependencies
 

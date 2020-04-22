@@ -4,7 +4,7 @@
 
 import React from 'react';
 
-import getDisplayName from '../../helper/getDisplayName';
+import getDisplayName from '../../utils/getDisplayName';
 import CurrentUserContext, { contextProps } from '../context/CurrentUserContext';
 
 function withCurrentUser(WrappedComponent) {
