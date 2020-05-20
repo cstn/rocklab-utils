@@ -22,6 +22,7 @@ npm install @rocklab/utils
 ```shell script
 git clone https://github.com/cstn/rocklab-utils.git
 npm install
+npm run lerna:bootstrap
 ````
 
 ### Commands
@@ -30,6 +31,7 @@ Install all dependencies
 
 ```shell script
 npm install
+npm run lerna:bootstrap
 ```
 
 Check own code conventions

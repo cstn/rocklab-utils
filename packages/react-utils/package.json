@@ -1,13 +1,12 @@
 {
-  "name": "@rocklab/utils",
+  "name": "@rocklab/react-utils",
   "version": "0.3.1",
-  "description": "JavaScript utils",
+  "description": "React utils",
   "keywords": [
     "rocklab",
     "javascript",
     "utils",
-    "react",
-    "redux"
+    "react"
   ],
   "author": "Carsten Stein <carsten.stein@cast-it.de>",
   "license": "MIT",
@@ -31,30 +30,10 @@
     "es"
   ],
   "scripts": {
-    "test": "jest --config config/jest.config.js",
-    "lerna": "lerna",
-    "lerna:bootstrap": "lerna bootstrap",
-    "lerna:publish": "lerna publish",
-    "lint:js": "eslint packages/**/src/",
-    "lint": "npm run lint:js",
-    "lint:fix": "npm run lint:js -- --fix && npm run lint:styles -- --fix",
-    "prettier": "prettier-eslint --write \"$PWD/packages/**/src/**/*.{js,md}\""
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "npm test"
-    }
-  },
-  "lint-staged": {
-    "*.{js,jsx}": [
-      "prettier-eslint --write",
-      "git add"
-    ],
-    "*.css": [
-      "stylelint --fix",
-      "git add"
-    ]
+    "build": "npm run build:commonjs && npm run build:es",
+    "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir dist --ignore \"**/*.test.js\"",
+    "build:es": "cross-env BABEL_ENV=es babel src --out-dir es --ignore \"**/*.test.js\"",
+    "prepublish": "npm run build"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
@@ -64,13 +43,15 @@
     "@rocklab/eslint-config-rocklab": "1.2.1",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^25.3.0",
-    "eslint": "^6.8.0",
-    "husky": "^4.2.3",
+    "cross-env": "^7.0.2",
     "jest": "^25.3.0",
     "jest-junit": "^10.0.0",
-    "lerna": "^3.21.0",
-    "lint-staged": "^10.1.1",
-    "prettier": "^2.0.2",
-    "prettier-eslint-cli": "^5.0.0"
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1"
+  },
+  "peerDependencies": {
+    "prop-types": ">= 15.7",
+    "react": ">= 16.8",
+    "react-dom": ">= 16.8"
   }
 }
