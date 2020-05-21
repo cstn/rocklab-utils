@@ -8,7 +8,7 @@ import User from '../domain/models/User';
 import CurrentUserContext from './CurrentUserContext';
 
 const CurrentUserProvider = ({ children, user }) => (
-  <CurrentUserContext.Provider currentUser={user}>{children}</CurrentUserContext.Provider>
+  <CurrentUserContext.Provider value={user}>{children}</CurrentUserContext.Provider>
 );
 
 CurrentUserProvider.propTypes = {
