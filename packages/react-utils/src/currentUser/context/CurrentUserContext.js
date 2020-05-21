@@ -6,14 +6,16 @@ import { createContext } from 'react';
 import PropTypes from 'prop-types';
 
 import User from '../domain/models/User';
+import UserProfile from '../domain/models/UserProfile';
 
 const initialContext = {
-  id: 0,
-  username: null,
+  user: {},
+  profile: {},
 };
 
 const contextProps = {
-  currentUser: PropTypes.instanceOf(User),
+  profile: PropTypes.instanceOf(UserProfile),
+  user: PropTypes.instanceOf(User),
 };
 
 export default createContext(initialContext);

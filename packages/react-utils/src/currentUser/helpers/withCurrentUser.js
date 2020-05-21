@@ -10,7 +10,9 @@ import CurrentUserContext, { contextProps } from '../context/CurrentUserContext'
 function withCurrentUser(WrappedComponent) {
   const WithCurrentUser = passThroughProps => (
     <CurrentUserContext.Consumer>
-      {currentUser => <WrappedComponent {...passThroughProps} currentUser={currentUser} />}
+      {({ user, profile }) => (
+        <WrappedComponent {...passThroughProps} currentUser={user} currentUserProfile={profile} />
+      )}
     </CurrentUserContext.Consumer>
   );
 
