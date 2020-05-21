@@ -23,16 +23,8 @@
     "node": ">= 12",
     "npm": ">= 6"
   },
-  "main": "./dist/index.js",
-  "module": "./es/index.js",
-  "files": [
-    "dist",
-    "src",
-    "es"
-  ],
   "scripts": {
-    "test": "jest --config config/jest.config.js",
-    "lerna": "lerna",
+    "test": "lerna run test",
     "lerna:bootstrap": "lerna bootstrap",
     "lerna:publish": "lerna publish",
     "lint:js": "eslint packages/**/src/",
