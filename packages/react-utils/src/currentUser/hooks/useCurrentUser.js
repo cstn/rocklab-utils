@@ -12,7 +12,10 @@ function useCurrentUser() {
     throw new Error('useCurrentUser must be used within a CurrentUserProvider');
   }
 
-  return context;
+  return {
+    currentUser: context.user,
+    currentUserProfile: context.profile,
+  };
 }
 
 export default useCurrentUser;
