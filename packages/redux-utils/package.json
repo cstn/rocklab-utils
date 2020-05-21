@@ -1,0 +1,60 @@
+{
+  "name": "@rocklab/redux-utils",
+  "version": "0.3.1",
+  "description": "Redux utils",
+  "keywords": [
+    "rocklab",
+    "javascript",
+    "utils",
+    "react"
+  ],
+  "author": "Carsten Stein <carsten.stein@cast-it.de>",
+  "license": "MIT",
+  "homepage": "https://github.com/cstn/rocklab-utils#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cstn/rocklab-utils.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cstn/rocklab-utils/issues"
+  },
+  "engines": {
+    "node": ">= 12",
+    "npm": ">= 6"
+  },
+  "main": "./dist/index.js",
+  "module": "./es/index.js",
+  "files": [
+    "dist",
+    "src",
+    "es"
+  ],
+  "scripts": {
+    "test": "jest --config config/jest.config.js",
+    "build": "npm run build:commonjs && npm run build:es",
+    "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir dist --ignore \"**/*.test.js\"",
+    "build:es": "cross-env BABEL_ENV=es babel src --out-dir es --ignore \"**/*.test.js\"",
+    "prepublish": "npm run build"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-react": "^7.9.4",
+    "@rocklab/eslint-config-rocklab": "1.2.1",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^25.3.0",
+    "cross-env": "^7.0.2",
+    "jest": "^25.3.0",
+    "jest-junit": "^10.0.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "reselect": "^4.0.0"
+  },
+  "peerDependencies": {
+    "prop-types": ">= 15.7",
+    "react": ">= 16.8",
+    "react-dom": ">= 16.8",
+    "reselect": ">= 4.0"
+  }
+}
