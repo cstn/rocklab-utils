@@ -20,7 +20,9 @@ class UserProfile {
    * get full name
    * @returns {string}
    */
-  getName = () => [this.firstName, this.lastName].join(' ');
+  getName() {
+    return [this.firstName, this.lastName].join(' ');
+  }
 
   /**
    * get initials

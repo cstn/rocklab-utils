@@ -54,5 +54,6 @@
     "prop-types": ">= 15.7",
     "react": ">= 16.8",
     "react-dom": ">= 16.8"
-  }
+  },
+  "gitHead": "0368c847d961ad01df4440ef5b52364d15fdeb1c"
 }
