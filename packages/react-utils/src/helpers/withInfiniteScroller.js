@@ -8,6 +8,12 @@ import getDisplayName from '../utils/getDisplayName';
 
 function withInfiniteScroller(WrappedComponent, options = { offset: 0 }) {
   class WithInfiniteScroller extends Component {
+    constructor(props) {
+      super(props);
+
+      this.onScroll = this.onScroll.bind(this);
+    }
+
     componentDidMount() {
       window.addEventListener('scroll', this.onScroll, false);
     }
@@ -16,7 +22,7 @@ function withInfiniteScroller(WrappedComponent, options = { offset: 0 }) {
       window.removeEventListener('scroll', this.onScroll, false);
     }
 
-    onScroll = () => {
+    onScroll() {
       const { hasMore, onMore } = this.props;
       const { offset } = options;
 
@@ -27,7 +33,7 @@ function withInfiniteScroller(WrappedComponent, options = { offset: 0 }) {
       if (isAtBottom && hasMore) {
         onMore();
       }
-    };
+    }
 
     render() {
       return <WrappedComponent {...this.props} />;
