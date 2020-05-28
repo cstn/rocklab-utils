@@ -4,27 +4,27 @@
 
 /**
  * create action types
- * @param prefix
- * @returns {*}
+ * @param {String} moduleName   the actions prefix, e.g. the module name
+ * @param {String} featureName   the feature name
+ * @returns {Object}
  */
-export const createActionTypes = prefix => ({
-  LOAD_REQUEST: `${prefix}/LOAD_REQUEST`,
-  LOAD_SUCCESS: `${prefix}/LOAD_SUCCESS`,
-  LOAD_FAILURE: `${prefix}/LOAD_FAILURE`,
-  MORE_REQUEST: `${prefix}/MORE_REQUEST`,
-  MORE_SUCCESS: `${prefix}/MORE_SUCCESS`,
-  MORE_FAILURE: `${prefix}/MORE_FAILURE`,
+const createActionTypes = (moduleName, featureName) => ({
+  LOAD_REQUEST: `${moduleName}/${featureName}/LOAD_REQUEST`,
+  LOAD_SUCCESS: `${moduleName}/${featureName}/LOAD_SUCCESS`,
+  LOAD_FAILURE: `${moduleName}/${featureName}/LOAD_FAILURE`,
+  MORE_REQUEST: `${moduleName}/${featureName}/MORE_REQUEST`,
+  MORE_SUCCESS: `${moduleName}/${featureName}/MORE_SUCCESS`,
+  MORE_FAILURE: `${moduleName}/${featureName}/MORE_FAILURE`,
 });
 
 /**
  * create action creators
- * @param name
+ * @param {String} moduleName   the actions prefix, e.g. the module name
+ * @param {String} featureName   the feature name
  * @returns {*}
  */
-export const createActions = name => {
-  const prefix = name.charAt(0).toLowerCase() + name.slice(1);
-
-  const actionTypes = createActionTypes(prefix);
+const createActions = (moduleName, featureName) => {
+  const actionTypes = createActionTypes(moduleName, featureName);
 
   return {
     loadRequestAction: filter => ({
@@ -56,3 +56,5 @@ export const createActions = name => {
     }),
   };
 };
+
+export { createActionTypes, createActions };

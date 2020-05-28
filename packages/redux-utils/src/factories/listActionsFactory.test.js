@@ -6,50 +6,50 @@ import { createActionTypes, createActions } from './listActionsFactory';
 
 describe('listActionsFactory', () => {
   it('should create action types', () => {
-    const name = 'test';
+    const name = 'test/a';
 
     const actionTypes = createActionTypes(name);
 
     expect(actionTypes).toEqual({
-      LOAD_REQUEST: 'test/LOAD_REQUEST',
-      LOAD_SUCCESS: 'test/LOAD_SUCCESS',
-      LOAD_FAILURE: 'test/LOAD_FAILURE',
-      MORE_REQUEST: 'test/MORE_REQUEST',
-      MORE_SUCCESS: 'test/MORE_SUCCESS',
-      MORE_FAILURE: 'test/MORE_FAILURE',
+      LOAD_REQUEST: 'test/a/LOAD_REQUEST',
+      LOAD_SUCCESS: 'test/a/LOAD_SUCCESS',
+      LOAD_FAILURE: 'test/a/LOAD_FAILURE',
+      MORE_REQUEST: 'test/a/MORE_REQUEST',
+      MORE_SUCCESS: 'test/a/MORE_SUCCESS',
+      MORE_FAILURE: 'test/a/MORE_FAILURE',
     });
   });
 
   it('should create actions', () => {
-    const name = 'test';
+    const name = 'test/a';
     const filter = { a: 1 };
 
     const actions = createActions(name);
 
     expect(actions.loadRequestAction(filter)).toEqual({
-      type: 'test/LOAD_REQUEST',
+      type: 'test/a/LOAD_REQUEST',
       filter,
     });
     expect(actions.loadSuccessAction([1, 2])).toEqual({
-      type: 'test/LOAD_SUCCESS',
+      type: 'test/a/LOAD_SUCCESS',
       payload: [1, 2],
     });
     expect(actions.loadFailureAction('error', 500)).toEqual({
-      type: 'test/LOAD_FAILURE',
+      type: 'test/a/LOAD_FAILURE',
       error: 'error',
       code: 500,
     });
     expect(actions.moreRequestAction(filter, 10)).toEqual({
-      type: 'test/MORE_REQUEST',
+      type: 'test/a/MORE_REQUEST',
       filter,
       offset: 10,
     });
     expect(actions.moreSuccessAction([3, 4])).toEqual({
-      type: 'test/MORE_SUCCESS',
+      type: 'test/a/MORE_SUCCESS',
       payload: [3, 4],
     });
     expect(actions.moreFailureAction('error', 500)).toEqual({
-      type: 'test/MORE_FAILURE',
+      type: 'test/a/MORE_FAILURE',
       error: 'error',
       code: 500,
     });
