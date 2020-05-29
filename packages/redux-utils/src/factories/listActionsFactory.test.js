@@ -6,9 +6,7 @@ import { createActionTypes, createActions } from './listActionsFactory';
 
 describe('listActionsFactory', () => {
   it('should create action types', () => {
-    const name = 'test/a';
-
-    const actionTypes = createActionTypes(name);
+    const actionTypes = createActionTypes('test', 'a');
 
     expect(actionTypes).toEqual({
       LOAD_REQUEST: 'test/a/LOAD_REQUEST',
@@ -21,10 +19,9 @@ describe('listActionsFactory', () => {
   });
 
   it('should create actions', () => {
-    const name = 'test/a';
     const filter = { a: 1 };
 
-    const actions = createActions(name);
+    const actions = createActions('test', 'a');
 
     expect(actions.loadRequestAction(filter)).toEqual({
       type: 'test/a/LOAD_REQUEST',

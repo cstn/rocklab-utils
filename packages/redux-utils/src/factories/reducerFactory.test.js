@@ -10,7 +10,7 @@ const mockHandlers = {
 };
 
 describe('reducerFactory', () => {
-  const reducer = createReducer(mockInitialState, mockHandlers);
+  const reducer = createReducer('test', 'a', { initialState: mockInitialState, handlers: mockHandlers });
 
   it('should return the initial state by default', () => {
     const expected = mockInitialState;

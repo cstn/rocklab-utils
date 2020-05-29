@@ -70,7 +70,7 @@ const handleMoreSuccess = (state, action) => ({
   ...state,
   error: null,
   hasMore: action.payload && action.payload.length > 0,
-  list: [...state.list, action.payload],
+  list: [...state.list, ...action.payload],
   status: STATUS.RESOLVED,
 });
 
