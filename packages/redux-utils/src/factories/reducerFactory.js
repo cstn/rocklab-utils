@@ -6,7 +6,7 @@ import { STATUS } from '../status';
 import { createActionTypes } from './actionsFactory';
 
 const initialState = {
-  data: null,
+  data: {},
   error: null,
   status: STATUS.IDLE,
 };
@@ -53,9 +53,9 @@ const createHandlers = (moduleName, featureName) => {
   const actionTypes = createActionTypes(moduleName, featureName);
 
   return {
-    [actionTypes.LOAD_REQUEST]: handleRequest,
-    [actionTypes.LOAD_SUCCESS]: handleSuccess,
-    [actionTypes.LOAD_FAILURE]: handleError,
+    [actionTypes.REQUEST]: handleRequest,
+    [actionTypes.SUCCESS]: handleSuccess,
+    [actionTypes.FAILURE]: handleError,
   };
 };
 
@@ -70,8 +70,9 @@ const createHandlers = (moduleName, featureName) => {
  */
 function createReducer(moduleName, featureName, options = {}) {
   const handlers = options.handlers || createHandlers(moduleName, featureName);
+  const initialReducerState = options.initialState || initialState;
 
-  return function reducer(state = options.initialState || initialState, action = {}) {
+  return function reducer(state = initialReducerState, action = {}) {
     if (Object.prototype.hasOwnProperty.call(handlers, action.type)) {
       return handlers[action.type](state, action);
     }

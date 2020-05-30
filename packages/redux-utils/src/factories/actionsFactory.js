@@ -24,10 +24,8 @@ const createActions = (moduleName, featureName) => {
   const actionTypes = createActionTypes(moduleName, featureName);
 
   return {
-    requestAction: ({ query, body }) => ({
+    requestAction: () => ({
       type: actionTypes.REQUEST,
-      query,
-      body,
     }),
     successAction: payload => ({
       type: actionTypes.SUCCESS,

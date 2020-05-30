@@ -2,6 +2,7 @@
  * @fileOverview unit tests for the redux reducer factory
  */
 
+import { STATUS } from '../status';
 import createReducer from './reducerFactory';
 
 const mockInitialState = 1;
@@ -10,32 +11,46 @@ const mockHandlers = {
 };
 
 describe('reducerFactory', () => {
-  const reducer = createReducer('test', 'a', { initialState: mockInitialState, handlers: mockHandlers });
+  describe('standard handlers', () => {
+    const reducer = createReducer('test', 'standard');
 
-  it('should return the initial state by default', () => {
-    const expected = mockInitialState;
+    it('should return the initial state by default', () => {
+      const state = reducer(undefined);
 
-    const state = reducer();
-
-    expect(state).toEqual(expected);
+      expect(state.data).toEqual({});
+      expect(state.error).toBeNull();
+      expect(state.status).toEqual(STATUS.IDLE);
+    });
   });
 
-  it('should not change the state if the action is unknown', () => {
-    const currentState = 5;
-    const expected = 5;
+  describe('custom handlers', () => {
+    const reducer = createReducer('test', 'custom', { initialState: mockInitialState, handlers: mockHandlers });
 
-    const newState = reducer(currentState, { type: 'test/ACTION_UNKNOWN' });
+    it('should return the initial state by default', () => {
+      const expected = mockInitialState;
 
-    expect(newState).toEqual(expected);
-  });
+      const state = reducer();
 
-  it('should handle an action', () => {
-    const expected = 2;
-
-    const newState = reducer(mockInitialState, {
-      type: 'test/ACTION',
+      expect(state).toEqual(expected);
     });
 
-    expect(newState).toEqual(expected);
+    it('should not change the state if the action is unknown', () => {
+      const currentState = 5;
+      const expected = 5;
+
+      const newState = reducer(currentState, { type: 'test/ACTION_UNKNOWN' });
+
+      expect(newState).toEqual(expected);
+    });
+
+    it('should handle an action', () => {
+      const expected = 2;
+
+      const newState = reducer(mockInitialState, {
+        type: 'test/ACTION',
+      });
+
+      expect(newState).toEqual(expected);
+    });
   });
 });
