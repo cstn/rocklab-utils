@@ -4,6 +4,12 @@
 
 import { useEffect, useRef } from 'react';
 
+/**
+ * previous value hook
+ * @param value
+ * @param initialValue
+ * @returns {*}
+ */
 function usePrevious(value, initialValue) {
   const ref = useRef(initialValue);
 

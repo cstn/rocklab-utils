@@ -4,12 +4,27 @@
 
 import { useState } from 'react';
 
+/**
+ * toggle hook
+ * @param initialValue
+ * @returns {(boolean|(function(): void))[]}
+ */
 function useToggle(initialValue) {
   const [status, setStatus] = useState(Boolean(initialValue));
 
-  const toggleStatus = () => setStatus(!status);
+  const toggleStatus = () => {
+    setStatus(!status);
+  };
 
-  return [status, toggleStatus];
+  const toggleOn = () => {
+    setStatus(true);
+  };
+
+  const toggleOff = () => {
+    setStatus(false);
+  };
+
+  return [status, toggleStatus, toggleOn, toggleOff];
 }
 
 export default useToggle;
