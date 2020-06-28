@@ -7,15 +7,15 @@ import { createActionTypes } from './listActionsFactory';
 import createListReducer, { initialState } from './listReducerFactory';
 
 describe('createListReducerFactors', () => {
-  const reducer = createListReducer('test', { dataConverter: i => i * 2 });
-  const actionTypes = createActionTypes('test');
+  const reducer = createListReducer('test', 'a');
+  const actionTypes = createActionTypes('test', 'a');
 
   it('should have an initial state', () => {
     const state = initialState;
 
     expect(state.status).toEqual(STATUS.IDLE);
     expect(state.list).toBeNull();
-    expect(state.error).toEqual('');
+    expect(state.error).toBeNull();
     expect(state.filter).toBeNull();
   });
 
@@ -27,7 +27,7 @@ describe('createListReducerFactors', () => {
     });
 
     expect(state.status).toEqual(STATUS.PENDING);
-    expect(state.error).toEqual('');
+    expect(state.error).toBeNull();
     expect(state.filter).toEqual(filter);
   });
 
@@ -44,8 +44,8 @@ describe('createListReducerFactors', () => {
     );
 
     expect(state.status).toEqual(STATUS.RESOLVED);
-    expect(state.error).toEqual('');
-    expect(state.list).toEqual([2, 4, 6]);
+    expect(state.error).toBeNull();
+    expect(state.list).toEqual([1, 2, 3]);
   });
 
   it('should handle load failure action', () => {
@@ -79,7 +79,7 @@ describe('createListReducerFactors', () => {
     );
 
     expect(state.status).toEqual(STATUS.PENDING);
-    expect(state.error).toEqual('');
+    expect(state.error).toBeNull();
     expect(state.filter).toEqual(filter);
   });
 
@@ -96,8 +96,8 @@ describe('createListReducerFactors', () => {
     );
 
     expect(state.status).toEqual(STATUS.RESOLVED);
-    expect(state.error).toEqual('');
-    expect(state.list).toEqual([2, 4, 6, 8, 10, 12]);
+    expect(state.error).toBeNull();
+    expect(state.list).toEqual([2, 4, 6, 4, 5, 6]);
   });
 
   it('should handle load more failure action', () => {

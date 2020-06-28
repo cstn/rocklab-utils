@@ -9,14 +9,16 @@ const mockStatus = 'pending';
 const mockError = 'error';
 const mockState = {
   test: {
-    list: mockList,
-    status: mockStatus,
-    error: mockError,
+    a: {
+      list: mockList,
+      status: mockStatus,
+      error: mockError,
+    },
   },
 };
 
 describe('listSelectorsFactory', () => {
-  const { selectList, selectListSize, selectError, selectStatus } = createSelectors('test');
+  const { selectList, selectListSize, selectError, selectStatus } = createSelectors('test/a');
 
   it('should select the list', () => {
     const selected = selectList(mockState);

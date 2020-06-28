@@ -4,7 +4,7 @@
 
 import { createSelector } from 'reselect';
 
-const selectState = name => state => (Array.isArray(name) ? state[name[0]][name[1]] : state[name]);
+import { selectState } from './selectorsFactory';
 
 const selectError = name => state => selectState(name)(state).error;
 
@@ -23,7 +23,7 @@ const selectStatus = name => state => selectState(name)(state).status;
  * @param name
  * @returns {Object}
  */
-export default function createListSelectors(name) {
+function createListSelectors(name) {
   return {
     selectError: selectError(name),
     selectFilter: selectFilter(name),
@@ -33,3 +33,5 @@ export default function createListSelectors(name) {
     selectStatus: selectStatus(name),
   };
 }
+
+export default createListSelectors;
