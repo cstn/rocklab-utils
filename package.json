@@ -40,12 +40,10 @@
   },
   "lint-staged": {
     "*.{js,jsx}": [
-      "prettier-eslint --write",
-      "git add"
+      "prettier-eslint --write"
     ],
     "*.css": [
-      "stylelint --fix",
-      "git add"
+      "stylelint --fix"
     ]
   },
   "devDependencies": {
@@ -53,16 +51,24 @@
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-react": "^7.9.4",
-    "@rocklab/eslint-config-rocklab": "1.2.1",
+    "@rocklab/eslint-config-react": "^2.0.0",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^25.3.0",
     "eslint": "^6.8.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-testcafe": "^0.2.1",
+    "eslint-plugin-testing-library": "^3.10.0",
     "husky": "^4.2.3",
     "jest": "^25.3.0",
     "jest-junit": "^10.0.0",
     "lerna": "^3.21.0",
     "lint-staged": "^10.1.1",
     "prettier": "^2.0.2",
-    "prettier-eslint-cli": "^5.0.0"
+    "prettier-eslint-cli": "^5.0.0",
+    "react": "^16.13.1",
+    "reselect": "^4.0.0"
   }
 }
