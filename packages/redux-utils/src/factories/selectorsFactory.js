@@ -12,10 +12,13 @@ const selectStatus = name => state => selectState(name)(state).status;
 
 /**
  * create selectors
- * @param name
+ * @param {String} moduleName   the module name
+ * @param {String} featureName  the feature name
  * @returns {Object}
  */
-function createSelectors(name) {
+function createSelectors(moduleName, featureName) {
+  const name = [moduleName, featureName].filter(Boolean).join('/');
+
   return {
     selectData: selectData(name),
     selectError: selectError(name),

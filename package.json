@@ -1,6 +1,6 @@
 {
   "name": "@rocklab/utils",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "JavaScript utils",
   "keywords": [
     "rocklab",
@@ -70,5 +70,6 @@
     "prettier-eslint-cli": "^5.0.0",
     "react": "^16.13.1",
     "reselect": "^4.0.0"
-  }
+  },
+  "dependencies": {}
 }
