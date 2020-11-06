@@ -20,17 +20,18 @@ const selectStatus = name => state => selectState(name)(state).status;
 
 /**
  * create selectors
- * @param name
+ * @param {String} moduleName   the module name
+ * @param {String} featureName  the feature name
  * @returns {Object}
  */
-function createListSelectors(name) {
+function createListSelectors(moduleName, featureName) {
   return {
-    selectError: selectError(name),
-    selectFilter: selectFilter(name),
-    selectHasMore: selectHasMore(name),
-    selectList: selectList(name),
-    selectListSize: selectListSize(name),
-    selectStatus: selectStatus(name),
+    selectError: selectError(moduleName, featureName),
+    selectFilter: selectFilter(moduleName, featureName),
+    selectHasMore: selectHasMore(moduleName, featureName),
+    selectList: selectList(moduleName, featureName),
+    selectListSize: selectListSize(moduleName, featureName),
+    selectStatus: selectStatus(moduleName, featureName),
   };
 }
 
