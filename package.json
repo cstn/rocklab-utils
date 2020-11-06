@@ -70,5 +70,6 @@
     "prettier-eslint-cli": "^5.0.0",
     "react": "^16.13.1",
     "reselect": "^4.0.0"
-  }
+  },
+  "dependencies": {}
 }
