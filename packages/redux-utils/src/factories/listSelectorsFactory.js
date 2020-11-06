@@ -25,13 +25,15 @@ const selectStatus = name => state => selectState(name)(state).status;
  * @returns {Object}
  */
 function createListSelectors(moduleName, featureName) {
+  const name = [moduleName, featureName].filter(Boolean).join('/');
+
   return {
-    selectError: selectError(moduleName, featureName),
-    selectFilter: selectFilter(moduleName, featureName),
-    selectHasMore: selectHasMore(moduleName, featureName),
-    selectList: selectList(moduleName, featureName),
-    selectListSize: selectListSize(moduleName, featureName),
-    selectStatus: selectStatus(moduleName, featureName),
+    selectError: selectError(name),
+    selectFilter: selectFilter(name),
+    selectHasMore: selectHasMore(name),
+    selectList: selectList(name),
+    selectListSize: selectListSize(name),
+    selectStatus: selectStatus(name),
   };
 }
 
