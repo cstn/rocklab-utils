@@ -48,6 +48,25 @@ describe('createListReducerFactors', () => {
     expect(state.list).toEqual([1, 2, 3]);
   });
 
+  it('should handle load success action with converter', () => {
+    const convertReducer = createListReducer('test', 'a', {converter: i => i * 2});
+
+    const state = convertReducer(
+      {
+        status: STATUS.PENDING,
+        list: null,
+      },
+      {
+        type: actionTypes.LOAD_SUCCESS,
+        payload: [1, 2, 3],
+      }
+    );
+
+    expect(state.status).toEqual(STATUS.RESOLVED);
+    expect(state.error).toBeNull();
+    expect(state.list).toEqual([2, 4, 6]);
+  });
+
   it('should handle load failure action', () => {
     const error = 'error';
     const state = reducer(
