@@ -59,18 +59,18 @@ const handleRequest = (state, action) => ({
   status: STATUS.PENDING,
 });
 
-const handleSuccess = (state, action) => ({
+const handleSuccess = converter => (state, action) => ({
   ...state,
   error: null,
-  list: action.payload,
+  list: action.payload ? action.payload.map(converter) : null,
   status: STATUS.RESOLVED,
 });
 
-const handleMoreSuccess = (state, action) => ({
+const handleMoreSuccess = converter => (state, action) => ({
   ...state,
   error: null,
   hasMore: action.payload && action.payload.length > 0,
-  list: [...state.list, ...action.payload],
+  list: [...state.list, ...action.payload.map(converter)],
   status: STATUS.RESOLVED,
 });
 
@@ -78,18 +78,20 @@ const handleMoreSuccess = (state, action) => ({
  * create list handlers
  * @param {String} moduleName   the actions prefix, e.g. the module name
  * @param {String} featureName   the feature name
+ * @param {Object} options
+ * @param {function} options.converter  converter for results
  * @returns {Object}
  */
-const createHandlers = (moduleName, featureName) => {
+const createHandlers = (moduleName, featureName, {converter}) => {
   const actionTypes = createActionTypes(moduleName, featureName);
 
   return {
     [actionTypes.LOAD_REQUEST]: handleRequest,
-    [actionTypes.LOAD_SUCCESS]: handleSuccess,
+    [actionTypes.LOAD_SUCCESS]: handleSuccess(converter),
     [actionTypes.LOAD_FAILURE]: handleError,
 
     [actionTypes.MORE_REQUEST]: handleRequest,
-    [actionTypes.MORE_SUCCESS]: handleMoreSuccess,
+    [actionTypes.MORE_SUCCESS]: handleMoreSuccess(converter),
     [actionTypes.MORE_FAILURE]: handleMoreError,
   };
 };
@@ -98,10 +100,17 @@ const createHandlers = (moduleName, featureName) => {
  * create list reducer
  * @param {String} moduleName   the actions prefix, e.g. the module name
  * @param {String} featureName   the feature name
+ * @param {Object} options
+ * @param {function} options.converter  converter for result items
  * @returns {*}
  */
-function createReducer(moduleName, featureName) {
-  const handlers = createHandlers(moduleName, featureName);
+function createReducer(moduleName, featureName, options = {}) {
+  const customOptions = {
+    converter: item => item,
+    ...options,
+  };
+
+  const handlers = createHandlers(moduleName, featureName, customOptions);
 
   return createBaseReducer(moduleName, featureName, { initialState, handlers });
 }
