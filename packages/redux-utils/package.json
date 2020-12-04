@@ -1,6 +1,6 @@
 {
   "name": "@rocklab/redux-utils",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Redux utils",
   "keywords": [
     "rocklab",
@@ -19,8 +19,8 @@
     "url": "https://github.com/cstn/rocklab-utils/issues"
   },
   "engines": {
-    "node": ">= 12",
-    "npm": ">= 6"
+    "node": "12.x",
+    "npm": "6.x"
   },
   "main": "./dist/index.js",
   "module": "./es/index.js",

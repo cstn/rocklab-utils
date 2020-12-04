@@ -21,14 +21,24 @@ describe('createListReducerFactors', () => {
 
   it('should handle load request action', () => {
     const filter = { a: 1 };
+    const limit = 10;
+    const offset = 5;
+    const order = 'id';
+
     const state = reducer(initialState, {
       type: actionTypes.LOAD_REQUEST,
       filter,
+      limit,
+      offset,
+      order,
     });
 
     expect(state.status).toEqual(STATUS.PENDING);
     expect(state.error).toBeNull();
     expect(state.filter).toEqual(filter);
+    expect(state.limit).toEqual(limit);
+    expect(state.offset).toEqual(offset);
+    expect(state.order).toEqual(order);
   });
 
   it('should handle load success action', () => {
@@ -40,16 +50,20 @@ describe('createListReducerFactors', () => {
       {
         type: actionTypes.LOAD_SUCCESS,
         payload: [1, 2, 3],
+        count: 3,
+        total: 5,
       }
     );
 
     expect(state.status).toEqual(STATUS.RESOLVED);
     expect(state.error).toBeNull();
     expect(state.list).toEqual([1, 2, 3]);
+    expect(state.count).toEqual(3);
+    expect(state.total).toEqual(5);
   });
 
   it('should handle load success action with converter', () => {
-    const convertReducer = createListReducer('test', 'a', {converter: i => i * 2});
+    const convertReducer = createListReducer('test', 'a', { converter: i => i * 2 });
 
     const state = convertReducer(
       {

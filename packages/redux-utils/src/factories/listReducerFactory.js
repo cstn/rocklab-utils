@@ -11,20 +11,26 @@ import { createActionTypes } from './listActionsFactory';
  * @type {Object}
  */
 const initialState = {
+  count: undefined,
   error: null,
   filter: null,
   hasMore: true,
+  limit: null,
   list: null,
+  offset: 0,
+  order: null,
   status: STATUS.IDLE,
+  total: undefined,
 };
 
 /*
  * case reducer
  */
-const handleError = (state, action) =>
-  action.code === 404
+const handleError = (state, { code, error }) =>
+  code === 404
     ? {
       ...state,
+      count: 0,
       error: null,
       hasMore: false,
       list: [],
@@ -32,13 +38,15 @@ const handleError = (state, action) =>
     }
     : {
       ...state,
-      error: action.error,
+      count: undefined,
+      error,
       list: null,
       status: STATUS.REJECTED,
+      total: undefined,
     };
 
-const handleMoreError = (state, action) =>
-  action.code === 404
+const handleMoreError = (state, { code, error }) =>
+  code === 404
     ? {
       ...state,
       error: null,
@@ -47,31 +55,38 @@ const handleMoreError = (state, action) =>
     }
     : {
       ...state,
-      error: action.error,
+      error,
       status: STATUS.REJECTED,
     };
 
-const handleRequest = (state, action) => ({
+const handleRequest = (state, { filter, limit, offset, order }) => ({
   ...state,
   error: null,
-  filter: action.filter || state.filter,
+  filter: filter || state.filter,
   hasMore: true,
+  limit: limit || state.limit,
+  offset: offset || state.offset,
+  order,
   status: STATUS.PENDING,
 });
 
-const handleSuccess = converter => (state, action) => ({
+const handleSuccess = converter => (state, { count, payload, total }) => ({
   ...state,
+  count: count || payload.length || 0,
   error: null,
-  list: action.payload ? action.payload.map(converter) : null,
+  list: payload ? payload.map(converter) : null,
   status: STATUS.RESOLVED,
+  total: total || count || payload.length || 0,
 });
 
-const handleMoreSuccess = converter => (state, action) => ({
+const handleMoreSuccess = converter => (state, { count, payload, total }) => ({
   ...state,
+  count: state.count + count,
   error: null,
-  hasMore: action.payload && action.payload.length > 0,
-  list: [...state.list, ...action.payload.map(converter)],
+  hasMore: payload && payload.length > 0,
+  list: [...state.list, ...payload.map(converter)],
   status: STATUS.RESOLVED,
+  total: total || state.total,
 });
 
 /**
@@ -82,7 +97,7 @@ const handleMoreSuccess = converter => (state, action) => ({
  * @param {function} options.converter  converter for results
  * @returns {Object}
  */
-const createHandlers = (moduleName, featureName, {converter}) => {
+const createHandlers = (moduleName, featureName, { converter }) => {
   const actionTypes = createActionTypes(moduleName, featureName);
 
   return {
