@@ -19,13 +19,17 @@ describe('listActionsFactory', () => {
   });
 
   it('should create actions', () => {
-    const filter = { a: 1 };
+    const filter = 'a';
+    const order = 'id DESC';
 
     const actions = createActions('test', 'a');
 
-    expect(actions.loadRequestAction(filter)).toEqual({
+    expect(actions.loadRequestAction(10, 1, filter, order)).toEqual({
       type: 'test/a/LOAD_REQUEST',
+      limit: 10,
+      offset: 1,
       filter,
+      order,
     });
     expect(actions.loadSuccessAction([1, 2], 2, 10)).toEqual({
       type: 'test/a/LOAD_SUCCESS',
@@ -38,10 +42,10 @@ describe('listActionsFactory', () => {
       error: 'error',
       code: 500,
     });
-    expect(actions.moreRequestAction(filter, 10)).toEqual({
+    expect(actions.moreRequestAction(5, filter)).toEqual({
       type: 'test/a/MORE_REQUEST',
       filter,
-      offset: 10,
+      offset: 5,
     });
     expect(actions.moreSuccessAction([3, 4], 2, 10)).toEqual({
       type: 'test/a/MORE_SUCCESS',

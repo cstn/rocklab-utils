@@ -27,9 +27,12 @@ const createActions = (moduleName, featureName) => {
   const actionTypes = createActionTypes(moduleName, featureName);
 
   return {
-    loadRequestAction: filter => ({
+    loadRequestAction: (limit, offset = 0, filter, order) => ({
       type: actionTypes.LOAD_REQUEST,
       filter,
+      limit,
+      offset,
+      order,
     }),
     loadSuccessAction: (items, count, total) => ({
       type: actionTypes.LOAD_SUCCESS,
@@ -42,7 +45,7 @@ const createActions = (moduleName, featureName) => {
       error,
       code,
     }),
-    moreRequestAction: (filter, offset) => ({
+    moreRequestAction: (offset, filter) => ({
       type: actionTypes.MORE_REQUEST,
       filter,
       offset,
