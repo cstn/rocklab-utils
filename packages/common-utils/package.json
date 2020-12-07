@@ -1,12 +1,11 @@
 {
-  "name": "@rocklab/redux-utils",
-  "version": "0.8.4",
-  "description": "Redux utils",
+  "name": "@rocklab/common-utils",
+  "version": "0.2.0",
+  "description": "Common javascript utils",
   "keywords": [
     "rocklab",
     "javascript",
-    "utils",
-    "react"
+    "utils"
   ],
   "author": "Carsten Stein <carsten.stein@cast-it.de>",
   "license": "MIT",
@@ -41,20 +40,11 @@
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-react": "^7.9.4",
-    "@rocklab/eslint-config-react": "^2.0.0",
+    "@rocklab/eslint-config-node": "^2.0.0",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^25.3.0",
     "cross-env": "^7.0.2",
     "jest": "^25.3.0",
-    "jest-junit": "^10.0.0",
-    "prop-types": "^15.7.2",
-    "react": "^16.13.1",
-    "reselect": "^4.0.0"
-  },
-  "peerDependencies": {
-    "prop-types": ">= 15.7",
-    "react": ">= 16.8",
-    "react-dom": ">= 16.8",
-    "reselect": ">= 4.0"
+    "jest-junit": "^10.0.0"
   }
 }
