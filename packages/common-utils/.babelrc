@@ -1,0 +1,49 @@
+{
+  "env": {
+    "commonjs": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "useBuiltIns": false
+          }
+        ],
+        "@babel/preset-react"
+      ]
+    },
+    "es": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "useBuiltIns": false,
+            "modules": false
+          }
+        ],
+        "@babel/preset-react"
+      ]
+    },
+    "browser": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "useBuiltIns": false
+          }
+        ],
+        "@babel/preset-react"
+      ]
+    },
+    "test": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "useBuiltIns": false
+          }
+        ],
+        "@babel/preset-react"
+      ]
+    }
+  }
+}
