@@ -31,9 +31,11 @@ const createActions = (moduleName, featureName) => {
       type: actionTypes.LOAD_REQUEST,
       filter,
     }),
-    loadSuccessAction: payload => ({
+    loadSuccessAction: (items, count, total) => ({
       type: actionTypes.LOAD_SUCCESS,
-      payload,
+      items,
+      count,
+      total,
     }),
     loadFailureAction: (error, code) => ({
       type: actionTypes.LOAD_FAILURE,
@@ -45,9 +47,11 @@ const createActions = (moduleName, featureName) => {
       filter,
       offset,
     }),
-    moreSuccessAction: payload => ({
+    moreSuccessAction: (items, count, total) => ({
       type: actionTypes.MORE_SUCCESS,
-      payload,
+      items,
+      count,
+      total,
     }),
     moreFailureAction: (error, code) => ({
       type: actionTypes.MORE_FAILURE,

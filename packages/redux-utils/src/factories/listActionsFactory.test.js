@@ -27,9 +27,11 @@ describe('listActionsFactory', () => {
       type: 'test/a/LOAD_REQUEST',
       filter,
     });
-    expect(actions.loadSuccessAction([1, 2])).toEqual({
+    expect(actions.loadSuccessAction([1, 2], 2, 10)).toEqual({
       type: 'test/a/LOAD_SUCCESS',
-      payload: [1, 2],
+      items: [1, 2],
+      count: 2,
+      total: 10,
     });
     expect(actions.loadFailureAction('error', 500)).toEqual({
       type: 'test/a/LOAD_FAILURE',
@@ -41,9 +43,11 @@ describe('listActionsFactory', () => {
       filter,
       offset: 10,
     });
-    expect(actions.moreSuccessAction([3, 4])).toEqual({
+    expect(actions.moreSuccessAction([3, 4], 2, 10)).toEqual({
       type: 'test/a/MORE_SUCCESS',
-      payload: [3, 4],
+      items: [3, 4],
+      total: 10,
+      count: 2,
     });
     expect(actions.moreFailureAction('error', 500)).toEqual({
       type: 'test/a/MORE_FAILURE',
