@@ -1,6 +1,6 @@
 {
   "name": "@rocklab/common-utils",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Common javascript utils",
   "keywords": [
     "rocklab",
@@ -46,6 +46,5 @@
     "cross-env": "^7.0.2",
     "jest": "^25.3.0",
     "jest-junit": "^10.0.0"
-  },
-  "peerDependencies": {}
+  }
 }
