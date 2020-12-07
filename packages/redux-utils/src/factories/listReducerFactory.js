@@ -70,21 +70,21 @@ const handleRequest = (state, { filter, limit, offset, order }) => ({
   status: STATUS.PENDING,
 });
 
-const handleSuccess = converter => (state, { count, payload, total }) => ({
+const handleSuccess = converter => (state, { count, items, total }) => ({
   ...state,
-  count: count || payload.length || 0,
+  count: count || items.length || 0,
   error: null,
-  list: payload ? payload.map(converter) : null,
+  list: items ? items.map(converter) : null,
   status: STATUS.RESOLVED,
-  total: total || count || payload.length || 0,
+  total: total || count || items.length || 0,
 });
 
-const handleMoreSuccess = converter => (state, { count, payload, total }) => ({
+const handleMoreSuccess = converter => (state, { count, items, total }) => ({
   ...state,
   count: state.count + count,
   error: null,
-  hasMore: payload && payload.length > 0,
-  list: [...state.list, ...payload.map(converter)],
+  hasMore: items && items.length > 0,
+  list: [...state.list, ...items.map(converter)],
   status: STATUS.RESOLVED,
   total: total || state.total,
 });

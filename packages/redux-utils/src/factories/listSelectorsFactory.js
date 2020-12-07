@@ -10,11 +10,19 @@ const selectError = name => state => selectState(name)(state).error;
 
 const selectFilter = name => state => selectState(name)(state).filter;
 
+const selectOffset = name => state => selectState(name)(state).offset;
+
+const selectLimit = name => state => selectState(name)(state).limit;
+
 const selectHasMore = name => state => selectState(name)(state).hasMore;
 
 const selectList = name => state => selectState(name)(state).list;
 
 const selectListSize = name => createSelector(selectList(name), list => (list ? list.length : 0));
+
+const selectCount = name => state => selectState(name)(state).count;
+
+const selectTotal = name => state => selectState(name)(state).total;
 
 const selectStatus = name => state => selectState(name)(state).status;
 
@@ -30,8 +38,12 @@ function createListSelectors(moduleName, featureName) {
   return {
     selectError: selectError(name),
     selectFilter: selectFilter(name),
+    selectLimit: selectLimit(name),
+    selectOffset: selectOffset(name),
     selectHasMore: selectHasMore(name),
     selectList: selectList(name),
+    selectCount: selectCount(name),
+    selectTotal: selectTotal(name),
     selectListSize: selectListSize(name),
     selectStatus: selectStatus(name),
   };

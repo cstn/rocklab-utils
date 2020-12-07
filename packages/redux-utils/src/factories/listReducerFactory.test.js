@@ -49,7 +49,7 @@ describe('createListReducerFactors', () => {
       },
       {
         type: actionTypes.LOAD_SUCCESS,
-        payload: [1, 2, 3],
+        items: [1, 2, 3],
         count: 3,
         total: 5,
       }
@@ -72,7 +72,7 @@ describe('createListReducerFactors', () => {
       },
       {
         type: actionTypes.LOAD_SUCCESS,
-        payload: [1, 2, 3],
+        items: [1, 2, 3],
       }
     );
 
@@ -124,7 +124,7 @@ describe('createListReducerFactors', () => {
       },
       {
         type: actionTypes.MORE_SUCCESS,
-        payload: [4, 5, 6],
+        items: [4, 5, 6],
       }
     );
 
