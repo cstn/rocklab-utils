@@ -25,7 +25,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
-    - run: npm audit  
+    - run: npm audit --level=medium
     - run: npm run build --if-present
     - run: npm run lint
     - run: npm test
