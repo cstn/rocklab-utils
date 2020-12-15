@@ -17,6 +17,7 @@ describe('createListReducerFactors', () => {
     expect(state.list).toBeNull();
     expect(state.error).toBeNull();
     expect(state.filter).toBeNull();
+    expect(state.loadedAt).toBeNull();
   });
 
   it('should handle load request action', () => {
@@ -39,6 +40,7 @@ describe('createListReducerFactors', () => {
     expect(state.limit).toEqual(limit);
     expect(state.offset).toEqual(offset);
     expect(state.order).toEqual(order);
+    expect(state.loadedAt).toBeNull();
   });
 
   it('should handle load success action', () => {
@@ -60,6 +62,7 @@ describe('createListReducerFactors', () => {
     expect(state.list).toEqual([1, 2, 3]);
     expect(state.count).toEqual(3);
     expect(state.total).toEqual(5);
+    expect(state.loadedAt).not.toBeNull();
   });
 
   it('should handle load success action with converter', () => {
@@ -86,7 +89,7 @@ describe('createListReducerFactors', () => {
     const state = reducer(
       {
         status: STATUS.PENDING,
-        list: null,
+        list: [1, 2, 3],
       },
       {
         type: actionTypes.LOAD_FAILURE,
@@ -96,6 +99,8 @@ describe('createListReducerFactors', () => {
 
     expect(state.status).toEqual(STATUS.REJECTED);
     expect(state.error).toEqual(error);
+    expect(state.list).toBeNull();
+    expect(state.loadedAt).toBeNull();
   });
 
   it('should handle load more request action', () => {

@@ -20,6 +20,10 @@ const selectList = name => state => selectState(name)(state).list;
 
 const selectListSize = name => createSelector(selectList(name), list => (list ? list.length : 0));
 
+const selectLoadedAt = name => state => selectState(name)(state).loadedAt;
+
+const selectLoadedMoreAt = name => state => selectState(name)(state).loadedMoreAt;
+
 const selectCount = name => state => selectState(name)(state).count;
 
 const selectTotal = name => state => selectState(name)(state).total;
@@ -42,6 +46,8 @@ function createListSelectors(moduleName, featureName) {
     selectOffset: selectOffset(name),
     selectHasMore: selectHasMore(name),
     selectList: selectList(name),
+    selectLoadedAt: selectLoadedAt(name),
+    selectLoadedMoreAt: selectLoadedMoreAt(name),
     selectCount: selectCount(name),
     selectTotal: selectTotal(name),
     selectListSize: selectListSize(name),
