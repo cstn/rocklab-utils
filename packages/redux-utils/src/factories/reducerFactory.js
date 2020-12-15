@@ -8,6 +8,7 @@ import { createActionTypes } from './actionsFactory';
 const initialState = {
   data: {},
   error: null,
+  loadedAt: null,
   status: STATUS.IDLE,
 };
 
@@ -17,18 +18,20 @@ const initialState = {
 const handleError = (state, action) =>
   action.code === 404
     ? {
-        ...state,
-        error: null,
-        hasMore: false,
-        data: {},
-        status: STATUS.RESOLVED,
-      }
+      ...state,
+      error: null,
+      hasMore: false,
+      data: {},
+      loadedAt: new Date(),
+      status: STATUS.RESOLVED,
+    }
     : {
-        ...state,
-        error: action.error,
-        data: {},
-        status: STATUS.REJECTED,
-      };
+      ...state,
+      error: action.error,
+      data: {},
+      loadedAt: null,
+      status: STATUS.REJECTED,
+    };
 
 const handleRequest = state => ({
   ...state,
@@ -40,6 +43,7 @@ const handleSuccess = converter => (state, action) => ({
   ...state,
   error: null,
   data: action.payload ? converter(action.payload) : {},
+  loadedAt: new Date(),
   status: STATUS.RESOLVED,
 });
 

@@ -17,6 +17,8 @@ const initialState = {
   hasMore: true,
   limit: null,
   list: null,
+  loadedAt: null,
+  loadedMoreAt: null,
   offset: 0,
   order: null,
   status: STATUS.IDLE,
@@ -33,6 +35,8 @@ const handleError = (state, { code, error }) =>
       count: 0,
       error: null,
       hasMore: false,
+      loadedAt: new Date(),
+      loadedMoreAt: null,
       list: [],
       status: STATUS.RESOLVED,
     }
@@ -40,6 +44,8 @@ const handleError = (state, { code, error }) =>
       ...state,
       count: undefined,
       error,
+      loadedAt: null,
+      loadedMoreAt: null,
       list: null,
       status: STATUS.REJECTED,
       total: undefined,
@@ -56,6 +62,7 @@ const handleMoreError = (state, { code, error }) =>
     : {
       ...state,
       error,
+      loadedMoreAt: null,
       status: STATUS.REJECTED,
     };
 
@@ -74,6 +81,8 @@ const handleSuccess = converter => (state, { count, items, total }) => ({
   ...state,
   count: count || items.length || 0,
   error: null,
+  loadedAt: new Date(),
+  loadedMoreAt: null,
   list: items ? items.map(converter) : null,
   status: STATUS.RESOLVED,
   total: total || count || items.length || 0,
@@ -84,6 +93,7 @@ const handleMoreSuccess = converter => (state, { count, items, total }) => ({
   count: state.count + count,
   error: null,
   hasMore: items && items.length > 0,
+  loadedMoreAt: new Date(),
   list: [...state.list, ...items.map(converter)],
   status: STATUS.RESOLVED,
   total: total || state.total,

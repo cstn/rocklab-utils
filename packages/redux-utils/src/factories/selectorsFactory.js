@@ -8,6 +8,8 @@ const selectData = name => state => selectState(name)(state).data;
 
 const selectError = name => state => selectState(name)(state).error;
 
+const selectLoadedAt = name => state => selectState(name)(state).loadedAt;
+
 const selectStatus = name => state => selectState(name)(state).status;
 
 /**
@@ -22,6 +24,7 @@ function createSelectors(moduleName, featureName) {
   return {
     selectData: selectData(name),
     selectError: selectError(name),
+    selectLoadedAt: selectLoadedAt(name),
     selectStatus: selectStatus(name),
   };
 }
