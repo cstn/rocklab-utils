@@ -1,6 +1,6 @@
 {
   "name": "@rocklab/utils",
-  "version": "0.6.0",
+  "version": "2.0.0",
   "description": "JavaScript utils",
   "keywords": [
     "rocklab",
@@ -20,17 +20,26 @@
     "url": "https://github.com/cstn/rocklab-utils/issues"
   },
   "engines": {
-    "node": "12.x",
-    "npm": "6.x"
+    "node": ">= 14",
+    "npm": ">= 6"
   },
   "scripts": {
+    "prepare": "is-ci || husky install",
+    "postinstall": "npm run bootstrap",
+    "compile": "tsc",
+    "build": "npm run compile",
+    "lerna": "lerna",
     "test": "lerna run test",
-    "lerna:bootstrap": "lerna bootstrap",
-    "lerna:publish": "lerna publish",
+    "bootstrap": "lerna bootstrap",
+    "version": "lerna version --conventional-commits",
+    "publish": "lerna publish",
+    "release": "lerna version --conventional-commits --create-release github",
+    "update": "lerna exec ncu",
     "lint:js": "eslint packages/**/src/",
     "lint": "npm run lint:js",
-    "lint:fix": "npm run lint:js -- --fix && npm run lint:styles -- --fix",
-    "prettier": "prettier-eslint --write \"$PWD/packages/**/src/**/*.{js,md}\""
+    "lint:fix": "npm run lint:js -- --fix",
+    "prettier": "prettier-eslint --write \"packages/**/*.js\"",
+    "commit": "commit"
   },
   "husky": {
     "hooks": {
@@ -40,37 +49,38 @@
   },
   "lint-staged": {
     "*.{js,jsx}": [
-      "prettier-eslint --write"
-    ],
-    "*.css": [
-      "stylelint --fix"
+      "prettier-eslint --write",
+      "git add"
     ]
   },
   "devDependencies": {
-    "@babel/cli": "^7.14.5",
-    "@babel/core": "^7.14.6",
-    "@babel/plugin-transform-runtime": "^7.14.5",
-    "@babel/preset-env": "^7.14.5",
-    "@babel/preset-react": "^7.14.5",
-    "@rocklab/eslint-config-react": "^2.0.1",
-    "babel-eslint": "^10.1.0",
+    "@babel/cli": "7.16.7",
+    "@babel/core": "7.16.7",
+    "@babel/eslint-parser": "7.16.5",
+    "@babel/preset-env": "7.16.7",
+    "@babel/preset-typescript": "7.16.7",
+    "@commitlint/cli": "16.0.1",
+    "@commitlint/config-lerna-scopes": "16.0.0",
+    "@rocklab/commitlint-config": "3.2.1",
+    "@rocklab/eslint-config-typescript": "3.2.1",
+    "@typescript-eslint/parser": "^5.10.0",
     "babel-jest": "^27.0.2",
-    "eslint": "^7.29.0",
-    "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-react": "^7.24.0",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "eslint-plugin-testcafe": "^0.2.1",
-    "eslint-plugin-testing-library": "^4.6.0",
-    "husky": "^6.0.0",
-    "jest": "^27.0.4",
+    "eslint": "8.6.0",
+    "eslint-config-prettier": "^8.3.0",
+    "husky": "7.0.4",
+    "is-ci": "3.0.1",
+    "jest": "27.4.7",
     "jest-junit": "^12.2.0",
     "lerna": "^4.0.0",
-    "lint-staged": "^11.0.0",
-    "prettier": "^2.3.1",
-    "prettier-eslint-cli": "^5.0.1",
+    "lint-staged": "12.1.7",
+    "prettier": "2.5.1",
     "react": "^17.0.2",
-    "reselect": "^4.0.0"
+    "reselect": "^4.0.0",
+    "ts-jest": "27.1.2",
+    "typescript": "4.5.5"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@babel/plugin-transform-runtime": "7.16.7",
+    "@babel/polyfill": "^7.8.7"
+  }
 }

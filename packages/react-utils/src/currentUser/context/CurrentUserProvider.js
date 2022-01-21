@@ -8,9 +8,9 @@ import User from '../domain/models/User';
 import UserProfile from '../domain/models/UserProfile';
 import CurrentUserContext from './CurrentUserContext';
 
-const CurrentUserProvider = ({ children, profile, user }) => (
-  <CurrentUserContext.Provider value={{ user, profile }}>{children}</CurrentUserContext.Provider>
-);
+function CurrentUserProvider({ children, profile, user }) {
+  return <CurrentUserContext.Provider value={{ user, profile }}>{children}</CurrentUserContext.Provider>;
+}
 
 CurrentUserProvider.propTypes = {
   children: PropTypes.node.isRequired,

@@ -27,7 +27,7 @@ const createActions = (moduleName, featureName) => {
     requestAction: () => ({
       type: actionTypes.REQUEST,
     }),
-    successAction: payload => ({
+    successAction: (payload) => ({
       type: actionTypes.SUCCESS,
       payload,
     }),

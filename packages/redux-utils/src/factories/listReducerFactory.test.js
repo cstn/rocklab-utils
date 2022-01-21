@@ -66,7 +66,7 @@ describe('createListReducerFactors', () => {
   });
 
   it('should handle load success action with converter', () => {
-    const convertReducer = createListReducer('test', 'a', { converter: i => i * 2 });
+    const convertReducer = createListReducer('test', 'a', { converter: (i) => i * 2 });
 
     const state = convertReducer(
       {

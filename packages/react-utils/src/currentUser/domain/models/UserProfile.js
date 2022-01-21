@@ -9,7 +9,9 @@ class UserProfile {
    * @param firstName
    * @param lastName
    */
-  constructor({ id = 0, salutation, firstName, lastName } = {}) {
+  constructor({
+    id = 0, salutation, firstName, lastName,
+  } = {}) {
     this.id = id;
     this.salutation = salutation;
     this.firstName = firstName;
@@ -30,8 +32,8 @@ class UserProfile {
    */
   getInitials() {
     return [this.firstName, this.lastName]
-      .filter(n => n)
-      .map(n => n.charAt(0).toUpperCase())
+      .filter((n) => n)
+      .map((n) => n.charAt(0).toUpperCase())
       .join('');
   }
 

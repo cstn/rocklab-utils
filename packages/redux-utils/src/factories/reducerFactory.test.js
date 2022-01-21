@@ -7,7 +7,7 @@ import createReducer from './reducerFactory';
 
 const mockInitialState = 1;
 const mockHandlers = {
-  'test/ACTION': state => state * 2,
+  'test/ACTION': (state) => state * 2,
 };
 
 describe('reducerFactory', () => {

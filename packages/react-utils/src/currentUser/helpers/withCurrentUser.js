@@ -8,13 +8,15 @@ import getDisplayName from '../../utils/getDisplayName';
 import CurrentUserContext, { contextProps } from '../context/CurrentUserContext';
 
 function withCurrentUser(WrappedComponent) {
-  const WithCurrentUser = passThroughProps => (
-    <CurrentUserContext.Consumer>
-      {({ user, profile }) => (
-        <WrappedComponent {...passThroughProps} currentUser={user} currentUserProfile={profile} />
-      )}
-    </CurrentUserContext.Consumer>
-  );
+  function WithCurrentUser(passThroughProps) {
+    return (
+      <CurrentUserContext.Consumer>
+        {({ user, profile }) => (
+          <WrappedComponent {...passThroughProps} currentUser={user} currentUserProfile={profile} />
+        )}
+      </CurrentUserContext.Consumer>
+    );
+  }
 
   WithCurrentUser.displayName = `WithCurrentUser(${getDisplayName(WrappedComponent)})`;
   WithCurrentUser.propTypes = contextProps;

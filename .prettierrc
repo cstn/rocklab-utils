@@ -1,6 +1,6 @@
 {
   "printWidth": 120,
-  "arrowParens": "avoid",
+  "arrowParens": "always",
   "singleQuote": true,
   "trailingComma": "es5"
 }

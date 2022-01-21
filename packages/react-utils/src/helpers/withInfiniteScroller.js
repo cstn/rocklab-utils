@@ -48,6 +48,7 @@ function withInfiniteScroller(WrappedComponent, options = { offset: 0 }) {
   };
 
   WithInfiniteScroller.defaultProps = {
+    isLoading: false,
     hasMore: true,
   };
 

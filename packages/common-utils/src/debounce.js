@@ -1,5 +1,5 @@
 /*
- * Project: rocklab-utils.js
+ * Project: rocklab-utils
  * File: misc.js
  *
  * mics utils

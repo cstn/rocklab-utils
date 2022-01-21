@@ -1,5 +1,5 @@
 /*
- * Project: rocklab-utils.js
+ * Project: rocklab-utils
  * File: object.js
  *
  * object utils
@@ -10,7 +10,7 @@
  * @param original
  * @returns {*}
  */
-export const clone = original => Object.assign(Object.create(original), original);
+export const clone = (original) => Object.assign(Object.create(original), original);
 
 /**
  * deep clone an object (class instance)
@@ -20,7 +20,7 @@ export const clone = original => Object.assign(Object.create(original), original
 export function deepClone(original) {
   const cloned = clone(original);
 
-  Object.keys(cloned).forEach(property => {
+  Object.keys(cloned).forEach((property) => {
     if (typeof property === 'object') {
       cloned[property] = clone(property);
     }
@@ -36,4 +36,4 @@ export function deepClone(original) {
  * @returns {object}
  */
 export const map = (original, func) =>
-  Object.assign({}, ...Object.keys(original).map(key => ({ [key]: func(original[key]) })));
+  Object.assign({}, ...Object.keys(original).map((key) => ({ [key]: func(original[key]) })));

@@ -1,4 +1,0 @@
-{
-  "extends": "@rocklab/stylelint-config",
-  "rules": {}
-}

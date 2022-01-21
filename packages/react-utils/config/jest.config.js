@@ -2,6 +2,7 @@
  * @fileOverview jest test runner configuration
  */
 module.exports = {
+  preset: 'ts-jest',
   coverageDirectory: 'reports/coverage',
   coverageReporters: ['json', 'lcov', 'text', 'clover', 'cobertura'],
   reporters: ['default', ['jest-junit', { outputDirectory: 'reports/tests', outputName: 'TEST-unit.xml' }]],

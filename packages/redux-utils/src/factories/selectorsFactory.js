@@ -2,15 +2,15 @@
  * @fileOverview factory for selectors
  */
 
-const selectState = name => state => name.split('/').reduce((accumulator, current) => accumulator[current], state);
+const selectState = (name) => (state) => name.split('/').reduce((accumulator, current) => accumulator[current], state);
 
-const selectData = name => state => selectState(name)(state).data;
+const selectData = (name) => (state) => selectState(name)(state).data;
 
-const selectError = name => state => selectState(name)(state).error;
+const selectError = (name) => (state) => selectState(name)(state).error;
 
-const selectLoadedAt = name => state => selectState(name)(state).loadedAt;
+const selectLoadedAt = (name) => (state) => selectState(name)(state).loadedAt;
 
-const selectStatus = name => state => selectState(name)(state).status;
+const selectStatus = (name) => (state) => selectState(name)(state).status;
 
 /**
  * create selectors

@@ -15,37 +15,38 @@ const initialState = {
 /*
  * case reducer
  */
-const handleError = (state, action) =>
-  action.code === 404
-    ? {
-      ...state,
-      error: null,
-      hasMore: false,
-      data: {},
-      loadedAt: new Date(),
-      status: STATUS.RESOLVED,
-    }
-    : {
-      ...state,
-      error: action.error,
-      data: {},
-      loadedAt: null,
-      status: STATUS.REJECTED,
-    };
+const handleError = (state, action) => (action.code === 404
+  ? {
+    ...state,
+    error: null,
+    hasMore: false,
+    data: {},
+    loadedAt: new Date(),
+    status: STATUS.RESOLVED,
+  }
+  : {
+    ...state,
+    error: action.error,
+    data: {},
+    loadedAt: null,
+    status: STATUS.REJECTED,
+  });
 
-const handleRequest = state => ({
+const handleRequest = (state) => ({
   ...state,
   error: null,
   status: STATUS.PENDING,
 });
 
-const handleSuccess = converter => (state, action) => ({
-  ...state,
-  error: null,
-  data: action.payload ? converter(action.payload) : {},
-  loadedAt: new Date(),
-  status: STATUS.RESOLVED,
-});
+const handleSuccess = (converter) => function (state, action) {
+  return {
+    ...state,
+    error: null,
+    data: action.payload ? converter(action.payload) : {},
+    loadedAt: new Date(),
+    status: STATUS.RESOLVED,
+  };
+};
 
 /**
  * create handlers
@@ -77,7 +78,7 @@ const createHandlers = (moduleName, featureName, { converter }) => {
  */
 function createReducer(moduleName, featureName, options = {}) {
   const customOptions = {
-    converter: item => item,
+    converter: (item) => item,
     ...options,
   };
 

@@ -48,7 +48,7 @@ describe('object utils', () => {
       b: 4,
     };
 
-    const mapped = map(original, x => x * 2);
+    const mapped = map(original, (x) => x * 2);
 
     expect(mapped).toEqual(expected);
   });
