@@ -22,16 +22,8 @@ const mockState = {
 };
 
 describe('listSelectorsFactory', () => {
-  const {
-    selectList,
-    selectListSize,
-    selectError,
-    selectStatus,
-    selectLimit,
-    selectOffset,
-    selectCount,
-    selectTotal,
-  } = createSelectors('test/a');
+  const { selectList, selectListSize, selectError, selectStatus, selectLimit, selectOffset, selectCount, selectTotal } =
+    createSelectors('test/a');
 
   it('should select the list', () => {
     const selected = selectList(mockState);

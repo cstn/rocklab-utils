@@ -12,6 +12,7 @@ function withCurrentUser(WrappedComponent) {
     return (
       <CurrentUserContext.Consumer>
         {({ user, profile }) => (
+          // eslint-disable-next-line react/jsx-props-no-spreading
           <WrappedComponent {...passThroughProps} currentUser={user} currentUserProfile={profile} />
         )}
       </CurrentUserContext.Consumer>

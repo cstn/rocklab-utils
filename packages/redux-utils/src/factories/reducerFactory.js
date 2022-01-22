@@ -15,22 +15,23 @@ const initialState = {
 /*
  * case reducer
  */
-const handleError = (state, action) => (action.code === 404
-  ? {
-    ...state,
-    error: null,
-    hasMore: false,
-    data: {},
-    loadedAt: new Date(),
-    status: STATUS.RESOLVED,
-  }
-  : {
-    ...state,
-    error: action.error,
-    data: {},
-    loadedAt: null,
-    status: STATUS.REJECTED,
-  });
+const handleError = (state, action) =>
+  action.code === 404
+    ? {
+        ...state,
+        error: null,
+        hasMore: false,
+        data: {},
+        loadedAt: new Date(),
+        status: STATUS.RESOLVED,
+      }
+    : {
+        ...state,
+        error: action.error,
+        data: {},
+        loadedAt: null,
+        status: STATUS.REJECTED,
+      };
 
 const handleRequest = (state) => ({
   ...state,
@@ -38,15 +39,16 @@ const handleRequest = (state) => ({
   status: STATUS.PENDING,
 });
 
-const handleSuccess = (converter) => function (state, action) {
-  return {
-    ...state,
-    error: null,
-    data: action.payload ? converter(action.payload) : {},
-    loadedAt: new Date(),
-    status: STATUS.RESOLVED,
+const handleSuccess = (converter) =>
+  function success(state, action) {
+    return {
+      ...state,
+      error: null,
+      data: action.payload ? converter(action.payload) : {},
+      loadedAt: new Date(),
+      status: STATUS.RESOLVED,
+    };
   };
-};
 
 /**
  * create handlers

@@ -5,13 +5,11 @@ describe('debounce util', () => {
   const handler = jest.fn();
   const debouncedHandler = debounce(() => handler, timeout);
 
-  xit('should debounce a function', async () => {
+  it('should debounce a function', () => {
     debouncedHandler();
     debouncedHandler();
     debouncedHandler();
 
-    await setTimeout(() => {
-      expect(handler).toHaveBeenCalledTimes(1);
-    }, timeout);
+    expect(handler).toHaveBeenCalledTimes(1);
   });
 });

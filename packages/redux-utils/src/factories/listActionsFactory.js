@@ -27,7 +27,7 @@ const createActions = (moduleName, featureName) => {
   const actionTypes = createActionTypes(moduleName, featureName);
 
   return {
-    loadRequestAction: (limit, offset = 0, filter, order) => ({
+    loadRequestAction: (limit, offset = 0, filter = {}, order = {}) => ({
       type: actionTypes.LOAD_REQUEST,
       filter,
       limit,

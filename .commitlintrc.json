@@ -1,6 +1,3 @@
 {
-  "extends": [
-    "@commitlint/config-lerna-scopes",
-    "@rocklab"
-  ]
+  "extends": ["@commitlint/config-lerna-scopes", "@rocklab"]
 }

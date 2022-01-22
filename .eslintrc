@@ -4,7 +4,8 @@
   "parserOptions": {
     "project": "./tsconfig.eslint.json"
   },
-  "extends": "@rocklab/eslint-config-typescript",
+  "extends": ["@rocklab/eslint-config-typescript", "prettier"],
+  "plugins": ["@typescript-eslint"],
   "overrides": [
     {
       "files": ["*.js"],
@@ -17,9 +18,5 @@
         "@typescript-eslint/no-unsafe-return": "off"
       }
     }
-  ],
-  "env": {
-    "browser": true,
-    "node": true
-  }
+  ]
 }

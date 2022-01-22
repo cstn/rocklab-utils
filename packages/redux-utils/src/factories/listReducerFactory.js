@@ -28,45 +28,45 @@ const initialState = {
 /*
  * case reducer
  */
-const handleError = (state, { code, error }) => (code === 404
-  ? {
-    ...state,
-    count: 0,
-    error: null,
-    hasMore: false,
-    loadedAt: new Date(),
-    loadedMoreAt: null,
-    list: [],
-    status: STATUS.RESOLVED,
-  }
-  : {
-    ...state,
-    count: undefined,
-    error,
-    loadedAt: null,
-    loadedMoreAt: null,
-    list: null,
-    status: STATUS.REJECTED,
-    total: undefined,
-  });
+const handleError = (state, { code, error }) =>
+  code === 404
+    ? {
+        ...state,
+        count: 0,
+        error: null,
+        hasMore: false,
+        loadedAt: new Date(),
+        loadedMoreAt: null,
+        list: [],
+        status: STATUS.RESOLVED,
+      }
+    : {
+        ...state,
+        count: undefined,
+        error,
+        loadedAt: null,
+        loadedMoreAt: null,
+        list: null,
+        status: STATUS.REJECTED,
+        total: undefined,
+      };
 
-const handleMoreError = (state, { code, error }) => (code === 404
-  ? {
-    ...state,
-    error: null,
-    hasMore: false,
-    status: STATUS.RESOLVED,
-  }
-  : {
-    ...state,
-    error,
-    loadedMoreAt: null,
-    status: STATUS.REJECTED,
-  });
+const handleMoreError = (state, { code, error }) =>
+  code === 404
+    ? {
+        ...state,
+        error: null,
+        hasMore: false,
+        status: STATUS.RESOLVED,
+      }
+    : {
+        ...state,
+        error,
+        loadedMoreAt: null,
+        status: STATUS.REJECTED,
+      };
 
-const handleRequest = (state, {
-  filter, limit, offset, order,
-}) => ({
+const handleRequest = (state, { filter, limit, offset, order }) => ({
   ...state,
   error: null,
   filter: filter || state.filter,
@@ -77,31 +77,34 @@ const handleRequest = (state, {
   status: STATUS.PENDING,
 });
 
-const handleSuccess = (converter) => function (state, { count, items, total }) {
-  return {
-    ...state,
-    count: count || items.length || 0,
-    error: null,
-    loadedAt: new Date(),
-    loadedMoreAt: null,
-    list: items ? items.map(converter) : null,
-    status: STATUS.RESOLVED,
-    total: total || count || items.length || 0,
+const handleSuccess = (converter) =>
+  function success(state, { count, items, total }) {
+    return {
+      ...state,
+      count: count || items.length || 0,
+      error: null,
+      loadedAt: new Date(),
+      loadedMoreAt: null,
+      list: items ? items.map(converter) : null,
+      status: STATUS.RESOLVED,
+      total: total || count || items.length || 0,
+    };
   };
-};
 
-const handleMoreSuccess = (converter) => function (state, { count, items, total }) {
-  return {
-    ...state,
-    count: (state.count || 0) + count,
-    error: null,
-    hasMore: items && items.length > 0,
-    loadedMoreAt: new Date(),
-    list: [...state.list, ...items.map(converter)],
-    status: STATUS.RESOLVED,
-    total: total || state.total,
+const handleMoreSuccess = (converter) =>
+  function moreSuccess(state, { count, items, total }) {
+    return {
+      ...state,
+      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+      count: state.count + count,
+      error: null,
+      hasMore: items && items.length > 0,
+      loadedMoreAt: new Date(),
+      list: [...state.list, ...items.map(converter)],
+      status: STATUS.RESOLVED,
+      total: total || state.total,
+    };
   };
-};
 
 /**
  * create list handlers

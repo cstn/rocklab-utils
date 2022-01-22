@@ -15,6 +15,7 @@ export default function debounce(callback, time) {
   let timeout;
 
   return function debounced(...args) {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const context = this;
 
     const later = function later(params) {

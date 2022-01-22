@@ -9,9 +9,7 @@ class UserProfile {
    * @param firstName
    * @param lastName
    */
-  constructor({
-    id = 0, salutation, firstName, lastName,
-  } = {}) {
+  constructor({ id = 0, salutation, firstName, lastName } = {}) {
     this.id = id;
     this.salutation = salutation;
     this.firstName = firstName;
@@ -42,6 +40,7 @@ class UserProfile {
    * @returns {string}
    */
   toString() {
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     return `UserProfile(${this.lastName}, ${this.firstName})`;
   }
 

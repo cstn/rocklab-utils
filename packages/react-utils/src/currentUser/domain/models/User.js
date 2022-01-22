@@ -16,6 +16,7 @@ class User {
   }
 
   toString() {
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     return `User(${this.username})`;
   }
 

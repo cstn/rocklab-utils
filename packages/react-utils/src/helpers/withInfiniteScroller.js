@@ -15,10 +15,12 @@ function withInfiniteScroller(WrappedComponent, options = { offset: 0 }) {
     }
 
     componentDidMount() {
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       window.addEventListener('scroll', this.onScroll, false);
     }
 
     componentWillUnmount() {
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       window.removeEventListener('scroll', this.onScroll, false);
     }
 
@@ -36,6 +38,7 @@ function withInfiniteScroller(WrappedComponent, options = { offset: 0 }) {
     }
 
     render() {
+      // eslint-disable-next-line react/jsx-props-no-spreading
       return <WrappedComponent {...this.props} />;
     }
   }

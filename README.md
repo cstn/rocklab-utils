@@ -4,10 +4,10 @@
 
 ## Requirements
 
-* node version 12
-* npm version 6
-* React >= 16.8
-* React redux
+- node version 12
+- npm version 6
+- React >= 16.8
+- React redux
 
 ## Install
 
@@ -23,7 +23,7 @@ npm install @rocklab/utils
 git clone https://github.com/cstn/rocklab-utils.git
 npm install
 npm run lerna:bootstrap
-````
+```
 
 ### Commands
 
@@ -38,7 +38,7 @@ Check own code conventions
 
 ```shell script
 npm run lint
-````
+```
 
 Autoformat code
 

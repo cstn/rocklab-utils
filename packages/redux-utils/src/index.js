@@ -1,6 +1,4 @@
-export {
-  STATUS, isIdle, isPending, isResolved, isRejected,
-} from './status';
+export { STATUS, isIdle, isPending, isResolved, isRejected } from './status';
 export { default as getAge } from './utils';
 export { createActionTypes, createActions } from './factories/actionsFactory';
 export { default as createBaseReducer } from './factories/baseReducerFactory';
