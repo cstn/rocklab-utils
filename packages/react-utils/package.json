@@ -40,6 +40,7 @@
     "@babel/core": "^7.14.3",
     "@babel/preset-env": "^7.14.4",
     "@babel/preset-react": "^7.13.13",
+    "@types/react": "^17.0.38",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^27.0.2",
     "cross-env": "^7.0.3",

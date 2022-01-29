@@ -5,12 +5,11 @@
 import { useEffect, useRef } from 'react';
 
 /**
- * previous value hook
+ * previews value hook
  * @param value
  * @param initialValue
- * @returns {*}
  */
-function usePrevious(value, initialValue) {
+const usePrevious = <T>(value: T, initialValue: T): T => {
   const ref = useRef(initialValue);
 
   useEffect(() => {
@@ -18,6 +17,6 @@ function usePrevious(value, initialValue) {
   });
 
   return ref.current;
-}
+};
 
 export default usePrevious;

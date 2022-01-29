@@ -4,7 +4,19 @@
 
 import { useEffect, useRef } from 'react';
 
-function useInterval(callback, { delay, immediately = false } = {}) {
+interface Options {
+  delay?: number;
+  immediately: boolean;
+}
+
+const DEFAULT_OPTIONS: Options = {
+  immediately: false,
+};
+
+const useInterval = <T extends (...params: never[]) => void>(
+  callback: T,
+  { delay, immediately = false }: Options = DEFAULT_OPTIONS
+) => {
   const callbackRef = useRef(() => {});
 
   useEffect(() => {
@@ -21,6 +33,6 @@ function useInterval(callback, { delay, immediately = false } = {}) {
   if (immediately) {
     callback();
   }
-}
+};
 
 export default useInterval;

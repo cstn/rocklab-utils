@@ -1,4 +1,8 @@
 /**
+ * @fileOverview object helper functions
+ */
+
+/**
  * shallow clone an object
  * @param original
  * @returns {*}

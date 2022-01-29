@@ -3,20 +3,19 @@
  */
 
 import { createContext } from 'react';
-import PropTypes from 'prop-types';
 
 import User from '../domain/models/User';
 import UserProfile from '../domain/models/UserProfile';
 
-const initialContext = {
-  user: {},
-  profile: {},
+type ContextType = {
+  user?: User;
+  profile?: UserProfile;
 };
 
-const contextProps = {
-  profile: PropTypes.instanceOf(UserProfile),
-  user: PropTypes.instanceOf(User),
+const initialContext: ContextType = {
+  user: undefined,
+  profile: undefined,
 };
 
 export default createContext(initialContext);
-export { contextProps };
+export { ContextType };

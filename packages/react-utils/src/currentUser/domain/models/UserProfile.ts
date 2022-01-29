@@ -2,14 +2,28 @@
  * @fileOverview User profile model
  */
 class UserProfile {
+  public id: number;
+
+  public salutation?: string;
+
+  public firstName: string;
+
+  public lastName: string;
+
   /**
    * constructor
-   * @param id
-   * @param salutation
-   * @param firstName
-   * @param lastName
    */
-  constructor({ id = 0, salutation, firstName, lastName } = {}) {
+  constructor({
+    id = 0,
+    salutation,
+    firstName,
+    lastName,
+  }: {
+    id: number;
+    salutation: string;
+    firstName: string;
+    lastName: string;
+  }) {
     this.id = id;
     this.salutation = salutation;
     this.firstName = firstName;
@@ -20,15 +34,15 @@ class UserProfile {
    * get full name
    * @returns {string}
    */
-  getName() {
-    return [this.firstName, this.lastName].join(' ');
+  getName(): string {
+    return [this.firstName, this.lastName].filter(Boolean).join(' ');
   }
 
   /**
    * get initials
    * @returns {string}
    */
-  getInitials() {
+  getInitials(): string {
     return [this.firstName, this.lastName]
       .filter((n) => n)
       .map((n) => n.charAt(0).toUpperCase())
@@ -39,8 +53,7 @@ class UserProfile {
    * string representation
    * @returns {string}
    */
-  toString() {
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+  toString(): string {
     return `UserProfile(${this.lastName}, ${this.firstName})`;
   }
 
@@ -48,7 +61,7 @@ class UserProfile {
    * json
    * @returns {{id: number, salutation: string, firstName: string, lastName: string}}
    */
-  toObject() {
+  toObject(): object {
     return {
       id: this.id,
       salutation: this.salutation,

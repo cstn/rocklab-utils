@@ -1,4 +1,8 @@
 /**
+ * @fileOverview debounced functions
+ */
+
+/**
  * debounce execution
  * @param callback
  * @param time

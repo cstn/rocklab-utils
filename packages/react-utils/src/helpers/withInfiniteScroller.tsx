@@ -2,13 +2,19 @@
  * @fileOverview infinite scroller
  */
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import getDisplayName from '../utils/getDisplayName';
+import React, { Component, ComponentClass, ComponentType } from 'react';
 
-function withInfiniteScroller(WrappedComponent, options = { offset: 0 }) {
-  class WithInfiniteScroller extends Component {
-    constructor(props) {
+interface Props {
+  hasMore: boolean;
+  onMore: () => void;
+}
+
+function withInfiniteScroller<T extends Props>(
+  WrappedComponent: ComponentType<T>,
+  options = { offset: 0 }
+): ComponentClass<T> {
+  class WithInfiniteScroller extends Component<Props> {
+    constructor(props: T) {
       super(props);
 
       this.onScroll = this.onScroll.bind(this);
@@ -39,23 +45,11 @@ function withInfiniteScroller(WrappedComponent, options = { offset: 0 }) {
 
     render() {
       // eslint-disable-next-line react/jsx-props-no-spreading
-      return <WrappedComponent {...this.props} />;
+      return <WrappedComponent {...(this.props as T)} />;
     }
   }
 
-  WithInfiniteScroller.displayName = `withInfiniteScroller(${getDisplayName(WrappedComponent)})`;
-  WithInfiniteScroller.propTypes = {
-    isLoading: PropTypes.bool,
-    hasMore: PropTypes.bool,
-    onMore: PropTypes.func.isRequired,
-  };
-
-  WithInfiniteScroller.defaultProps = {
-    isLoading: false,
-    hasMore: true,
-  };
-
-  return WithInfiniteScroller;
+  return WithInfiniteScroller as ComponentClass<T>;
 }
 
 export default withInfiniteScroller;
