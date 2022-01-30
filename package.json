@@ -30,6 +30,7 @@
     "build": "lerna run build",
     "lerna": "lerna",
     "test": "lerna run test",
+    "test:coverage": "lerna run test:coverage",
     "bootstrap": "lerna bootstrap",
     "version": "lerna version --conventional-commits",
     "publish": "lerna publish",

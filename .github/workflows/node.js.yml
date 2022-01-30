@@ -27,4 +27,4 @@ jobs:
       - run: npm audit --production --audit-level=moderate
       - run: npm run build --if-present
       - run: npm run lint
-      - run: npm test
+      - run: npm run test:coverage

@@ -33,6 +33,7 @@
     "compile": "tsc",
     "build": "npm run clean && npm run compile",
     "test": "jest --config config/jest.config.js",
+    "test:coverage": "jest --coverage --config config/jest.config.js",
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
