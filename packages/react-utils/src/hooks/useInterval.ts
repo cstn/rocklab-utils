@@ -6,7 +6,7 @@ import { useEffect, useRef } from 'react';
 
 interface Options {
   delay?: number;
-  immediately: boolean;
+  immediately?: boolean;
 }
 
 const DEFAULT_OPTIONS: Options = {
