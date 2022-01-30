@@ -4,14 +4,14 @@
 
 import { useState } from 'react';
 
-type ReturnType = boolean | (() => void);
+type ReturnType = [boolean, () => void, () => void, () => void];
 
 /**
  * toggle hook
  * @param initialValue
  * @returns {(boolean|(function(): void))[]}
  */
-const useToggle = (initialValue = false): ReturnType[] => {
+const useToggle = (initialValue = false): ReturnType => {
   const [status, setStatus] = useState(initialValue);
 
   const toggleStatus = (): void => {
