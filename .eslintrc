@@ -24,6 +24,14 @@
         "@typescript-eslint/no-unsafe-operants": "off",
         "@typescript-eslint/no-unsafe-return": "off"
       }
+    },
+    {
+      "files": [
+        "**/__tests__/**"
+      ],
+      "rules": {
+        "@typescript-eslint/no-unsafe-call": "off"
+      }
     }
   ],
   "rules": {
@@ -32,6 +40,16 @@
       {
         "namedComponents": "arrow-function",
         "unnamedComponents": "arrow-function"
+      }
+    ],
+    "import/no-extraneous-dependencies": [
+      2,
+      {
+        "devDependencies": [
+          "**/__tests__/**",
+          "packages/**/src/**/__tests__/**",
+          "packages/**/src/**/*.test.tsx"
+        ]
       }
     ]
   }

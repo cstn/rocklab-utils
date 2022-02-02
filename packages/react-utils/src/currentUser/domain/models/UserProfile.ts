@@ -20,7 +20,7 @@ class UserProfile {
     lastName,
   }: {
     id: number;
-    salutation: string;
+    salutation?: string;
     firstName: string;
     lastName: string;
   }) {
