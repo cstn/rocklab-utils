@@ -7,27 +7,13 @@
  * @param original
  * @returns {*}
  */
-const shallowClone = <T extends object | T[] | null | undefined>(
-  original: T | null | undefined
-): T | T[] | null | undefined => {
-  if (original === null || original === undefined) {
-    return original;
-  }
-
+const shallowClone = <T>(original: T | T[] | Date): T | T[] | Date => {
   if (original instanceof Array) {
-    return Array.from(original) as T[];
-  }
-
-  if (original instanceof Set) {
-    return new Set(Array.from(original)) as T;
-  }
-
-  if (original instanceof Map) {
-    return new Map(Array.from(original)) as T;
+    return Array.from(original);
   }
 
   if (original instanceof Date) {
-    return new Date(original) as T;
+    return new Date(original);
   }
 
   if (typeof original !== 'object') {
@@ -49,27 +35,17 @@ const shallowClone = <T extends object | T[] | null | undefined>(
  * @returns {*}
  * @param original
  */
-const deepClone = <T extends object | T[] | null | undefined>(
-  original: T | null | undefined
-): T | T[] | null | undefined => {
+const deepClone = <T>(original: T | T[] | Date): T | T[] | Date => {
   if (original === null || original === undefined) {
     return original;
   }
 
   if (original instanceof Array) {
-    return original.map((item) => deepClone(item)) as T[];
-  }
-
-  if (original instanceof Set) {
-    return new Set(Array.from(original, deepClone)) as T;
-  }
-
-  if (original instanceof Map) {
-    return new Map(Array.from(original, ([property, value]) => [property, deepClone(value)])) as T;
+    return original.map((item) => deepClone(item) as T);
   }
 
   if (original instanceof Date) {
-    return new Date(original) as T;
+    return new Date(original.toISOString());
   }
 
   if (typeof original !== 'object') {
@@ -87,11 +63,14 @@ const deepClone = <T extends object | T[] | null | undefined>(
 };
 
 /**
- * map object propertiy values or array values
+ * map object property values or array values
  * @param original
  * @param mapper
  */
-const map = <T extends object | T[]>(original: T | T[], mapper: (param: unknown) => unknown): T | T[] => {
+const map = <T extends Record<string, unknown> | T[]>(
+  original: T | T[],
+  mapper: (param: unknown) => unknown
+): T | T[] => {
   if (original instanceof Array) {
     return original.map((item) => mapper(item)) as T[];
   }

@@ -16,8 +16,9 @@ module.exports = {
   reporters: ['default', ['jest-junit', { outputDirectory: 'reports/tests', outputName: 'TEST-unit.xml' }]],
   rootDir: '../',
   roots: ['./src'],
-  testMatch: ['**/?(*.)+(spec|test).js', '**/?(*_)+(spec|test).js', '!**/__tests__/**/*.test.js'],
+  testMatch: ['**/*.test.js', '**/*.test.ts'],
   transform: {
     '^.+\\.js$': 'babel-jest',
+    '^.+\\.ts$': 'ts-jest',
   },
 };

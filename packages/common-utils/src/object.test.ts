@@ -8,7 +8,7 @@ describe('object utils', () => {
         b: 2,
       };
 
-      const shallowCloned = shallowClone(original);
+      const shallowCloned = shallowClone(original) as Record<string, number>;
 
       expect(shallowCloned).toEqual(original);
 
@@ -28,7 +28,7 @@ describe('object utils', () => {
     it('should shallowClone an array', () => {
       const original = [1, 2];
 
-      const shallowCloned = shallowClone(original);
+      const shallowCloned = shallowClone(original) as number[];
 
       expect(shallowCloned).toEqual(original);
 
@@ -39,43 +39,10 @@ describe('object utils', () => {
       expect(shallowCloned).toEqual([3, 2]);
     });
 
-    it('should shallowClone a set', () => {
-      const original = new Set();
-      original.add(1);
-      original.add(2);
-
-      const shallowCloned = shallowClone(original);
-
-      expect(shallowCloned).toEqual(original);
-
-      original.clear();
-
-      expect(shallowCloned.has(1)).toBeTruthy();
-      expect(shallowCloned.has(2)).toBeTruthy();
-    });
-
-    it('should shallowClone a map', () => {
-      const original = new Map();
-      original.set('a', 1);
-      original.set('b', 2);
-
-      const shallowCloned = shallowClone(original);
-
-      expect(shallowCloned).toEqual(original);
-
-      shallowCloned.set('a', 3);
-      original.set('b', 5);
-
-      expect(original.get('a')).toEqual(1);
-      expect(original.get('b')).toEqual(5);
-      expect(shallowCloned.get('a')).toEqual(3);
-      expect(shallowCloned.get('b')).toEqual(2);
-    });
-
     it('should shallowClone a date', () => {
       const original = new Date('2022-01-01');
 
-      const shallowCloned = shallowClone(original);
+      const shallowCloned = shallowClone(original) as Date;
 
       expect(shallowCloned).toEqual(original);
 
@@ -84,32 +51,18 @@ describe('object utils', () => {
       expect(original.toISOString().substring(0, 10)).toEqual('2020-01-01');
       expect(shallowCloned.toISOString().substring(0, 10)).toEqual('2022-01-01');
     });
-
-    it('should handle shallow clone null', () => {
-      const shallowCloned = shallowClone(null);
-
-      expect(shallowCloned).toBeNull();
-    });
-
-    it('should handle shallow clone undefined', () => {
-      const shallowCloned = shallowClone(undefined);
-
-      expect(shallowCloned).toBeUndefined();
-    });
   });
 
   describe('deepClone', () => {
     it('should deep clone an object', () => {
       const original = {
-        a: 1,
-        b: 2,
         c: {
           x: 1,
           y: 2,
         },
       };
 
-      const deepCloned = deepClone(original);
+      const deepCloned = deepClone(original) as Record<string, Record<string, number>>;
 
       expect(deepCloned).toEqual(original);
 
@@ -117,16 +70,12 @@ describe('object utils', () => {
       deepCloned.c.y = 4;
 
       expect(original).toEqual({
-        a: 1,
-        b: 2,
         c: {
           x: 3,
           y: 2,
         },
       });
       expect(deepCloned).toEqual({
-        a: 1,
-        b: 2,
         c: {
           x: 1,
           y: 4,
@@ -135,35 +84,32 @@ describe('object utils', () => {
     });
 
     it('should deep clone an array', () => {
-      const original = [1, [2, 3]];
+      const original = [
+        [1, 1],
+        [2, 3],
+      ];
 
-      const deepCloned = deepClone(original);
+      const deepCloned = deepClone(original) as Array<Array<number>>;
 
       expect(deepCloned).toEqual(original);
 
       original[1][0] = 3;
       deepCloned[1][1] = 4;
 
-      expect(original).toEqual([1, [3, 3]]);
-      expect(deepCloned).toEqual([1, [2, 4]]);
-    });
-
-    it('should handle deep clone null', () => {
-      const deepCloned = deepClone(null);
-
-      expect(deepCloned).toBeNull();
-    });
-
-    it('should handle deep clone undefined', () => {
-      const deepCloned = deepClone(undefined);
-
-      expect(deepCloned).toBeUndefined();
+      expect(original).toEqual([
+        [1, 1],
+        [3, 3],
+      ]);
+      expect(deepCloned).toEqual([
+        [1, 1],
+        [2, 4],
+      ]);
     });
   });
 
   describe('map', () => {
     it('should map object properties', () => {
-      const original = {
+      const original: Record<string, number> = {
         a: 1,
         b: 2,
       };
@@ -173,7 +119,7 @@ describe('object utils', () => {
         b: 4,
       };
 
-      const mapped = map(original, (x) => x * 2);
+      const mapped = map(original, (x) => (x as number) * 2);
 
       expect(mapped).toEqual(expected);
     });
@@ -183,7 +129,7 @@ describe('object utils', () => {
 
       const expected = [2, 4];
 
-      const mapped = map(original, (x) => x * 2);
+      const mapped = map(original, (x) => (x as number) * 2);
 
       expect(mapped).toEqual(expected);
     });
