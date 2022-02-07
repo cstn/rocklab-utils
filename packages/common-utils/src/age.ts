@@ -1,5 +1,5 @@
 /**
- * @fileOverview utility functions
+ * @fileOverview timestamp utility function
  */
 
 enum Unit {
@@ -10,7 +10,7 @@ enum Unit {
   Days = 'days',
 }
 
-const getAge = (timestamp: Date, unit: Unit = Unit.Seconds, now?: Date): number => {
+const age = (timestamp: Date, unit: Unit = Unit.Seconds, now?: Date): number => {
   const currentTimestamp = now ? now.getTime() : new Date().getTime();
 
   switch (unit) {
@@ -28,5 +28,5 @@ const getAge = (timestamp: Date, unit: Unit = Unit.Seconds, now?: Date): number 
   }
 };
 
-export default getAge;
+export default age;
 export { Unit };

@@ -1,4 +1,4 @@
-import getAge, { Unit } from './utils';
+import age, { Unit } from './age';
 
 describe('utils', () => {
   afterEach(() => {
@@ -18,7 +18,7 @@ describe('utils', () => {
       jest.useFakeTimers();
       jest.setSystemTime(new Date('2022-01-03T00:00:00.000Z'));
 
-      const result = getAge(new Date(timestamp), unit);
+      const result = age(new Date(timestamp), unit);
 
       expect(Math.floor(result)).toEqual(expected);
     }
@@ -34,7 +34,7 @@ describe('utils', () => {
   `(
     'should calculate the relative age of a timestamp in $unit',
     ({ timestamp, unit, expected }: { timestamp: string; unit: Unit; expected: number }) => {
-      const result = getAge(new Date(timestamp), unit, new Date('2022-01-03T10:00:00.000Z'));
+      const result = age(new Date(timestamp), unit, new Date('2022-01-03T10:00:00.000Z'));
 
       expect(Math.floor(result)).toEqual(expected);
     }
