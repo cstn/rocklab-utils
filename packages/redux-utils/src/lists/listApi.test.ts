@@ -23,6 +23,7 @@ describe('listApi', () => {
     expect(api.reducerPath).toEqual('test');
     expect(api.reducer).toBeDefined();
     expect(api.useFindAllQuery).toBeDefined();
+    expect(api.useFindByQuery).toBeDefined();
     expect(api.useGetAllQuery).toBeDefined();
     expect(api.useGetItemQuery).toBeDefined();
     expect(api.useAddItemMutation).toBeDefined();

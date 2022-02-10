@@ -19,25 +19,46 @@ interface ListResponse<T> {
   data: T[];
 }
 
+type PaginationParams = { offset: number; limit: number };
+
+const DefaultPaginationParams = { offset: 0, limit: 10 };
+
+type QueryParams = {
+  [key: string]: string | number;
+};
+
 const listApi = <T extends Item>({ baseUrl, path, reducerPath, tagType }: ListApiOptions) => {
   const api = createApi({
     reducerPath,
-    baseQuery: fetchBaseQuery({ baseUrl }),
+    baseQuery: fetchBaseQuery({ baseUrl }), // @TODO header, fetch function
     tagTypes: [tagType],
     endpoints: (builder) => ({
-      findAll: builder.query<ListResponse<T>, number>({
-        query: (offset = 0, limit = 10) => `${path}?offset=${offset}&limit=${limit}`,
-        providesTags: (result) =>
-          result
-            ? [...result.data.map(({ id }) => ({ type: tagType, id })), { type: tagType, id: 'PARTIAL-LIST' }]
-            : [{ type: tagType, id: 'PARTIAL-LIST' }],
-      }),
       getAll: builder.query<T[], void>({
         query: () => path,
         providesTags: (result) =>
           result
             ? [...result.map(({ id }) => ({ type: tagType, id })), { type: tagType, id: 'LIST' }]
             : [{ type: tagType, id: 'LIST' }],
+      }),
+      findAll: builder.query<ListResponse<T>, PaginationParams>({
+        query: ({ offset, limit } = DefaultPaginationParams) => `${path}?offset=${offset}&limit=${limit}`,
+        providesTags: (result) =>
+          result
+            ? [...result.data.map(({ id }) => ({ type: tagType, id })), { type: tagType, id: 'PARTIAL-LIST' }]
+            : [{ type: tagType, id: 'PARTIAL-LIST' }],
+      }),
+      findBy: builder.query<ListResponse<T>, QueryParams>({
+        query: (params = {}) =>
+          Object.keys(params)
+            .reduce(
+              (acc, param) => (typeof params[param] !== 'undefined' ? `${acc}&${param}=${params[param]}` : acc),
+              `${path}?`
+            )
+            .replace(/\?$/, ''),
+        providesTags: (result) =>
+          result
+            ? [...result.data.map(({ id }) => ({ type: tagType, id })), { type: tagType, id: 'FILTERED-LIST' }]
+            : [{ type: tagType, id: 'FILTERED-LIST' }],
       }),
       getItem: builder.query<T, string>({
         query: (id) => `${path}/${id}`,
@@ -88,6 +109,7 @@ const listApi = <T extends Item>({ baseUrl, path, reducerPath, tagType }: ListAp
     reducer,
     middleware,
     useFindAllQuery,
+    useFindByQuery,
     useGetItemQuery,
     useGetAllQuery,
     useAddItemMutation,
@@ -101,6 +123,7 @@ const listApi = <T extends Item>({ baseUrl, path, reducerPath, tagType }: ListAp
     reducer,
     middleware,
     useFindAllQuery,
+    useFindByQuery,
     useGetItemQuery,
     useGetAllQuery,
     useAddItemMutation,
@@ -110,4 +133,4 @@ const listApi = <T extends Item>({ baseUrl, path, reducerPath, tagType }: ListAp
 };
 
 export default listApi;
-export { ListApiOptions };
+export { ListApiOptions, PaginationParams, QueryParams };
