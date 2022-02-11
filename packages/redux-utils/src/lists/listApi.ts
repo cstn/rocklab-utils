@@ -1,15 +1,15 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { FetchBaseQueryArgs } from '@reduxjs/toolkit/dist/query/fetchBaseQuery';
 
 interface Item {
   id: number;
 }
 
-interface ListApiOptions {
-  baseUrl: string;
+type ListApiOptions = FetchBaseQueryArgs & {
   path: string;
   reducerPath: string;
   tagType: string;
-}
+};
 
 interface ListResponse<T> {
   offset: number;
@@ -27,10 +27,10 @@ type QueryParams = {
   [key: string]: string | number;
 };
 
-const listApi = <T extends Item>({ baseUrl, path, reducerPath, tagType }: ListApiOptions) => {
+const listApi = <T extends Item>({ baseUrl, fetchFn, path, prepareHeaders, reducerPath, tagType }: ListApiOptions) => {
   const api = createApi({
     reducerPath,
-    baseQuery: fetchBaseQuery({ baseUrl }), // @TODO header, fetch function
+    baseQuery: fetchBaseQuery({ baseUrl, prepareHeaders, fetchFn }),
     tagTypes: [tagType],
     endpoints: (builder) => ({
       getAll: builder.query<T[], void>({
