@@ -47,7 +47,8 @@
       {
         "devDependencies": [
           "**/__tests__/**",
-          "packages/**/src/test/*.tsx",
+          "packages/**/src/test/**/*.tsx",
+          "packages/**/src/test/**/*.ts",
           "packages/**/src/**/__tests__/**",
           "packages/**/src/**/*.test.tsx"
         ]

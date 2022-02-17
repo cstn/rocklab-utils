@@ -1,104 +1,135 @@
 import React from 'react';
-import fetchMock, { enableFetchMocks } from 'jest-fetch-mock';
-import { configureStore, Store } from '@reduxjs/toolkit';
-import { screen, waitFor } from '@testing-library/react';
+import { Store } from '@reduxjs/toolkit';
+import { screen } from '@testing-library/react';
 import renderWithStore from '../../test/utils';
-import { listApi } from '../index';
-
-enableFetchMocks();
-
-type TestItem = {
-  id: number;
-  name: string;
-};
-
-const testApi = listApi<TestItem>({
-  baseUrl: 'https://api.test.local',
-  prepareHeaders: (headers) => {
-    headers.set('authorization', `Bearer test`);
-
-    return headers;
-  },
-  path: 'items',
-  reducerPath: 'test',
-  tagType: 'Test',
-});
-
-const setup = (): Store =>
-  configureStore({
-    reducer: {
-      [testApi.reducerPath]: testApi.reducer,
-    },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(testApi.middleware),
-  });
-
-const TestComponent = () => {
-  const { data: items, error, isLoading, isError } = testApi.useGetAllQuery();
-
-  if (isLoading) {
-    return <div>Loading</div>;
-  }
-
-  if (isError) {
-    return <div data-testid="error">{error?.toString()}</div>;
-  }
-
-  if (!items?.length) {
-    return <div>No items</div>;
-  }
-
-  return (
-    <ul>
-      {items.map((item) => (
-        <li key={item.id}>{item.name}</li>
-      ))}
-    </ul>
-  );
-};
+import setup, { api } from './setup';
 
 describe('lists', () => {
   let store: Store;
 
   beforeEach(() => {
-    fetchMock.resetMocks();
     store = setup();
   });
 
-  it('should render loading state', () => {
-    fetchMock.mockResponseOnce(JSON.stringify([{ id: 1, name: 'test' }]));
+  describe('getAll', () => {
+    const TestGetAll = () => {
+      const { data, error, isLoading, isError } = api.useGetAllQuery();
 
-    renderWithStore(<TestComponent />, { store });
+      if (isLoading) {
+        return <div>Loading</div>;
+      }
 
-    expect(screen.getByText('Loading')).toBeInTheDocument();
-  });
+      if (isError) {
+        return <div data-testid="error">{error?.toString()}</div>;
+      }
 
-  it('should render an error', async () => {
-    fetchMock.mockReject(new Error('Could not fetch'));
+      if (!data?.items?.length) {
+        return <div>No items</div>;
+      }
 
-    renderWithStore(<TestComponent />, { store });
+      return (
+        <ul>
+          {data.items.map((item) => (
+            <li key={item.id}>{item.name}</li>
+          ))}
+        </ul>
+      );
+    };
 
-    await waitFor(() => {
-      expect(screen.getByTestId('error')).toBeInTheDocument();
+    it('should render loading state', () => {
+      renderWithStore(<TestGetAll />, { store });
+
+      expect(screen.getByText('Loading')).toBeInTheDocument();
+    });
+
+    it('should render a list', async () => {
+      renderWithStore(<TestGetAll />, { store });
+
+      expect(await screen.findByText('one')).toBeInTheDocument();
+      expect(await screen.findByText('two')).toBeInTheDocument();
     });
   });
 
-  it('should render a list', async () => {
-    fetchMock.mockResponseOnce(JSON.stringify([{ id: 1, name: 'test' }]));
+  describe('findAll', () => {
+    const TestFindAll = ({ offset, limit }: { offset: number; limit: number }) => {
+      const { data, error, isLoading, isError } = api.useFindAllQuery({ offset, limit });
 
-    renderWithStore(<TestComponent />, { store });
+      if (isLoading) {
+        return <div>Loading</div>;
+      }
 
-    await waitFor(() => {
-      expect(screen.getByText('test')).toBeInTheDocument();
+      if (isError) {
+        return <div data-testid="error">{error?.toString()}</div>;
+      }
+
+      return (
+        <div>
+          <h1>Result</h1>
+          <ul>
+            {data?.items?.map((item) => (
+              <li key={item.id}>{item.name}</li>
+            ))}
+          </ul>
+          <div data-testid="count">{data?.count}</div>
+          <div data-testid="total">{data?.total}</div>
+        </div>
+      );
+    };
+
+    it('should render a paginated list', async () => {
+      renderWithStore(<TestFindAll limit={1} offset={0} />, { store });
+
+      expect(await screen.findByRole('heading')).toHaveTextContent('Result');
+      expect(screen.getByText('one')).toBeInTheDocument();
+      expect(screen.queryByText('two')).not.toBeInTheDocument();
+      expect(screen.getByTestId('count')).toHaveTextContent('1');
+      expect(screen.getByTestId('total')).toHaveTextContent('2');
     });
   });
 
-  it('should render no items', async () => {
-    fetchMock.mockResponseOnce(JSON.stringify([]));
+  describe('FindBy', () => {
+    const TestFindBy = ({ name }: { name: string }) => {
+      const { data, error, isLoading, isError } = api.useFindByQuery({ name });
 
-    renderWithStore(<TestComponent />, { store });
+      if (isLoading) {
+        return <div>Loading</div>;
+      }
 
-    await waitFor(() => {
-      expect(screen.getByText('No items')).toBeInTheDocument();
+      if (isError && error) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        return <div data-testid="error">{error.data.message}</div>;
+      }
+
+      return (
+        <div>
+          <h1>Result</h1>
+          <ul>
+            {data?.items?.map((item) => (
+              <li key={item.id}>{item.name}</li>
+            ))}
+          </ul>
+          <div data-testid="count">{data?.count}</div>
+          <div data-testid="total">{data?.total}</div>
+        </div>
+      );
+    };
+
+    it('should render a filtered list', async () => {
+      renderWithStore(<TestFindBy name="two" />, { store });
+
+      expect(await screen.findByRole('heading')).toHaveTextContent('Result');
+      expect(screen.getByText('two')).toBeInTheDocument();
+      expect(screen.queryByText('one')).not.toBeInTheDocument();
+      expect(screen.getByTestId('count')).toHaveTextContent('1');
+      expect(screen.getByTestId('total')).toHaveTextContent('2');
+    });
+
+    it('should not find anything', async () => {
+      renderWithStore(<TestFindBy name="three" />, { store });
+
+      expect(await screen.findByTestId('error')).toHaveTextContent('No items found');
     });
   });
 });

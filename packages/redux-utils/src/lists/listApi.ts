@@ -16,7 +16,7 @@ interface ListResponse<T> {
   limit: number;
   total: number;
   count: number;
-  data: T[];
+  items: T[];
 }
 
 type PaginationParams = { offset: number; limit: number };
@@ -33,18 +33,18 @@ const listApi = <T extends Item>({ baseUrl, fetchFn, path, prepareHeaders, reduc
     baseQuery: fetchBaseQuery({ baseUrl, prepareHeaders, fetchFn }),
     tagTypes: [tagType],
     endpoints: (builder) => ({
-      getAll: builder.query<T[], void>({
+      getAll: builder.query<ListResponse<T>, void>({
         query: () => path,
         providesTags: (result) =>
           result
-            ? [...result.map(({ id }) => ({ type: tagType, id })), { type: tagType, id: 'LIST' }]
+            ? [...result.items.map(({ id }) => ({ type: tagType, id })), { type: tagType, id: 'LIST' }]
             : [{ type: tagType, id: 'LIST' }],
       }),
       findAll: builder.query<ListResponse<T>, PaginationParams>({
         query: ({ offset, limit } = DefaultPaginationParams) => `${path}?offset=${offset}&limit=${limit}`,
         providesTags: (result) =>
           result
-            ? [...result.data.map(({ id }) => ({ type: tagType, id })), { type: tagType, id: 'PARTIAL-LIST' }]
+            ? [...result.items.map(({ id }) => ({ type: tagType, id })), { type: tagType, id: 'PARTIAL-LIST' }]
             : [{ type: tagType, id: 'PARTIAL-LIST' }],
       }),
       findBy: builder.query<ListResponse<T>, QueryParams>({
@@ -57,7 +57,7 @@ const listApi = <T extends Item>({ baseUrl, fetchFn, path, prepareHeaders, reduc
             .replace(/\?$/, ''),
         providesTags: (result) =>
           result
-            ? [...result.data.map(({ id }) => ({ type: tagType, id })), { type: tagType, id: 'FILTERED-LIST' }]
+            ? [...result.items.map(({ id }) => ({ type: tagType, id })), { type: tagType, id: 'FILTERED-LIST' }]
             : [{ type: tagType, id: 'FILTERED-LIST' }],
       }),
       getItem: builder.query<T, string>({
@@ -133,4 +133,4 @@ const listApi = <T extends Item>({ baseUrl, fetchFn, path, prepareHeaders, reduc
 };
 
 export default listApi;
-export { ListApiOptions, PaginationParams, QueryParams };
+export { ListApiOptions, ListResponse, PaginationParams, QueryParams };

@@ -16,7 +16,7 @@ module.exports = {
   reporters: ['default', ['jest-junit', { outputDirectory: 'reports/tests', outputName: 'TEST-unit.xml' }]],
   rootDir: '../',
   roots: ['./src'],
-  setupFilesAfterEnv: ['<rootDir>/config/setupTests.ts'],
+  setupFilesAfterEnv: ['<rootDir>/config/jest.setup.ts'],
   testEnvironment: 'jsdom',
   testMatch: ['**/*.test.ts', '**/*.test.tsx'],
   transform: {

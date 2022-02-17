@@ -1,1 +1,1 @@
-export { default as listApi, ListApiOptions, PaginationParams, QueryParams } from './listApi';
+export { default as listApi, ListApiOptions, ListResponse, PaginationParams, QueryParams } from './listApi';
