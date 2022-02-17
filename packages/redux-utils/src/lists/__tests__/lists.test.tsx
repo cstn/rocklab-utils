@@ -2,6 +2,7 @@ import React from 'react';
 import { Store } from '@reduxjs/toolkit';
 import { screen } from '@testing-library/react';
 import renderWithStore from '../../test/utils';
+import getErrorMessage from '../../utils/errors';
 import setup, { api } from './setup';
 
 describe('lists', () => {
@@ -20,7 +21,7 @@ describe('lists', () => {
       }
 
       if (isError) {
-        return <div data-testid="error">{error?.toString()}</div>;
+        return <div data-testid="error">{getErrorMessage(error)}</div>;
       }
 
       if (!data?.items?.length) {
@@ -59,7 +60,7 @@ describe('lists', () => {
       }
 
       if (isError) {
-        return <div data-testid="error">{error?.toString()}</div>;
+        return <div data-testid="error">{getErrorMessage(error)}</div>;
       }
 
       return (
@@ -96,10 +97,7 @@ describe('lists', () => {
       }
 
       if (isError && error) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        return <div data-testid="error">{error.data.message}</div>;
+        return <div data-testid="error">{getErrorMessage(error)}</div>;
       }
 
       return (
