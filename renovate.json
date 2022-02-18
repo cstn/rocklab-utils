@@ -1,0 +1,5 @@
+{
+  "extends": ["config:base", "schedule:weekly", "group:all"],
+  "labels": ["dependencies"],
+  "bumpVersion": "patch"
+}

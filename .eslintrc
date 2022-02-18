@@ -1,4 +1,49 @@
-// Template for your project's .eslintrc.
 {
-  "extends": "@rocklab/eslint-config-react"
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.eslint.json"
+  },
+  "extends": ["@rocklab/eslint-config-typescript", "prettier"],
+  "plugins": ["@typescript-eslint"],
+  "overrides": [
+    {
+      "files": ["*.js"],
+      "rules": {
+        "@typescript-eslint/no-unsafe-call": "off",
+        "@typescript-eslint/no-unsafe-member-access": "off",
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "@typescript-eslint/no-unsafe-argument": "off",
+        "@typescript-eslint/no-unsafe-operants": "off",
+        "@typescript-eslint/no-unsafe-return": "off"
+      }
+    },
+    {
+      "files": ["**/__tests__/**"],
+      "rules": {
+        "@typescript-eslint/no-unsafe-call": "off"
+      }
+    }
+  ],
+  "rules": {
+    "react/function-component-definition": [
+      2,
+      {
+        "namedComponents": "arrow-function",
+        "unnamedComponents": "arrow-function"
+      }
+    ],
+    "import/no-extraneous-dependencies": [
+      2,
+      {
+        "devDependencies": [
+          "**/__tests__/**",
+          "packages/**/src/test/**/*.tsx",
+          "packages/**/src/test/**/*.ts",
+          "packages/**/src/**/__tests__/**",
+          "packages/**/src/**/*.test.tsx"
+        ]
+      }
+    ]
+  }
 }
