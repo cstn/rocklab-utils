@@ -4,7 +4,7 @@
 
 ## Requirements
 
-- node version 12
+- node version 14
 - npm version 6
 - React >= 16.8
 - React redux

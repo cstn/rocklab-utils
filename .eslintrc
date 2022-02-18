@@ -4,18 +4,11 @@
   "parserOptions": {
     "project": "./tsconfig.eslint.json"
   },
-  "extends": [
-    "@rocklab/eslint-config-typescript",
-    "prettier"
-  ],
-  "plugins": [
-    "@typescript-eslint"
-  ],
+  "extends": ["@rocklab/eslint-config-typescript", "prettier"],
+  "plugins": ["@typescript-eslint"],
   "overrides": [
     {
-      "files": [
-        "*.js"
-      ],
+      "files": ["*.js"],
       "rules": {
         "@typescript-eslint/no-unsafe-call": "off",
         "@typescript-eslint/no-unsafe-member-access": "off",
@@ -26,9 +19,7 @@
       }
     },
     {
-      "files": [
-        "**/__tests__/**"
-      ],
+      "files": ["**/__tests__/**"],
       "rules": {
         "@typescript-eslint/no-unsafe-call": "off"
       }
