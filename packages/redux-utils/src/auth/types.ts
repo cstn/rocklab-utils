@@ -1,3 +1,6 @@
+import { User, UserProfile } from '@rocklab/react-utils';
+import { Status } from '../status';
+
 export type Error = {
   message: string;
 };
@@ -28,4 +31,20 @@ export type AuthAPI = {
   changePassword: (oldPassword: string, newPassword: string) => Promise<Response>;
   newPassword: (email: string) => Promise<Response>;
   resetPassword: (token: string, newPassword: string) => Promise<Response>;
+};
+
+export type SessionState = {
+  status: Status;
+  user?: User;
+  profile?: UserProfile;
+  token?: string;
+  error: string | null;
+};
+
+export type AuthState = {
+  session: SessionState;
+};
+
+export type RootState = {
+  auth: AuthState;
 };

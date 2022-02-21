@@ -1,7 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { SessionState, initialState } from './sessionState';
+import initialState from './sessionState';
 import { Status } from '../../status';
-import { Response } from '../types';
+import { Response, SessionState } from '../types';
 
 const clear = () => initialState;
 

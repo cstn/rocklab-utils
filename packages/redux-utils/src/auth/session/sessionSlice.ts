@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { initialState } from './sessionState';
+import initialState from './sessionState';
 import createSessionThunks from './sessionThunks';
 import {
   clear,
@@ -41,10 +41,11 @@ const sessionSlice = (name: string, api: AuthAPI) => {
     },
   });
 
-  const { actions } = slice;
+  const { actions, reducer } = slice;
 
   return {
     actions,
+    reducer,
   };
 };
 

@@ -19,9 +19,9 @@ const createSessionThunks = (api: AuthAPI) => {
     }
   );
 
-  const logoutUser = createAsyncThunk<Response, string, { rejectValue: Error }>(
+  const logoutUser = createAsyncThunk<Response, unknown, { rejectValue: Error }>(
     'auth/session/logout',
-    async (token: string, thunkApi) => {
+    async (_, thunkApi) => {
       try {
         const response = await api.logout();
 

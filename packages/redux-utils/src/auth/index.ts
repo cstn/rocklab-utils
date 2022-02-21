@@ -1,2 +1,2 @@
 export { AuthAPI } from './types';
-export { SessionState, initialSessionState, sessionSlice } from './session';
+export { SessionState, sessionSlice, selectAccessToken, selectUser, selectUserProfile } from './session';
