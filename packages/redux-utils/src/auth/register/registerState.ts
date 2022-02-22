@@ -1,7 +1,7 @@
-import { SessionState } from './types';
+import { RegisterState } from './types';
 import { Status } from '../../status';
 
-const initialState: SessionState = {
+const initialState: RegisterState = {
   status: Status.Idle,
   error: null,
 };
