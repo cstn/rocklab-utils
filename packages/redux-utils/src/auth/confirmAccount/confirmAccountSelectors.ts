@@ -6,5 +6,6 @@ const selectSelf = (state: RootState) => state.auth.confirm;
 
 const selectStatus = createSelector(selectSelf, (state: ConfirmState) => state.status);
 const selectError = createSelector(selectSelf, (state: ConfirmState) => state.error);
+const selectUserid = createSelector(selectSelf, (state: ConfirmState) => state.userId);
 
-export { selectStatus, selectError };
+export { selectStatus, selectError, selectUserid };

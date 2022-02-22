@@ -1,12 +1,14 @@
+import { PayloadAction } from '@reduxjs/toolkit';
 import initialState from './confirmAccontState';
 import { Status } from '../../status';
 import { ConfirmState } from './types';
 
 const clear = () => initialState;
 
-const confirmAccountRequest = (state: ConfirmState) => ({
+const confirmAccountRequest = (state: ConfirmState, action: PayloadAction<{ userId: string }>) => ({
   ...state,
   status: Status.Pending,
+  userId: action.payload.userId,
 });
 
 const confirmAccountSuccess = (state: ConfirmState) => ({

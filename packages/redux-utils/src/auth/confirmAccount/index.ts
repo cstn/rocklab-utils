@@ -1,2 +1,6 @@
 export { default as confirmAccountSlice } from './confirmAccountSlice';
-export { selectError as selectRegisterError, selectStatus as selectRegisterStatus } from './confirmAccountSelectors';
+export {
+  selectError as selectConfirmedError,
+  selectStatus as selectConfirmedStatus,
+  selectUserid as selectConfirmedUserId,
+} from './confirmAccountSelectors';
