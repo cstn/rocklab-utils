@@ -1,5 +1,6 @@
 import { SessionState } from './session/types';
 import { RegisterState } from './register/types';
+import { ConfirmState } from './confirmAccount/types';
 
 export type Error = {
   message: string;
@@ -36,4 +37,5 @@ export type AuthAPI = {
 export type AuthState = {
   session: SessionState;
   register: RegisterState;
+  confirm: ConfirmState;
 };
