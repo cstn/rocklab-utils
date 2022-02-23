@@ -46,6 +46,9 @@ const sessionSlice = (name: string, api: AuthAPI) => {
   return {
     actions,
     reducer,
+    loginUser,
+    logoutUser,
+    sessionUser,
   };
 };
 
