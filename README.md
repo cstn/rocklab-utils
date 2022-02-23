@@ -9,11 +9,11 @@
 - React >= 16.8
 - React redux
 
-## Install
+# Packages
 
-```shell script
-npm install @rocklab/utils
-```
+- [Common utilities](./packages/common-utils/README.md)
+- [React utilities](./packages/react-utils/README.md)
+- [Redux utilities](./packages/redux-utils/README.md)
 
 ## Development
 
@@ -45,3 +45,21 @@ Autoformat code
 ```shell script
 npm run prettier
 ```
+
+Publish a new version
+
+```shell script
+npm run publish
+```
+
+Publish a new version manually
+
+```shell script
+npm run version
+npm run publish -- from-package
+```
+
+Create a release
+
+```shell script
+npm run
