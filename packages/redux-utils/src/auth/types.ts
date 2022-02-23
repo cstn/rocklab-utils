@@ -1,6 +1,7 @@
 import { SessionState } from './session/types';
 import { RegisterState } from './register/types';
 import { ConfirmState } from './confirmAccount/types';
+import { ChangePasswordState } from './changePassword/types';
 
 export type Error = {
   message: string;
@@ -17,11 +18,6 @@ export type Account = {
   password: string;
 };
 
-export type AccountConfirmation = {
-  userId: string;
-  token: string;
-};
-
 export type Response = {
   status: number;
   data?: Record<string, never>;
@@ -33,7 +29,7 @@ export type AuthAPI = {
   logout: () => Promise<Response>;
   session: (token: string) => Promise<Response>;
   register: (account: Account) => Promise<Response>;
-  confirmAccount: (confirm: AccountConfirmation) => Promise<Response>;
+  confirmAccount: (userId: string, token: string) => Promise<Response>;
   changePassword: (oldPassword: string, newPassword: string) => Promise<Response>;
   newPassword: (email: string) => Promise<Response>;
   resetPassword: (token: string, newPassword: string) => Promise<Response>;
@@ -43,4 +39,5 @@ export type AuthState = {
   session: SessionState;
   register: RegisterState;
   confirm: ConfirmState;
+  changePassword: ChangePasswordState;
 };
