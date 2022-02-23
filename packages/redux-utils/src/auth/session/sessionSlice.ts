@@ -44,11 +44,13 @@ const sessionSlice = (name: string, api: AuthAPI) => {
   const { actions, reducer } = slice;
 
   return {
-    actions,
+    actions: {
+      ...actions,
+      loginUser,
+      logoutUser,
+      sessionUser,
+    },
     reducer,
-    loginUser,
-    logoutUser,
-    sessionUser,
   };
 };
 

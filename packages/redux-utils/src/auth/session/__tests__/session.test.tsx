@@ -4,7 +4,7 @@ import { Store } from '@reduxjs/toolkit';
 import { fireEvent, screen } from '@testing-library/react';
 import renderWithStore from '../../../test/utils';
 import { selectSessionStatus, selectCurrentUser, selectSessionError, selectCurrentUserProfile } from '../index';
-import setup, { apiMock, loginUser, logoutUser } from './setup';
+import setup, { apiMock, actions } from './setup';
 
 const Test = () => {
   const status = useSelector(selectSessionStatus);
@@ -12,8 +12,9 @@ const Test = () => {
   const user = useSelector(selectCurrentUser);
   const profile = useSelector(selectCurrentUserProfile);
   const dispatch = useDispatch();
-  const handleLogin = () => dispatch(loginUser({ username: 'test', password: 'password' }));
-  const handleLogout = () => dispatch(logoutUser());
+  const handleLogin = () => dispatch(actions.loginUser({ username: 'test', password: 'password' }));
+  const handleLogout = () => dispatch(actions.logoutUser());
+  const handleSessionRefresh = () => dispatch(actions.sessionUser('token'));
 
   return (
     <div>
@@ -27,26 +28,29 @@ const Test = () => {
       <button type="button" onClick={handleLogout}>
         logout
       </button>
+      <button type="button" onClick={handleSessionRefresh}>
+        session
+      </button>
     </div>
   );
 };
 
 describe('session', () => {
+  let store: Store;
+
+  beforeEach(() => {
+    store = setup();
+  });
+
+  afterEach(jest.clearAllMocks);
+
+  it('should render in idle mode by default', () => {
+    renderWithStore(<Test />, { store });
+
+    expect(screen.getByText('idle')).toBeInTheDocument();
+  });
+
   describe('login', () => {
-    let store: Store;
-
-    beforeEach(() => {
-      store = setup();
-    });
-
-    afterEach(jest.clearAllMocks);
-
-    it('should render in idle mode by default', () => {
-      renderWithStore(<Test />, { store });
-
-      expect(screen.getByText('idle')).toBeInTheDocument();
-    });
-
     it('should start login', () => {
       renderWithStore(<Test />, { store });
 
@@ -94,19 +98,7 @@ describe('session', () => {
   });
 
   describe('logout', () => {
-    let store: Store;
-
-    beforeEach(() => {
-      store = setup();
-    });
-
     afterEach(jest.clearAllMocks);
-
-    it('should render in idle mode by default', () => {
-      renderWithStore(<Test />, { store });
-
-      expect(screen.getByText('idle')).toBeInTheDocument();
-    });
 
     it('should start logout', () => {
       renderWithStore(<Test />, { store });
@@ -135,6 +127,7 @@ describe('session', () => {
       fireEvent.click(screen.getByRole('button', { name: 'logout' }));
 
       expect(await screen.findByText('rejected')).toBeInTheDocument();
+      expect(screen.getByTestId('error')).toHaveTextContent('Test');
     });
 
     it('should handle errors while logout', async () => {
@@ -145,6 +138,49 @@ describe('session', () => {
       fireEvent.click(screen.getByRole('button', { name: 'logout' }));
 
       expect(await screen.findByText('rejected')).toBeInTheDocument();
+      expect(screen.getByTestId('error')).toHaveTextContent('Could not logout');
+    });
+  });
+
+  describe('session', () => {
+    it('should start session refresh', () => {
+      renderWithStore(<Test />, { store });
+
+      fireEvent.click(screen.getByRole('button', { name: 'session' }));
+
+      expect(screen.getByText('pending')).toBeInTheDocument();
+      expect(apiMock.session).toHaveBeenCalled();
+    });
+
+    it('should refresh a session', async () => {
+      (apiMock.session as jest.Mock).mockResolvedValueOnce({});
+
+      renderWithStore(<Test />, { store });
+
+      fireEvent.click(screen.getByRole('button', { name: 'session' }));
+
+      expect(await screen.findByText('resolved')).toBeInTheDocument();
+    });
+
+    it('should handle failed session refresh', async () => {
+      (apiMock.session as jest.Mock).mockResolvedValueOnce({ status: 400, error: { message: 'Test' } });
+
+      renderWithStore(<Test />, { store });
+
+      fireEvent.click(screen.getByRole('button', { name: 'session' }));
+
+      expect(await screen.findByText('rejected')).toBeInTheDocument();
+    });
+
+    it('should handle errors while session refresh', async () => {
+      (apiMock.session as jest.Mock).mockRejectedValueOnce({ message: 'test' });
+
+      renderWithStore(<Test />, { store });
+
+      fireEvent.click(screen.getByRole('button', { name: 'session' }));
+
+      expect(await screen.findByText('rejected')).toBeInTheDocument();
+      expect(screen.getByTestId('error')).toHaveTextContent('Could not check user session');
     });
   });
 });

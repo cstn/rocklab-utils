@@ -13,7 +13,7 @@ const apiMock: AuthAPI = {
   resetPassword: jest.fn(),
 };
 
-const { reducer, loginUser, logoutUser, sessionUser } = sessionSlice('session', apiMock);
+const { reducer, actions } = sessionSlice('session', apiMock);
 
 const setup = (): Store =>
   configureStore({
@@ -25,4 +25,4 @@ const setup = (): Store =>
   });
 
 export default setup;
-export { apiMock, loginUser, logoutUser, sessionUser };
+export { apiMock, actions };

@@ -30,7 +30,10 @@ const requestPasswordSlice = (name: string, api: AuthAPI) => {
   const { actions, reducer } = slice;
 
   return {
-    actions,
+    actions: {
+      ...actions,
+      requestPassword,
+    },
     reducer,
   };
 };

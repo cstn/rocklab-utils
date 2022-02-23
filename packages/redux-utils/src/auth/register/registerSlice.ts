@@ -25,7 +25,10 @@ const registerSlice = (name: string, api: AuthAPI) => {
   const { actions, reducer } = slice;
 
   return {
-    actions,
+    actions: {
+      ...actions,
+      registerUser,
+    },
     reducer,
   };
 };

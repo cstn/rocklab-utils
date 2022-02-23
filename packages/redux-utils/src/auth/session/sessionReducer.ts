@@ -70,7 +70,7 @@ const sessionFailure = (state: SessionState, action: Partial<PayloadAction<Error
   status: Status.Rejected,
   user: undefined,
   profile: undefined,
-  error: action.payload?.message || 'Login error',
+  error: action.payload?.message || 'Session error',
 });
 
 export {
