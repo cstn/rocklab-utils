@@ -45,3 +45,21 @@ Autoformat code
 ```shell script
 npm run prettier
 ```
+
+Publish a new version
+
+```shell script
+npm run publish
+```
+
+Publish a new version manually
+
+```shell script
+npm run version
+npm run publish -- from-package
+```
+
+Create a release
+
+```shell script
+npm run
