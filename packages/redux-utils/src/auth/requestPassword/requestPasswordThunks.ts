@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AuthAPI, Error, Response } from '../types';
 
 const createRequestPasswordThunks = (api: AuthAPI) => {
-  const confirmAccount = createAsyncThunk<Response, { email: string }, { rejectValue: Error }>(
+  const requestPassword = createAsyncThunk<Response, { email: string }, { rejectValue: Error }>(
     'auth/password/request',
     async ({ email }, thunkApi) => {
       try {
@@ -20,7 +20,7 @@ const createRequestPasswordThunks = (api: AuthAPI) => {
   );
 
   return {
-    confirmAccount,
+    requestPassword,
   };
 };
 export default createRequestPasswordThunks;

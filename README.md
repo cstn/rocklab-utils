@@ -9,11 +9,11 @@
 - React >= 16.8
 - React redux
 
-## Install
+# Packages
 
-```shell script
-npm install @rocklab/utils
-```
+- [Common utilities](./packages/common-utils/README.md)
+- [React utilities](./packages/react-utils/README.md)
+- [Redux utilities](./packages/redux-utils/README.md)
 
 ## Development
 

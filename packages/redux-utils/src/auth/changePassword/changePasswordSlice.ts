@@ -9,16 +9,16 @@ const reducers = {
 };
 
 const changePasswordSlice = (name: string, api: AuthAPI) => {
-  const { confirmAccount } = createChangePasswordThunks(api);
+  const { changePassword } = createChangePasswordThunks(api);
 
   const slice = createSlice({
     name,
     initialState,
     reducers,
     extraReducers: (builder) => {
-      builder.addCase(confirmAccount.pending, changePasswordRequest);
-      builder.addCase(confirmAccount.fulfilled, changePasswordSuccess);
-      builder.addCase(confirmAccount.rejected, changePasswordFailure);
+      builder.addCase(changePassword.pending, changePasswordRequest);
+      builder.addCase(changePassword.fulfilled, changePasswordSuccess);
+      builder.addCase(changePassword.rejected, changePasswordFailure);
     },
   });
 

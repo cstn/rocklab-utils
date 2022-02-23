@@ -3,6 +3,7 @@ import { RegisterState } from './register/types';
 import { ConfirmState } from './confirmAccount/types';
 import { ChangePasswordState } from './changePassword/types';
 import { RequestPasswordState } from './requestPassword/types';
+import { ResetPasswordState } from './resetPassword/types';
 
 export type Error = {
   message: string;
@@ -42,4 +43,5 @@ export type AuthState = {
   confirm: ConfirmState;
   changePassword: ChangePasswordState;
   requestPassword: RequestPasswordState;
+  resetPassword: ResetPasswordState;
 };
