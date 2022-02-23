@@ -1,6 +1,6 @@
 import { combineReducers, configureStore, Store } from '@reduxjs/toolkit';
 import { AuthAPI } from '../../types';
-import { confirmAccountSlice } from '../index';
+import { registerSlice } from '../index';
 
 const apiMock: AuthAPI = {
   login: jest.fn(),
@@ -13,13 +13,13 @@ const apiMock: AuthAPI = {
   resetPassword: jest.fn(),
 };
 
-const { reducer, actions } = confirmAccountSlice('confirmAccount', apiMock);
+const { reducer, actions } = registerSlice('register', apiMock);
 
 const setup = (): Store =>
   configureStore({
     reducer: {
       auth: combineReducers({
-        confirm: reducer,
+        register: reducer,
       }),
     },
   });

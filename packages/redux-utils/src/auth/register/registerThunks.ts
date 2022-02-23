@@ -14,7 +14,7 @@ const createRegisterThunks = (api: AuthAPI) => {
 
         return response;
       } catch (ex) {
-        return thunkApi.rejectWithValue({ message: 'Could not register' });
+        return thunkApi.rejectWithValue({ message: 'Could not register a new account' });
       }
     }
   );

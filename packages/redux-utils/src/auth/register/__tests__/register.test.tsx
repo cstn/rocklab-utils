@@ -3,14 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Store } from '@reduxjs/toolkit';
 import { fireEvent, screen } from '@testing-library/react';
 import renderWithStore from '../../../test/utils';
-import { selectRequestPasswordError, selectRequestPasswordStatus } from '../index';
+import { selectRegisterStatus, selectRegisterError } from '../index';
 import setup, { apiMock, actions } from './setup';
 
 const Test = () => {
-  const status = useSelector(selectRequestPasswordStatus);
-  const error = useSelector(selectRequestPasswordError);
+  const status = useSelector(selectRegisterStatus);
+  const error = useSelector(selectRegisterError);
   const dispatch = useDispatch();
-  const handleClick = () => dispatch(actions.requestPassword({ email: 'test@rocklab.de' }));
+  const handleClick = () =>
+    dispatch(actions.registerUser({ username: 'test', email: 'test@rocklab.de', password: 'Test123' }));
 
   return (
     <div>
@@ -23,7 +24,7 @@ const Test = () => {
   );
 };
 
-describe('requestPassword', () => {
+describe('register', () => {
   let store: Store;
 
   beforeEach(() => {
@@ -38,17 +39,17 @@ describe('requestPassword', () => {
     expect(screen.getByText('idle')).toBeInTheDocument();
   });
 
-  it('should start password request', () => {
+  it('should start registration', () => {
     renderWithStore(<Test />, { store });
 
     fireEvent.click(screen.getByRole('button', { name: 'click' }));
 
     expect(screen.getByText('pending')).toBeInTheDocument();
-    expect(apiMock.requestPassword).toHaveBeenCalledWith('test@rocklab.de');
+    expect(apiMock.register).toHaveBeenCalledWith({ email: 'test@rocklab.de', password: 'Test123', username: 'test' });
   });
 
-  it('should request a password', async () => {
-    (apiMock.requestPassword as jest.Mock).mockResolvedValueOnce({
+  it('should register an account', async () => {
+    (apiMock.register as jest.Mock).mockResolvedValueOnce({
       data: {},
     });
 
@@ -59,8 +60,8 @@ describe('requestPassword', () => {
     expect(await screen.findByText('resolved')).toBeInTheDocument();
   });
 
-  it('should handle failed password request', async () => {
-    (apiMock.requestPassword as jest.Mock).mockResolvedValueOnce({ status: 400, error: { message: 'Test' } });
+  it('should handle failed account registration', async () => {
+    (apiMock.register as jest.Mock).mockResolvedValueOnce({ status: 400, error: { message: 'Test' } });
 
     renderWithStore(<Test />, { store });
 
@@ -70,14 +71,14 @@ describe('requestPassword', () => {
     expect(screen.getByTestId('error')).toHaveTextContent('Test');
   });
 
-  it('should handle errors while password request', async () => {
-    (apiMock.requestPassword as jest.Mock).mockRejectedValueOnce({ message: 'test' });
+  it('should handle errors while account registration', async () => {
+    (apiMock.register as jest.Mock).mockRejectedValueOnce({ message: 'test' });
 
     renderWithStore(<Test />, { store });
 
     fireEvent.click(screen.getByRole('button', { name: 'click' }));
 
     expect(await screen.findByText('rejected')).toBeInTheDocument();
-    expect(screen.getByTestId('error')).toHaveTextContent('Could not request a new password');
+    expect(screen.getByTestId('error')).toHaveTextContent('Could not register a new account');
   });
 });
