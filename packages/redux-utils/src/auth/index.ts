@@ -23,3 +23,4 @@ export {
   selectConfirmedStatus,
 } from './confirmAccount';
 export { changePasswordSlice, selectChangePasswordError, selectChangePasswordStatus } from './changePassword';
+export { requestPasswordSlice, selectRequestPasswordError, selectRequestPasswordStatus } from './requestPassword';
