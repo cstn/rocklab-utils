@@ -49,7 +49,7 @@ describe('requestPassword', () => {
 
   it('should request a password', async () => {
     (apiMock.requestPassword as jest.Mock).mockResolvedValueOnce({
-      data: { user: { username: 'test' }, profile: { firstName: 'Tom' } },
+      data: {},
     });
 
     renderWithStore(<Test />, { store });

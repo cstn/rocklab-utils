@@ -49,7 +49,7 @@ describe('resetPassword', () => {
 
   it('should reset a password', async () => {
     (apiMock.resetPassword as jest.Mock).mockResolvedValueOnce({
-      data: { user: { username: 'test' }, profile: { firstName: 'Tom' } },
+      data: {},
     });
 
     renderWithStore(<Test />, { store });
