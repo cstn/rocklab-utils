@@ -17,6 +17,11 @@ export type Account = {
   password: string;
 };
 
+export type AccountConfirmation = {
+  userId: string;
+  token: string;
+};
+
 export type Response = {
   status: number;
   data?: Record<string, never>;
@@ -28,7 +33,7 @@ export type AuthAPI = {
   logout: () => Promise<Response>;
   session: (token: string) => Promise<Response>;
   register: (account: Account) => Promise<Response>;
-  confirmAccount: (userId: string, token: string) => Promise<Response>;
+  confirmAccount: (confirm: AccountConfirmation) => Promise<Response>;
   changePassword: (oldPassword: string, newPassword: string) => Promise<Response>;
   newPassword: (email: string) => Promise<Response>;
   resetPassword: (token: string, newPassword: string) => Promise<Response>;

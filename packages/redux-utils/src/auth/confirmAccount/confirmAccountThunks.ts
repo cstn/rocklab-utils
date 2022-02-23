@@ -1,12 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { AuthAPI, Error, Response } from '../types';
+import { AuthAPI, Error, Response, AccountConfirmation } from '../types';
 
 const createConfirmAccountThunks = (api: AuthAPI) => {
-  const confirmAccount = createAsyncThunk<Response, { userId: string; token: string }, { rejectValue: Error }>(
+  const confirmAccount = createAsyncThunk<Response, AccountConfirmation, { rejectValue: Error }>(
     'auth/account/confirm',
-    async ({ userId, token }, thunkApi) => {
+    async (confirm: AccountConfirmation, thunkApi) => {
       try {
-        const response = await api.confirmAccount(userId, token);
+        const response = await api.confirmAccount(confirm);
 
         if (response.status >= 400) {
           return thunkApi.rejectWithValue(response.error as Error);

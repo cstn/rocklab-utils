@@ -8,7 +8,7 @@ const reducers = {
   clear,
 };
 
-const registerSlice = (name: string, api: AuthAPI) => {
+const confirmAccountSlice = (name: string, api: AuthAPI) => {
   const { confirmAccount } = createConfirmAccountThunks(api);
 
   const slice = createSlice({
@@ -30,4 +30,4 @@ const registerSlice = (name: string, api: AuthAPI) => {
   };
 };
 
-export default registerSlice;
+export default confirmAccountSlice;

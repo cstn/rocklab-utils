@@ -1,7 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import initialState from './sessionState';
 import { Status } from '../../status';
-import { Response } from '../types';
+import { Error, Response } from '../types';
 import { SessionState } from './types';
 
 const clear = () => initialState;
@@ -19,7 +19,7 @@ const loginSuccess = (state: SessionState, action: PayloadAction<Response>) => (
   profile: action.payload.data?.profile,
 });
 
-const loginFailure = (state: SessionState, action: { payload: { message: string } | undefined }) => ({
+const loginFailure = (state: SessionState, action: Partial<PayloadAction<Error>>) => ({
   ...state,
   status: Status.Rejected,
   user: undefined,
@@ -43,7 +43,7 @@ const logoutSuccess = (state: SessionState) => ({
   error: null,
 });
 
-const logoutFailure = (state: SessionState, action: { payload: { message: string } | undefined }) => ({
+const logoutFailure = (state: SessionState, action: Partial<PayloadAction<Error>>) => ({
   ...state,
   status: Status.Rejected,
   user: undefined,
@@ -65,7 +65,7 @@ const sessionSuccess = (state: SessionState, action: PayloadAction<Response>) =>
   profile: action.payload.data?.profile,
 });
 
-const sessionFailure = (state: SessionState, action: { payload: { message: string } | undefined }) => ({
+const sessionFailure = (state: SessionState, action: Partial<PayloadAction<Error>>) => ({
   ...state,
   status: Status.Rejected,
   user: undefined,
