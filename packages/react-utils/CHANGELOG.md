@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/cstn/rocklab-utils/compare/@rocklab/react-utils@0.5.2...@rocklab/react-utils@1.2.0) (2022-02-27)
+
+
+### Features
+
+* **react-utils:** add exports ([d85b6b1](https://github.com/cstn/rocklab-utils/commit/d85b6b1704bf580823a3308b0dff858e099fa29b))
+
+
+
+# 1.1.0 (2022-02-23)
+
+
+
+# 1.0.0 (2022-02-18)
+
+
+
+
+
 # [1.1.0](https://github.com/cstn/rocklab-utils/compare/@rocklab/react-utils@0.5.2...@rocklab/react-utils@1.1.0) (2022-02-23)
 
 
