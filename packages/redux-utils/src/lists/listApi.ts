@@ -1,15 +1,9 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery, FetchBaseQueryMeta } from '@reduxjs/toolkit/query/react';
 import { FetchBaseQueryArgs } from '@reduxjs/toolkit/dist/query/fetchBaseQuery';
 
 interface Item {
   id: number;
 }
-
-type ListApiOptions = FetchBaseQueryArgs & {
-  path: string;
-  reducerPath: string;
-  tagType: string;
-};
 
 interface ListResponse<T> {
   offset: number;
@@ -19,6 +13,17 @@ interface ListResponse<T> {
   items: T[];
 }
 
+type ListApiOptions<T> = FetchBaseQueryArgs & {
+  path: string;
+  reducerPath: string;
+  tagType: string;
+  transformQueryResponse?: (
+    baseQueryReturnValue: unknown,
+    meta: FetchBaseQueryMeta | undefined,
+    arg: QueryParams | void
+  ) => ListResponse<T> | Promise<ListResponse<T>>;
+};
+
 type PaginationParams = { offset: number; limit: number };
 
 const DefaultPaginationParams = { offset: 0, limit: 10 };
@@ -27,7 +32,15 @@ type QueryParams = {
   [key: string]: string | number;
 };
 
-const listApi = <T extends Item>({ baseUrl, fetchFn, path, prepareHeaders, reducerPath, tagType }: ListApiOptions) => {
+const listApi = <T extends Item>({
+  baseUrl,
+  fetchFn,
+  path,
+  prepareHeaders,
+  reducerPath,
+  transformQueryResponse,
+  tagType,
+}: ListApiOptions<T>) => {
   const api = createApi({
     reducerPath,
     baseQuery: fetchBaseQuery({ baseUrl, prepareHeaders, fetchFn }),
@@ -39,6 +52,7 @@ const listApi = <T extends Item>({ baseUrl, fetchFn, path, prepareHeaders, reduc
           result
             ? [...result.items.map(({ id }) => ({ type: tagType, id })), { type: tagType, id: 'LIST' }]
             : [{ type: tagType, id: 'LIST' }],
+        transformResponse: transformQueryResponse,
       }),
       findAll: builder.query<ListResponse<T>, PaginationParams>({
         query: ({ offset, limit } = DefaultPaginationParams) => `${path}?offset=${offset}&limit=${limit}`,
@@ -46,6 +60,7 @@ const listApi = <T extends Item>({ baseUrl, fetchFn, path, prepareHeaders, reduc
           result
             ? [...result.items.map(({ id }) => ({ type: tagType, id })), { type: tagType, id: 'PARTIAL-LIST' }]
             : [{ type: tagType, id: 'PARTIAL-LIST' }],
+        transformResponse: transformQueryResponse,
       }),
       findBy: builder.query<ListResponse<T>, QueryParams>({
         query: (params = {}) =>
@@ -59,6 +74,7 @@ const listApi = <T extends Item>({ baseUrl, fetchFn, path, prepareHeaders, reduc
           result
             ? [...result.items.map(({ id }) => ({ type: tagType, id })), { type: tagType, id: 'FILTERED-LIST' }]
             : [{ type: tagType, id: 'FILTERED-LIST' }],
+        transformResponse: transformQueryResponse,
       }),
       getItem: builder.query<T, string>({
         query: (id) => `${path}/${id}`,

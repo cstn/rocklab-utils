@@ -11,7 +11,7 @@ global.fetch = jest.fn();
 
 describe('listApi', () => {
   it('should generate a list Api', () => {
-    const options: ListApiOptions = {
+    const options: ListApiOptions<TestItem> = {
       baseUrl: 'https://api.test.local/v2/',
       path: 'test',
       reducerPath: 'test',
