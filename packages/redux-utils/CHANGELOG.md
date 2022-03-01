@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/cstn/rocklab-utils/compare/@rocklab/redux-utils@0.9.1...@rocklab/redux-utils@1.2.0) (2022-03-01)
+
+
+### Features
+
+* **redux-utils:** transform list api response ([6c357f5](https://github.com/cstn/rocklab-utils/commit/6c357f5e254755b2ac9d7f3fd83c083c703d8c9e))
+
+
+
+## 1.1.1 (2022-02-27)
+
+
+
+# 1.1.0 (2022-02-23)
+
+
+
+# 1.0.0 (2022-02-18)
+
+
+
+
+
 ## [1.1.1](https://github.com/cstn/rocklab-utils/compare/@rocklab/redux-utils@0.9.1...@rocklab/redux-utils@1.1.1) (2022-02-27)
 
 
