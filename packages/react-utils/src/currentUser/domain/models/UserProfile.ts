@@ -59,14 +59,16 @@ class UserProfile {
 
   /**
    * json
-   * @returns {{id: number, salutation: string, firstName: string, lastName: string}}
+   * @returns {{id: number, salutation: string, firstName: string, lastName: string, fullName: string. initials: string}}
    */
-  toObject(): object {
+  toJSON(): object {
     return {
       id: this.id,
       salutation: this.salutation,
       firstName: this.firstName,
       lastName: this.lastName,
+      fullName: this.getName(),
+      initials: this.getInitials(),
     };
   }
 }

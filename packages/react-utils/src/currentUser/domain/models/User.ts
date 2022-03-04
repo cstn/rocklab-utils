@@ -19,7 +19,7 @@ class User {
     return `User(${this.username})`;
   }
 
-  toObject(): object {
+  toJSON(): object {
     return {
       id: this.id,
       username: this.username,
