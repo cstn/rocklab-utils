@@ -40,6 +40,7 @@ const listApi = <T extends Item>({
   reducerPath,
   transformQueryResponse,
   tagType,
+  ...passThrough
 }: ListApiOptions<T>) => {
   const api = createApi({
     reducerPath,
@@ -118,6 +119,7 @@ const listApi = <T extends Item>({
         invalidatesTags: (result, error, id) => [{ type: tagType, id }],
       }),
     }),
+    ...passThrough,
   });
 
   const {
