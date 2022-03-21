@@ -8,14 +8,20 @@ import { resetPasswordSlice } from './resetPassword';
 import { AuthAPI } from './types';
 
 const createAuthReducer = (api: AuthAPI) => {
-  const { reducer: sessionReducer } = sessionSlice('session', api);
-  const { reducer: registerReducer } = registerSlice('register', api);
-  const { reducer: confirmAccountReducer } = confirmAccountSlice('accountConfirmation', api);
-  const { reducer: changePasswordReducer } = changePasswordSlice('passwordChange', api);
-  const { reducer: requestPasswordReducer } = requestPasswordSlice('passwordRequest', api);
-  const { reducer: resetPasswordReducer } = resetPasswordSlice('passwordReset', api);
+  const { reducer: sessionReducer, actions: sessionActions } = sessionSlice('session', api);
+  const { reducer: registerReducer, actions: registerActions } = registerSlice('register', api);
+  const { reducer: confirmAccountReducer, actions: confirmAccountActions } = confirmAccountSlice(
+    'accountConfirmation',
+    api
+  );
+  const { reducer: changePasswordReducer, actions: changePasswordActions } = changePasswordSlice('passwordChange', api);
+  const { reducer: requestPasswordReducer, actions: requestPasswordActions } = requestPasswordSlice(
+    'passwordRequest',
+    api
+  );
+  const { reducer: resetPasswordReducer, actions: resetPasswordActions } = resetPasswordSlice('passwordReset', api);
 
-  const authReducer = combineReducers({
+  const reducer = combineReducers({
     session: sessionReducer,
     register: registerReducer,
     confirm: confirmAccountReducer,
@@ -24,7 +30,17 @@ const createAuthReducer = (api: AuthAPI) => {
     resetPassword: resetPasswordReducer,
   });
 
-  return { authReducer };
+  return {
+    reducer,
+    actions: {
+      ...sessionActions,
+      ...registerActions,
+      ...confirmAccountActions,
+      ...changePasswordActions,
+      ...requestPasswordActions,
+      ...resetPasswordActions,
+    },
+  };
 };
 
 export default createAuthReducer;
