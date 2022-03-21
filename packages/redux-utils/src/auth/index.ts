@@ -12,3 +12,5 @@ export * from './confirmAccount';
 export * from './changePassword';
 export * from './requestPassword';
 export * from './resetPassword';
+export * from './authSelectors';
+export { default as createAuthReducer } from './authReducer';
