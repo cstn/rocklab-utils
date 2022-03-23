@@ -17,6 +17,7 @@ const loginSuccess = (state: SessionState, action: PayloadAction<Response>) => (
   error: null,
   user: action.payload.data?.user,
   profile: action.payload.data?.profile,
+  token: action.payload.data?.access_token,
 });
 
 const loginFailure = (state: SessionState, action: Partial<PayloadAction<Error>>) => ({
