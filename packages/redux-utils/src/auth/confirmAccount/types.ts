@@ -5,3 +5,5 @@ export type ConfirmState = {
   error: string | null;
   userId?: string;
 };
+
+export type ConfirmPayload = { userId: string; token: string };

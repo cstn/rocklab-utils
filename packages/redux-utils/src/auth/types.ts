@@ -20,9 +20,11 @@ export type Account = {
   password: string;
 };
 
+export type Payload = Record<string, never>;
+
 export type Response = {
   status: number;
-  data?: Record<string, never>;
+  data?: Payload;
   error?: Error;
 };
 

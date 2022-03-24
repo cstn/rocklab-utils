@@ -1,8 +1,8 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import initialState from './sessionState';
 import { Status } from '../../status';
-import { Error, Response } from '../types';
-import { SessionState } from './types';
+import { Error } from '../types';
+import { SessionPayload, SessionState } from './types';
 
 const clear = () => initialState;
 
@@ -11,13 +11,14 @@ const loginRequest = (state: SessionState) => ({
   status: Status.Pending,
 });
 
-const loginSuccess = (state: SessionState, action: PayloadAction<Response>) => ({
+const loginSuccess = (state: SessionState, action: PayloadAction<SessionPayload>) => ({
   ...state,
   status: Status.Resolved,
   error: null,
-  user: action.payload.data?.user,
-  profile: action.payload.data?.profile,
-  token: action.payload.data?.access_token,
+  user: action.payload.user,
+  profile: action.payload.profile,
+  accessToken: action.payload.access_token,
+  refreshToken: action.payload.refresh_token,
 });
 
 const loginFailure = (state: SessionState, action: Partial<PayloadAction<Error>>) => ({
@@ -25,6 +26,8 @@ const loginFailure = (state: SessionState, action: Partial<PayloadAction<Error>>
   status: Status.Rejected,
   user: undefined,
   profile: undefined,
+  accessToken: undefined,
+  refreshToken: undefined,
   error: action.payload?.message || 'Login error',
 });
 
@@ -40,7 +43,8 @@ const logoutSuccess = (state: SessionState) => ({
   status: Status.Resolved,
   user: undefined,
   profile: undefined,
-  token: undefined,
+  accessToken: undefined,
+  refreshToken: undefined,
   error: null,
 });
 
@@ -49,7 +53,8 @@ const logoutFailure = (state: SessionState, action: Partial<PayloadAction<Error>
   status: Status.Rejected,
   user: undefined,
   profile: undefined,
-  token: undefined,
+  accessToken: undefined,
+  refreshToken: undefined,
   error: action.payload?.message || 'Login error',
 });
 
@@ -58,12 +63,12 @@ const sessionRequest = (state: SessionState) => ({
   status: Status.Pending,
 });
 
-const sessionSuccess = (state: SessionState, action: PayloadAction<Response>) => ({
+const sessionSuccess = (state: SessionState, action: PayloadAction<SessionPayload>) => ({
   ...state,
   status: Status.Resolved,
   error: null,
-  user: action.payload.data?.user,
-  profile: action.payload.data?.profile,
+  user: action.payload.user,
+  profile: action.payload.profile,
 });
 
 const sessionFailure = (state: SessionState, action: Partial<PayloadAction<Error>>) => ({
