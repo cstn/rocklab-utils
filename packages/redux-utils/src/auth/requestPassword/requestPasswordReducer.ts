@@ -2,11 +2,14 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import initialState from './requestPasswordState';
 import { Status } from '../../status';
 import { Error } from '../types';
-import { RequestPasswordState } from './types';
+import { RequestPasswordPayload, RequestPasswordState } from './types';
 
 const clear = () => initialState;
 
-const requestPasswordRequest = (state: RequestPasswordState, action: Partial<PayloadAction<{ email: string }>>) => ({
+const requestPasswordRequest = (
+  state: RequestPasswordState,
+  action: Partial<PayloadAction<RequestPasswordPayload>>
+) => ({
   ...state,
   status: Status.Pending,
   email: action.payload?.email,

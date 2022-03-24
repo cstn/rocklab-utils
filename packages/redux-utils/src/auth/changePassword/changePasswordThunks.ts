@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { AuthAPI, Error, Response } from '../types';
+import { AuthAPI, Error, Payload } from '../types';
 
 const createChangePasswordThunks = (api: AuthAPI) => {
   const changePassword = createAsyncThunk<
-    Response,
+    Payload,
     { oldPassword: string; newPassword: string },
     { rejectValue: Error }
   >('auth/password/change', async ({ oldPassword, newPassword }, thunkApi) => {
@@ -13,8 +13,11 @@ const createChangePasswordThunks = (api: AuthAPI) => {
       if (response.status >= 400) {
         return thunkApi.rejectWithValue(response.error as Error);
       }
+      if (!response.data) {
+        return thunkApi.rejectWithValue({ message: 'No change password response data' });
+      }
 
-      return response;
+      return response.data;
     } catch (ex) {
       return thunkApi.rejectWithValue({ message: 'Could not change the password' });
     }

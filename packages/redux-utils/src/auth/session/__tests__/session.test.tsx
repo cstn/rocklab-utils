@@ -153,7 +153,7 @@ describe('session', () => {
     });
 
     it('should refresh a session', async () => {
-      (apiMock.session as jest.Mock).mockResolvedValueOnce({});
+      (apiMock.session as jest.Mock).mockResolvedValueOnce({ data: { user: 'user', profile: 'profile' } });
 
       renderWithStore(<Test />, { store });
 

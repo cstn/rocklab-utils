@@ -2,14 +2,11 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import initialState from './confirmAccontState';
 import { Status } from '../../status';
 import { Error } from '../types';
-import { ConfirmState } from './types';
+import { ConfirmPayload, ConfirmState } from './types';
 
 const clear = () => initialState;
 
-const confirmAccountRequest = (
-  state: ConfirmState,
-  action: Partial<PayloadAction<{ userId: string; token: string }>>
-) => ({
+const confirmAccountRequest = (state: ConfirmState, action: Partial<PayloadAction<ConfirmPayload>>) => ({
   ...state,
   status: Status.Pending,
   userId: action.payload?.userId,

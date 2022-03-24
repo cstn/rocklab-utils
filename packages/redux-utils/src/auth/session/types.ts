@@ -5,6 +5,14 @@ export type SessionState = {
   status: Status;
   user?: User;
   profile?: UserProfile;
-  token?: string;
+  accessToken?: string;
+  refreshToken?: string;
   error: string | null;
+};
+
+export type SessionPayload = {
+  user?: User;
+  profile?: UserProfile;
+  access_token?: string;
+  refresh_token?: string;
 };

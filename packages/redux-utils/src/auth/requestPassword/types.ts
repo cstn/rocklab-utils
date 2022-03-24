@@ -5,3 +5,5 @@ export type RequestPasswordState = {
   error: string | null;
   email?: string;
 };
+
+export type RequestPasswordPayload = { email: string };
