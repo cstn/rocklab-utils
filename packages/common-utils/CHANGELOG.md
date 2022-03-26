@@ -3,6 +3,65 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.8.0](https://github.com/cstn/rocklab-utils/compare/@rocklab/common-utils@0.2.2...@rocklab/common-utils@1.8.0) (2022-03-26)
+
+
+
+# 1.8.0 (2022-03-24)
+
+
+
+# 1.7.0 (2022-03-24)
+
+
+
+# 1.6.0 (2022-03-23)
+
+
+
+## 1.1.7 (2022-03-21)
+
+
+
+## 1.1.6 (2022-03-21)
+
+
+
+## 1.1.5 (2022-03-19)
+
+
+### Features
+
+* **redux-utils:** add hydrate helpers ([#71](https://github.com/cstn/rocklab-utils/issues/71)) ([5b1b949](https://github.com/cstn/rocklab-utils/commit/5b1b94999219f4ae40020e635e95ad25216f2a82))
+
+
+
+## 1.1.4 (2022-03-15)
+
+
+
+## 1.1.3 (2022-03-04)
+
+
+
+## 1.1.2 (2022-03-01)
+
+
+
+## 1.1.1 (2022-02-27)
+
+
+
+# 1.1.0 (2022-02-23)
+
+
+
+# 1.0.0 (2022-02-18)
+
+
+
+
+
 # [1.7.0](https://github.com/cstn/rocklab-utils/compare/@rocklab/common-utils@0.2.2...@rocklab/common-utils@1.7.0) (2022-03-24)
 
 

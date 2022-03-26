@@ -1,76 +1,21 @@
 /**
  * @fileOverview User profile model
  */
-class UserProfile {
-  public id: number;
 
-  public salutation?: string;
+type Gender = 'male' | 'female' | 'diverse';
 
-  public firstName: string;
+type UserProfile = {
+  id: number;
 
-  public lastName: string;
+  salutation?: string;
 
-  /**
-   * constructor
-   */
-  constructor({
-    id = 0,
-    salutation,
-    firstName,
-    lastName,
-  }: {
-    id: number;
-    salutation?: string;
-    firstName: string;
-    lastName: string;
-  }) {
-    this.id = id;
-    this.salutation = salutation;
-    this.firstName = firstName;
-    this.lastName = lastName;
-  }
+  firstName: string;
 
-  /**
-   * get full name
-   * @returns {string}
-   */
-  getName(): string {
-    return [this.firstName, this.lastName].filter(Boolean).join(' ');
-  }
+  lastName: string;
 
-  /**
-   * get initials
-   * @returns {string}
-   */
-  getInitials(): string {
-    return [this.firstName, this.lastName]
-      .filter((n) => n)
-      .map((n) => n.charAt(0).toUpperCase())
-      .join('');
-  }
+  gender?: Gender;
 
-  /**
-   * string representation
-   * @returns {string}
-   */
-  toString(): string {
-    return `UserProfile(${this.lastName}, ${this.firstName})`;
-  }
-
-  /**
-   * json
-   * @returns {{id: number, salutation: string, firstName: string, lastName: string, fullName: string. initials: string}}
-   */
-  toJSON(): object {
-    return {
-      id: this.id,
-      salutation: this.salutation,
-      firstName: this.firstName,
-      lastName: this.lastName,
-      fullName: this.getName(),
-      initials: this.getInitials(),
-    };
-  }
-}
+  pronouns?: string;
+};
 
 export default UserProfile;

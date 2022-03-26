@@ -36,11 +36,11 @@ describe('currentUser', () => {
       const email = 'mail@test.local';
 
       renderWithCurrentUser(<TestComponent />, {
-        user: new User({
+        user: {
           id,
           username,
           email,
-        }),
+        },
         profile: undefined,
       });
 
@@ -56,11 +56,11 @@ describe('currentUser', () => {
 
       renderWithCurrentUser(<TestComponent />, {
         user: undefined,
-        profile: new UserProfile({
+        profile: {
           id,
           firstName,
           lastName,
-        }),
+        },
       });
 
       expect(screen.getByTitle('profileid').innerHTML).toEqual(id.toString());
@@ -103,11 +103,11 @@ describe('currentUser', () => {
       const email = 'mail@test.local';
 
       renderWithCurrentUser(<TestComponent />, {
-        user: new User({
+        user: {
           id,
           username,
           email,
-        }),
+        },
         profile: undefined,
       });
 
@@ -123,11 +123,11 @@ describe('currentUser', () => {
 
       renderWithCurrentUser(<TestComponent />, {
         user: undefined,
-        profile: new UserProfile({
+        profile: {
           id,
           firstName,
           lastName,
-        }),
+        },
       });
 
       expect(screen.getByTitle('profileid').innerHTML).toEqual(id.toString());
