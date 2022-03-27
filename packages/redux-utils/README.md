@@ -2,6 +2,11 @@
 
 > Utilities for Javascript front-end projects with Redux
 
+- Auth
+- Lists
+- Notifications
+- Hydration utils
+
 ## Requirements
 
 - node version 14
