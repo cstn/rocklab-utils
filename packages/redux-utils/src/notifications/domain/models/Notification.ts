@@ -1,5 +1,5 @@
 import { MessageDescriptor } from 'react-intl';
-import NotificationStatus from './status';
+import NotificationStatus from './Status';
 import NotificationType from './Type';
 
 type Message = string | MessageDescriptor;
