@@ -11,11 +11,11 @@ const createConfirmAccountThunks = (api: AuthAPI) => {
         if (response.status >= 400) {
           return thunkApi.rejectWithValue(response.error as Error);
         }
-        if (!response.data) {
+        if (response.status !== 204 && !response.data) {
           return thunkApi.rejectWithValue({ message: 'No account confirmation response data' });
         }
 
-        return response.data;
+        return response.data || {};
       } catch (ex) {
         return thunkApi.rejectWithValue({ message: 'Could not confirm the account' });
       }
