@@ -4,9 +4,7 @@
 
 type Gender = 'male' | 'female' | 'diverse';
 
-type UserProfile = {
-  id: number;
-
+type Person = {
   salutation?: string;
 
   firstName: string;
@@ -16,6 +14,24 @@ type UserProfile = {
   gender?: Gender;
 
   pronouns?: string;
+
+  birthDate?: Date;
 };
 
+type Contact = {
+  phone?: string;
+
+  fax?: string;
+
+  mobile?: string;
+
+  email?: string;
+};
+
+type UserProfile = {
+  id: number;
+} & Person &
+  Contact;
+
 export default UserProfile;
+export { Gender, Person, Contact };
