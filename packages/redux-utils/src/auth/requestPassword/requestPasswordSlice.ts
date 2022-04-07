@@ -7,14 +7,14 @@ import {
   requestPasswordRequest,
   requestPasswordSuccess,
 } from './requestPasswordReducer';
-import { AuthAPI } from '../types';
+import { AuthAPI, AuthOptions } from '../types';
 
 const reducers = {
   clear,
 };
 
-const requestPasswordSlice = (name: string, api: AuthAPI) => {
-  const { requestPassword } = createRequestPasswordThunks(api);
+const requestPasswordSlice = (name: string, api: AuthAPI, options?: AuthOptions) => {
+  const { requestPassword } = createRequestPasswordThunks(api, options);
 
   const slice = createSlice({
     name,

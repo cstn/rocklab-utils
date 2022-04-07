@@ -1,4 +1,4 @@
-import { AuthState } from './auth/types';
+import { AuthState } from './auth/authState';
 import { NotificationsState } from './notifications/types';
 
 export type RootState = {

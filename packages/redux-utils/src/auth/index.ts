@@ -5,7 +5,6 @@ export { ConfirmState } from './confirmAccount/types';
 export { ChangePasswordState } from './changePassword/types';
 export { RequestPasswordState } from './requestPassword/types';
 export { ResetPasswordState } from './resetPassword/types';
-
 export * from './session';
 export * from './register';
 export * from './confirmAccount';

@@ -5,7 +5,7 @@ const createNotification = (type: NotificationType, message: Message, details?: 
   details,
   status: NotificationStatus.New,
   type,
-  createdAt: new Date(),
+  createdAt: new Date().toISOString(),
 });
 
 const createInfo = (message: Message, details?: Message): Notification =>

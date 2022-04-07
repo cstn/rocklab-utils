@@ -10,5 +10,14 @@ const selectAccessToken = createSelector(selectSelf, (state: SessionState) => st
 const selectRefreshToken = createSelector(selectSelf, (state: SessionState) => state.refreshToken);
 const selectStatus = createSelector(selectSelf, (state: SessionState) => state.status);
 const selectError = createSelector(selectSelf, (state: SessionState) => state.error);
+const selectErrorMessage = createSelector(selectSelf, (state: SessionState) => state.error?.message ?? 'Session error');
 
-export { selectAccessToken, selectRefreshToken, selectUser, selectUserProfile, selectStatus, selectError };
+export {
+  selectAccessToken,
+  selectRefreshToken,
+  selectUser,
+  selectUserProfile,
+  selectStatus,
+  selectError,
+  selectErrorMessage,
+};

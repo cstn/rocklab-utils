@@ -2,14 +2,14 @@ import { createSlice } from '@reduxjs/toolkit';
 import initialState from './confirmAccontState';
 import createConfirmAccountThunks from './confirmAccountThunks';
 import { clear, confirmAccountFailure, confirmAccountSuccess, confirmAccountRequest } from './confirmAccountReducer';
-import { AuthAPI } from '../types';
+import { AuthAPI, AuthOptions } from '../types';
 
 const reducers = {
   clear,
 };
 
-const confirmAccountSlice = (name: string, api: AuthAPI) => {
-  const { confirmAccount } = createConfirmAccountThunks(api);
+const confirmAccountSlice = (name: string, api: AuthAPI, options?: AuthOptions) => {
+  const { confirmAccount } = createConfirmAccountThunks(api, options);
 
   const slice = createSlice({
     name,

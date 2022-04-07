@@ -1,7 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import initialState from './resetPasswordState';
 import { Status } from '../../status';
-import { Error } from '../types';
+import { AuthError } from '../types';
 import { ResetPasswordState } from './types';
 
 const clear = () => initialState;
@@ -17,10 +17,10 @@ const resetPasswordSuccess = (state: ResetPasswordState) => ({
   error: null,
 });
 
-const resetPasswordFailure = (state: ResetPasswordState, action: Partial<PayloadAction<Error>>) => ({
+const resetPasswordFailure = (state: ResetPasswordState, action: Partial<PayloadAction<AuthError>>) => ({
   ...state,
   status: Status.Rejected,
-  error: action.payload?.message || 'Reset password error',
+  error: action.payload,
 });
 
 export { clear, resetPasswordFailure, resetPasswordRequest, resetPasswordSuccess };

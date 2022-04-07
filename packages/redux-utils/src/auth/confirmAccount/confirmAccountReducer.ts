@@ -1,7 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import initialState from './confirmAccontState';
 import { Status } from '../../status';
-import { Error } from '../types';
+import { AuthError } from '../types';
 import { ConfirmPayload, ConfirmState } from './types';
 
 const clear = () => initialState;
@@ -18,10 +18,10 @@ const confirmAccountSuccess = (state: ConfirmState) => ({
   error: null,
 });
 
-const confirmAccountFailure = (state: ConfirmState, action: Partial<PayloadAction<Error>>) => ({
+const confirmAccountFailure = (state: ConfirmState, action: Partial<PayloadAction<AuthError>>) => ({
   ...state,
   status: Status.Rejected,
-  error: action.payload?.message || 'Confirm account error',
+  error: action.payload,
 });
 
 export { clear, confirmAccountFailure, confirmAccountRequest, confirmAccountSuccess };

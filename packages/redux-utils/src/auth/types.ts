@@ -1,12 +1,10 @@
-import { SessionState } from './session/types';
-import { RegisterState } from './register/types';
-import { ConfirmState } from './confirmAccount/types';
-import { ChangePasswordState } from './changePassword/types';
-import { RequestPasswordState } from './requestPassword/types';
-import { ResetPasswordState } from './resetPassword/types';
-
-export type Error = {
+export type AuthError = {
   message: string;
+  status?: number;
+  statusText?: string;
+  error?: string;
+  description?: string;
+  data?: Record<string, never>;
 };
 
 export type Credentials = {
@@ -24,8 +22,12 @@ export type Payload = Record<string, never>;
 
 export type Response = {
   status: number;
+  statusText: string;
   data?: Payload;
-  error?: Error;
+};
+
+export type AuthOptions = {
+  transformError?: (response: unknown) => AuthError;
 };
 
 export type AuthAPI = {
@@ -37,13 +39,4 @@ export type AuthAPI = {
   changePassword: (oldPassword: string, newPassword: string) => Promise<Response>;
   requestPassword: (email: string) => Promise<Response>;
   resetPassword: (token: string, newPassword: string) => Promise<Response>;
-};
-
-export type AuthState = {
-  session: SessionState;
-  register: RegisterState;
-  confirm: ConfirmState;
-  changePassword: ChangePasswordState;
-  requestPassword: RequestPasswordState;
-  resetPassword: ResetPasswordState;
 };

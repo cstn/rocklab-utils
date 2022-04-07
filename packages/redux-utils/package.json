@@ -1,6 +1,6 @@
 {
   "name": "@rocklab/redux-utils",
-  "version": "1.12.0",
+  "version": "1.13.0",
   "description": "Redux utils",
   "keywords": [
     "rocklab",
@@ -31,6 +31,7 @@
   "scripts": {
     "clean": "rimraf dist/",
     "compile": "tsc",
+    "watch": "tsc --watch",
     "build": "npm run clean && npm run compile",
     "test": "jest --config config/jest.config.js",
     "test:coverage": "jest --coverage --config config/jest.config.js",

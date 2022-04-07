@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Store } from '@reduxjs/toolkit';
 import { fireEvent, screen } from '@testing-library/react';
 import renderWithStore from '../../../test/utils';
-import { selectConfirmedStatus, selectConfirmedError } from '../index';
+import { selectConfirmedStatus, selectConfirmedErrorMessage } from '../index';
 import setup, { apiMock, actions } from './setup';
 
 const Test = () => {
   const status = useSelector(selectConfirmedStatus);
-  const error = useSelector(selectConfirmedError);
+  const error = useSelector(selectConfirmedErrorMessage);
   const dispatch = useDispatch();
   const handleClick = () => dispatch(actions.confirmAccount({ userId: 'user', token: 'token' }));
 
@@ -60,14 +60,14 @@ describe('confirmAccount', () => {
   });
 
   it('should handle failed account confirmation', async () => {
-    (apiMock.confirmAccount as jest.Mock).mockResolvedValueOnce({ status: 400, error: { message: 'Test' } });
+    (apiMock.confirmAccount as jest.Mock).mockResolvedValueOnce({ status: 400, data: { message: 'test' } });
 
     renderWithStore(<Test />, { store });
 
     fireEvent.click(screen.getByRole('button', { name: 'click' }));
 
     expect(await screen.findByText('rejected')).toBeInTheDocument();
-    expect(screen.getByTestId('error')).toHaveTextContent('Test');
+    expect(screen.getByTestId('error')).toHaveTextContent('Test error');
   });
 
   it('should handle errors while account confirmation', async () => {
@@ -78,6 +78,6 @@ describe('confirmAccount', () => {
     fireEvent.click(screen.getByRole('button', { name: 'click' }));
 
     expect(await screen.findByText('rejected')).toBeInTheDocument();
-    expect(screen.getByTestId('error')).toHaveTextContent('Could not confirm the account');
+    expect(screen.getByTestId('error')).toHaveTextContent('Test error');
   });
 });

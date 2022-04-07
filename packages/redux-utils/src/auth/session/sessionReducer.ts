@@ -1,7 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import initialState from './sessionState';
 import { Status } from '../../status';
-import { Error } from '../types';
+import { AuthError } from '../types';
 import { SessionPayload, SessionState } from './types';
 
 const clear = () => initialState;
@@ -21,14 +21,14 @@ const loginSuccess = (state: SessionState, action: PayloadAction<SessionPayload>
   refreshToken: action.payload.refresh_token,
 });
 
-const loginFailure = (state: SessionState, action: Partial<PayloadAction<Error>>) => ({
+const loginFailure = (state: SessionState, action: Partial<PayloadAction<AuthError>>) => ({
   ...state,
   status: Status.Rejected,
   user: undefined,
   profile: undefined,
   accessToken: undefined,
   refreshToken: undefined,
-  error: action.payload?.message || 'Login error',
+  error: action.payload,
 });
 
 const logoutRequest = (state: SessionState) => ({
@@ -48,14 +48,14 @@ const logoutSuccess = (state: SessionState) => ({
   error: null,
 });
 
-const logoutFailure = (state: SessionState, action: Partial<PayloadAction<Error>>) => ({
+const logoutFailure = (state: SessionState, action: Partial<PayloadAction<AuthError>>) => ({
   ...state,
   status: Status.Rejected,
   user: undefined,
   profile: undefined,
   accessToken: undefined,
   refreshToken: undefined,
-  error: action.payload?.message || 'Login error',
+  error: action.payload,
 });
 
 const sessionRequest = (state: SessionState) => ({
@@ -71,12 +71,12 @@ const sessionSuccess = (state: SessionState, action: PayloadAction<SessionPayloa
   profile: action.payload.profile,
 });
 
-const sessionFailure = (state: SessionState, action: Partial<PayloadAction<Error>>) => ({
+const sessionFailure = (state: SessionState, action: Partial<PayloadAction<AuthError>>) => ({
   ...state,
   status: Status.Rejected,
   user: undefined,
   profile: undefined,
-  error: action.payload?.message || 'Session error',
+  error: action.payload,
 });
 
 export {

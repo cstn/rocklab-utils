@@ -9,7 +9,7 @@ type Notification = {
   details?: Message;
   status: NotificationStatus;
   type: NotificationType;
-  createdAt: Date;
+  createdAt: string;
 };
 
 export default Notification;
