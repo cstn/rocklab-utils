@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Store } from '@reduxjs/toolkit';
 import { fireEvent, screen } from '@testing-library/react';
 import renderWithStore from '../../../test/utils';
-import { selectSessionStatus, selectCurrentUser, selectSessionError, selectCurrentUserProfile } from '../index';
+import { selectSessionStatus, selectCurrentUser, selectSessionErrorMessage, selectCurrentUserProfile } from '../index';
 import setup, { apiMock, actions } from './setup';
 
 const Test = () => {
   const status = useSelector(selectSessionStatus);
-  const error = useSelector(selectSessionError);
+  const error = useSelector(selectSessionErrorMessage);
   const user = useSelector(selectCurrentUser);
   const profile = useSelector(selectCurrentUserProfile);
   const dispatch = useDispatch();
@@ -62,7 +62,7 @@ describe('session', () => {
 
     it('should login', async () => {
       (apiMock.login as jest.Mock).mockResolvedValueOnce({
-        data: { user: { username: 'test' }, profile: { firstName: 'Tom' } },
+        data: { user: { username: 'testuser' }, profile: { firstName: 'Tom' } },
       });
 
       renderWithStore(<Test />, { store });
@@ -70,30 +70,30 @@ describe('session', () => {
       fireEvent.click(screen.getByRole('button', { name: 'login' }));
 
       expect(await screen.findByText('resolved')).toBeInTheDocument();
-      expect(screen.getByTestId('username')).toHaveTextContent('test');
+      expect(screen.getByTestId('username')).toHaveTextContent('testuser');
       expect(screen.getByTestId('firstName')).toHaveTextContent('Tom');
     });
 
     it('should handle failed login', async () => {
-      (apiMock.login as jest.Mock).mockResolvedValueOnce({ status: 400, error: { message: 'Test' } });
+      (apiMock.login as jest.Mock).mockResolvedValueOnce({ status: 400, data: { error: 'test' } });
 
       renderWithStore(<Test />, { store });
 
       fireEvent.click(screen.getByRole('button', { name: 'login' }));
 
       expect(await screen.findByText('rejected')).toBeInTheDocument();
-      expect(screen.getByTestId('error')).toHaveTextContent('Test');
+      expect(screen.getByTestId('error')).toHaveTextContent('Test error');
     });
 
     it('should handle errors while login', async () => {
-      (apiMock.login as jest.Mock).mockRejectedValueOnce({ message: 'test' });
+      (apiMock.login as jest.Mock).mockRejectedValueOnce({ data: { message: 'test' } });
 
       renderWithStore(<Test />, { store });
 
       fireEvent.click(screen.getByRole('button', { name: 'login' }));
 
       expect(await screen.findByText('rejected')).toBeInTheDocument();
-      expect(screen.getByTestId('error')).toHaveTextContent('Could not login');
+      expect(screen.getByTestId('error')).toHaveTextContent('Test error');
     });
   });
 
@@ -120,25 +120,25 @@ describe('session', () => {
     });
 
     it('should handle failed logout', async () => {
-      (apiMock.logout as jest.Mock).mockResolvedValueOnce({ status: 400, error: { message: 'Test' } });
+      (apiMock.logout as jest.Mock).mockResolvedValueOnce({ status: 400, data: { error: 'test' } });
 
       renderWithStore(<Test />, { store });
 
       fireEvent.click(screen.getByRole('button', { name: 'logout' }));
 
       expect(await screen.findByText('rejected')).toBeInTheDocument();
-      expect(screen.getByTestId('error')).toHaveTextContent('Test');
+      expect(screen.getByTestId('error')).toHaveTextContent('Test error');
     });
 
     it('should handle errors while logout', async () => {
-      (apiMock.logout as jest.Mock).mockRejectedValueOnce({ message: 'test' });
+      (apiMock.logout as jest.Mock).mockRejectedValueOnce({ data: { message: 'test' } });
 
       renderWithStore(<Test />, { store });
 
       fireEvent.click(screen.getByRole('button', { name: 'logout' }));
 
       expect(await screen.findByText('rejected')).toBeInTheDocument();
-      expect(screen.getByTestId('error')).toHaveTextContent('Could not logout');
+      expect(screen.getByTestId('error')).toHaveTextContent('Test error');
     });
   });
 
@@ -163,7 +163,7 @@ describe('session', () => {
     });
 
     it('should handle failed session refresh', async () => {
-      (apiMock.session as jest.Mock).mockResolvedValueOnce({ status: 400, error: { message: 'Test' } });
+      (apiMock.session as jest.Mock).mockResolvedValueOnce({ status: 400, data: { error: 'test' } });
 
       renderWithStore(<Test />, { store });
 
@@ -173,14 +173,14 @@ describe('session', () => {
     });
 
     it('should handle errors while session refresh', async () => {
-      (apiMock.session as jest.Mock).mockRejectedValueOnce({ message: 'test' });
+      (apiMock.session as jest.Mock).mockRejectedValueOnce({ data: { message: 'test' } });
 
       renderWithStore(<Test />, { store });
 
       fireEvent.click(screen.getByRole('button', { name: 'session' }));
 
       expect(await screen.findByText('rejected')).toBeInTheDocument();
-      expect(screen.getByTestId('error')).toHaveTextContent('Could not check user session');
+      expect(screen.getByTestId('error')).toHaveTextContent('Test error');
     });
   });
 });

@@ -13,14 +13,14 @@ import {
   sessionRequest,
   sessionSuccess,
 } from './sessionReducer';
-import { AuthAPI } from '../types';
+import { AuthAPI, AuthOptions } from '../types';
 
 const reducers = {
   clear,
 };
 
-const sessionSlice = (name: string, api: AuthAPI) => {
-  const { loginUser, logoutUser, sessionUser } = createSessionThunks(api);
+const sessionSlice = (name: string, api: AuthAPI, options?: AuthOptions) => {
+  const { loginUser, logoutUser, sessionUser } = createSessionThunks(api, options);
 
   const slice = createSlice({
     name,

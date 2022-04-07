@@ -1,7 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import initialState from './requestPasswordState';
 import { Status } from '../../status';
-import { Error } from '../types';
+import { AuthError } from '../types';
 import { RequestPasswordPayload, RequestPasswordState } from './types';
 
 const clear = () => initialState;
@@ -21,10 +21,10 @@ const requestPasswordSuccess = (state: RequestPasswordState) => ({
   error: null,
 });
 
-const requestPasswordFailure = (state: RequestPasswordState, action: Partial<PayloadAction<Error>>) => ({
+const requestPasswordFailure = (state: RequestPasswordState, action: Partial<PayloadAction<AuthError>>) => ({
   ...state,
   status: Status.Rejected,
-  error: action.payload?.message || 'Request password error',
+  error: action.payload,
 });
 
 export { clear, requestPasswordFailure, requestPasswordRequest, requestPasswordSuccess };

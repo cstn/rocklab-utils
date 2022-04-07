@@ -6,4 +6,5 @@ export {
   selectUserProfile as selectCurrentUserProfile,
   selectStatus as selectSessionStatus,
   selectError as selectSessionError,
+  selectErrorMessage as selectSessionErrorMessage,
 } from './sessionSelectors';

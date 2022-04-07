@@ -4,4 +4,5 @@ export {
   selectStatus as selectRegisterStatus,
   selectUsername as selectRegisterUsername,
   selectEmail as selectRegisterEmail,
+  selectErrorMessage as selectRegisterErrorMessage,
 } from './registerSelectors';

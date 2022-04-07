@@ -1,7 +1,8 @@
 import { Status } from '../../status';
+import { AuthError } from '../types';
 
 export type ResetPasswordState = {
   status: Status;
-  error: string | null;
   email?: string;
+  error: AuthError | null | undefined;
 };

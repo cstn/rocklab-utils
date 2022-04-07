@@ -1,6 +1,7 @@
 import { Status } from '../../status';
+import { AuthError } from '../types';
 
 export type ChangePasswordState = {
   status: Status;
-  error: string | null;
+  error: AuthError | null | undefined;
 };

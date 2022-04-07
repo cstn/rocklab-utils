@@ -13,7 +13,9 @@ const apiMock: AuthAPI = {
   resetPassword: jest.fn(),
 };
 
-const { reducer, actions } = resetPasswordSlice('resetPassword', apiMock);
+const { reducer, actions } = resetPasswordSlice('resetPassword', apiMock, {
+  transformError: () => ({ message: 'Test error' }),
+});
 
 const setup = (): Store =>
   configureStore({

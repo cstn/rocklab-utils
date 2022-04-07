@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Store } from '@reduxjs/toolkit';
 import { fireEvent, screen } from '@testing-library/react';
 import renderWithStore from '../../../test/utils';
-import { selectChangePasswordError, selectChangePasswordStatus } from '../index';
+import { selectChangePasswordErrorMessage, selectChangePasswordStatus } from '../index';
 import setup, { apiMock, actions } from './setup';
 
 const Test = () => {
   const status = useSelector(selectChangePasswordStatus);
-  const error = useSelector(selectChangePasswordError);
+  const error = useSelector(selectChangePasswordErrorMessage);
   const dispatch = useDispatch();
   const handleClick = () => dispatch(actions.changePassword({ oldPassword: 'Password', newPassword: 'Test123' }));
 
@@ -60,7 +60,7 @@ describe('changePassword', () => {
   });
 
   it('should handle failed password change', async () => {
-    (apiMock.changePassword as jest.Mock).mockResolvedValueOnce({ status: 400, error: { message: 'Test' } });
+    (apiMock.changePassword as jest.Mock).mockResolvedValueOnce({ status: 400, data: { message: 'Test' } });
 
     renderWithStore(<Test />, { store });
 
@@ -71,13 +71,13 @@ describe('changePassword', () => {
   });
 
   it('should handle errors while password change', async () => {
-    (apiMock.changePassword as jest.Mock).mockRejectedValueOnce({ message: 'test' });
+    (apiMock.changePassword as jest.Mock).mockRejectedValueOnce({ data: { message: 'test' } });
 
     renderWithStore(<Test />, { store });
 
     fireEvent.click(screen.getByRole('button', { name: 'click' }));
 
     expect(await screen.findByText('rejected')).toBeInTheDocument();
-    expect(screen.getByTestId('error')).toHaveTextContent('Could not change the password');
+    expect(screen.getByTestId('error')).toHaveTextContent('Test error');
   });
 });
