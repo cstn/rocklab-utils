@@ -4,10 +4,8 @@
 
 ## Requirements
 
-- node version 14
-- npm version 6
-- React >= 16.8
-- React redux
+- node version 16
+- npm version 8
 
 # Packages
 

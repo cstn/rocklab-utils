@@ -20,8 +20,8 @@
     "url": "https://github.com/cstn/rocklab-utils/issues"
   },
   "engines": {
-    "node": ">= 14",
-    "npm": ">= 6"
+    "node": ">= 16",
+    "npm": ">= 8"
   },
   "scripts": {
     "prepare": "is-ci || husky install",

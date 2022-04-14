@@ -9,9 +9,9 @@
 
 ## Requirements
 
-- node version 14
-- npm version 6
-- React >= 16.8
+- node version 16
+- npm version 8
+- React >= 17
 - React redux
 
 ## Install
