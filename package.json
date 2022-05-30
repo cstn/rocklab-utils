@@ -1,6 +1,6 @@
 {
   "name": "@rocklab/utils",
-  "version": "1.1.10",
+  "version": "1.1.11",
   "description": "JavaScript utils",
   "keywords": [
     "rocklab",
@@ -75,7 +75,7 @@
     "is-ci": "3.0.1",
     "jest": "27.5.1",
     "jest-junit": "13.2.0",
-    "lerna": "4.0.0",
+    "lerna": "5.0.0",
     "lint-staged": "12.4.2",
     "prettier": "2.6.2",
     "react": "17.0.2",
