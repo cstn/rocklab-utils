@@ -1,16 +1,28 @@
 import { createSelector } from 'reselect';
-import { RootState } from '../../types';
 import { ConfirmState } from './types';
-import { SessionState } from '../session/types';
+import { RootState } from '../types';
+import selectAuth from '../authSelectors';
+import { Status } from '../../status';
+import { AuthError } from '../utils/errors';
 
-const selectSelf = (state: RootState) => state.auth.confirm;
-
-const selectStatus = createSelector(selectSelf, (state: ConfirmState) => state.status);
-const selectError = createSelector(selectSelf, (state: ConfirmState) => state.error);
-const selectUserid = createSelector(selectSelf, (state: ConfirmState) => state.userId);
-const selectErrorMessage = createSelector(
-  selectSelf,
-  (state: SessionState) => state.error?.message ?? 'Account confirmation error'
+const selectSelf: <S extends RootState>(state: S) => ConfirmState = createSelector(
+  selectAuth,
+  (state) => state.confirm
 );
 
-export { selectStatus, selectError, selectUserid, selectErrorMessage };
+const selectConfirmedStatus: <S extends RootState>(state: S) => Status = createSelector(
+  selectSelf,
+  (state: ConfirmState) => state.status
+);
+
+const selectConfirmedError: <S extends RootState>(state: S) => AuthError | undefined = createSelector(
+  selectSelf,
+  (state: ConfirmState) => state.error
+);
+
+const selectConfirmedUserId: <S extends RootState>(state: S) => number | undefined = createSelector(
+  selectSelf,
+  (state: ConfirmState) => state.userId
+);
+
+export { selectConfirmedStatus, selectConfirmedError, selectConfirmedUserId };

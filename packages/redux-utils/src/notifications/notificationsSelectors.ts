@@ -1,17 +1,37 @@
+import { TypedUseSelectorHook, useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
-import { RootState } from '../types';
+import Notification from './domain/models/Notification';
 import { hasBeenRead, isNew } from './domain/specifications';
+import { NotificationsState, RootState } from './types';
 
-const selectNotifications = (state: RootState) => state.notifications;
+const useTypedNotificationsSelector: TypedUseSelectorHook<RootState> = useSelector;
 
-const selectNewNotifications = createSelector(selectNotifications, (notifications) =>
-  notifications.filter((notification) => isNew(notification))
+const selectSelf = <S extends RootState>(state: S): NotificationsState => state.notifications;
+
+const selectNotifications: <S extends RootState>(state: S) => Notification[] = createSelector(
+  selectSelf,
+  (notifications: NotificationsState) => notifications
 );
 
-const selectNewNotificationsCount = createSelector(selectNewNotifications, (notifications) => notifications.length);
-
-const selectReadNotifications = createSelector(selectNotifications, (notifications) =>
-  notifications.filter((notification) => hasBeenRead(notification))
+const selectNewNotifications: <S extends RootState>(state: S) => Notification[] = createSelector(
+  selectNotifications,
+  (notifications: Notification[]) => notifications.filter((notification) => isNew(notification))
 );
 
-export { selectNotifications, selectNewNotifications, selectNewNotificationsCount, selectReadNotifications };
+const selectNewNotificationsCount: <S extends RootState>(state: S) => number = createSelector(
+  selectNewNotifications,
+  (notifications) => notifications.length
+);
+
+const selectReadNotifications: <S extends RootState>(state: S) => Notification[] = createSelector(
+  selectNotifications,
+  (notifications) => notifications.filter((notification) => hasBeenRead(notification))
+);
+
+export {
+  selectNotifications,
+  selectNewNotifications,
+  selectNewNotificationsCount,
+  selectReadNotifications,
+  useTypedNotificationsSelector,
+};

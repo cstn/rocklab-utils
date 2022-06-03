@@ -1,27 +1,36 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import initialState from './sessionState';
+import { User, UserProfile } from '@rocklab/react-utils';
 import { Status } from '../../status';
-import { AuthError } from '../types';
-import { SessionPayload, SessionState } from './types';
+import { AuthError } from '../utils/errors';
+import { SessionState } from './types';
+import initialState from './sessionState';
 
 const clear = () => initialState;
 
-const loginRequest = (state: SessionState) => ({
+const loginRequest = (state: SessionState): SessionState => ({
   ...state,
   status: Status.Pending,
 });
 
-const loginSuccess = (state: SessionState, action: PayloadAction<SessionPayload>) => ({
+const loginSuccess = (
+  state: SessionState,
+  action: PayloadAction<{
+    user: User;
+    profile: UserProfile;
+    access_token: string;
+    refresh_token: string;
+  }>
+): SessionState => ({
   ...state,
   status: Status.Resolved,
-  error: null,
-  user: action.payload.user,
-  profile: action.payload.profile,
-  accessToken: action.payload.access_token,
-  refreshToken: action.payload.refresh_token,
+  error: undefined,
+  user: action.payload?.user,
+  profile: action.payload?.profile,
+  accessToken: action.payload?.access_token,
+  refreshToken: action.payload?.refresh_token,
 });
 
-const loginFailure = (state: SessionState, action: Partial<PayloadAction<AuthError>>) => ({
+const loginFailure = (state: SessionState, action: Partial<PayloadAction<AuthError>>): SessionState => ({
   ...state,
   status: Status.Rejected,
   user: undefined,
@@ -31,24 +40,24 @@ const loginFailure = (state: SessionState, action: Partial<PayloadAction<AuthErr
   error: action.payload,
 });
 
-const logoutRequest = (state: SessionState) => ({
+const logoutRequest = (state: SessionState): SessionState => ({
   ...state,
   status: Status.Pending,
   user: undefined,
   profile: undefined,
 });
 
-const logoutSuccess = (state: SessionState) => ({
+const logoutSuccess = (state: SessionState): SessionState => ({
   ...state,
   status: Status.Resolved,
   user: undefined,
   profile: undefined,
   accessToken: undefined,
   refreshToken: undefined,
-  error: null,
+  error: undefined,
 });
 
-const logoutFailure = (state: SessionState, action: Partial<PayloadAction<AuthError>>) => ({
+const logoutFailure = (state: SessionState, action: Partial<PayloadAction<AuthError>>): SessionState => ({
   ...state,
   status: Status.Rejected,
   user: undefined,
@@ -58,20 +67,23 @@ const logoutFailure = (state: SessionState, action: Partial<PayloadAction<AuthEr
   error: action.payload,
 });
 
-const sessionRequest = (state: SessionState) => ({
+const sessionRequest = (state: SessionState): SessionState => ({
   ...state,
   status: Status.Pending,
 });
 
-const sessionSuccess = (state: SessionState, action: PayloadAction<SessionPayload>) => ({
+const sessionSuccess = (
+  state: SessionState,
+  action: PayloadAction<{ user: User; profile: UserProfile }>
+): SessionState => ({
   ...state,
   status: Status.Resolved,
-  error: null,
-  user: action.payload.user,
-  profile: action.payload.profile,
+  error: undefined,
+  user: action.payload?.user,
+  profile: action.payload?.profile,
 });
 
-const sessionFailure = (state: SessionState, action: Partial<PayloadAction<AuthError>>) => ({
+const sessionFailure = (state: SessionState, action: Partial<PayloadAction<AuthError>>): SessionState => ({
   ...state,
   status: Status.Rejected,
   user: undefined,

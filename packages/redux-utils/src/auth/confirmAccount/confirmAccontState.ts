@@ -1,9 +1,9 @@
-import { ConfirmState } from './types';
 import { Status } from '../../status';
+import { ConfirmState } from './types';
 
 const initialState: ConfirmState = {
   status: Status.Idle,
-  error: null,
+  error: undefined,
   userId: undefined,
 };
 

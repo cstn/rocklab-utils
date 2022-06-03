@@ -1,3 +1,4 @@
+import { PayloadAction } from '@reduxjs/toolkit';
 import initialState from './notificationsState';
 import {
   createError,
@@ -15,43 +16,40 @@ const clear = () => initialState;
 
 const addMessage = (
   state: NotificationsState,
-  { payload }: { payload: { type: NotificationType; message: Message; details?: Message } }
-) => [...state, createNotification(payload.type, payload.message, payload.details)];
-
-const addInfo = (state: NotificationsState, { payload }: { payload: { message: Message; details?: Message } }) => [
+  action: PayloadAction<{ type: NotificationType; message: Message; details?: Message }>
+): NotificationsState => [
   ...state,
-  createInfo(payload.message, payload.details),
+  createNotification(action.payload.type, action.payload.message, action.payload.details),
 ];
 
-const addSuccess = (state: NotificationsState, { payload }: { payload: { message: Message; details?: Message } }) => [
-  ...state,
-  createSuccess(payload.message, payload.details),
+const addInfo = (
+  state: NotificationsState,
+  action: PayloadAction<{ message: Message; details?: Message }>
+): NotificationsState => [...state, createInfo(action.payload.message, action.payload.details)];
+
+const addSuccess = (
+  state: NotificationsState,
+  action: PayloadAction<{ message: Message; details?: Message }>
+): NotificationsState => [...state, createSuccess(action.payload.message, action.payload.details)];
+
+const addWarning = (
+  state: NotificationsState,
+  action: PayloadAction<{ message: Message; details?: Message }>
+): NotificationsState => [...state, createWarning(action.payload.message, action.payload.details)];
+
+const addError = (
+  state: NotificationsState,
+  action: PayloadAction<{ message: Message; details?: Message }>
+): NotificationsState => [...state, createError(action.payload.message, action.payload.details)];
+
+const read = (state: NotificationsState, action: PayloadAction<number>): NotificationsState => [
+  ...state.map((notification, index) => (index === action.payload ? readNotification(notification) : notification)),
 ];
 
-const addWarning = (state: NotificationsState, { payload }: { payload: { message: Message; details?: Message } }) => [
-  ...state,
-  createWarning(payload.message, payload.details),
-];
+const remove = (state: NotificationsState, action: PayloadAction<number>): NotificationsState =>
+  removeNotificationByIndex(state, action.payload);
 
-const addError = (state: NotificationsState, { payload }: { payload: { message: Message; details?: Message } }) => [
-  ...state,
-  createError(payload.message, payload.details),
-];
+const removeById = (state: NotificationsState, action: PayloadAction<string>): NotificationsState =>
+  removeNotification(state, action.payload);
 
-const read = (state: NotificationsState, { payload }: { payload: { index: number } }) => [
-  ...state.map((notification, index) => (index === payload.index ? readNotification(notification) : notification)),
-];
-
-const remove = (state: NotificationsState, { payload }: { payload: { index?: number; identifier?: string } }) => {
-  if (payload.identifier) {
-    return removeNotification(state, payload.identifier);
-  }
-
-  if (payload.index) {
-    return removeNotificationByIndex(state, payload.index);
-  }
-
-  return state;
-};
-
-export { clear, addWarning, addMessage, addSuccess, addInfo, addError, remove, read };
+export { clear, addWarning, addMessage, addSuccess, addInfo, addError, remove, removeById, read };

@@ -1,20 +1,20 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import initialState from './registerState';
 import { Status } from '../../status';
-import { AuthError } from '../types';
 import { RegisterState } from './types';
+import { AuthError } from '../utils/errors';
 
 const clear = () => initialState;
 
-const registerRequest = (state: RegisterState) => ({
+const registerRequest = (state: RegisterState): RegisterState => ({
   ...state,
   status: Status.Pending,
 });
 
-const registerSuccess = (state: RegisterState) => ({
+const registerSuccess = (state: RegisterState): RegisterState => ({
   ...state,
   status: Status.Resolved,
-  error: null,
+  error: undefined,
 });
 
 const registerFailure = (state: RegisterState, action: Partial<PayloadAction<AuthError>>) => ({
