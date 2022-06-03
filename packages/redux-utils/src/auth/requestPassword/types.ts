@@ -1,10 +1,8 @@
 import { Status } from '../../status';
-import { AuthError } from '../types';
+import { AuthError } from '../utils/errors';
 
 export type RequestPasswordState = {
   status: Status;
   email?: string;
-  error: AuthError | null | undefined;
+  error?: AuthError;
 };
-
-export type RequestPasswordPayload = { email: string };

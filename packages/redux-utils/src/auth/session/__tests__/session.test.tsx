@@ -1,16 +1,17 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Store } from '@reduxjs/toolkit';
 import { fireEvent, screen } from '@testing-library/react';
 import renderWithStore from '../../../test/utils';
-import { selectSessionStatus, selectCurrentUser, selectSessionErrorMessage, selectCurrentUserProfile } from '../index';
+import { useTypedAuthSelector } from '../../authSelectors';
+import { selectSessionStatus, selectSessionError, selectSessionUser, selectSessionUserProfile } from '../index';
 import setup, { apiMock, actions } from './setup';
 
 const Test = () => {
-  const status = useSelector(selectSessionStatus);
-  const error = useSelector(selectSessionErrorMessage);
-  const user = useSelector(selectCurrentUser);
-  const profile = useSelector(selectCurrentUserProfile);
+  const status = useTypedAuthSelector(selectSessionStatus);
+  const error = useTypedAuthSelector(selectSessionError);
+  const user = useTypedAuthSelector(selectSessionUser);
+  const profile = useTypedAuthSelector(selectSessionUserProfile);
   const dispatch = useDispatch();
   const handleLogin = () => dispatch(actions.loginUser({ username: 'test', password: 'password' }));
   const handleLogout = () => dispatch(actions.logoutUser());
@@ -19,7 +20,7 @@ const Test = () => {
   return (
     <div>
       <div data-testid="status">{status}</div>
-      <div data-testid="error">{error}</div>
+      <div data-testid="error">{error?.message}</div>
       <div data-testid="username">{user?.username}</div>
       <div data-testid="firstName">{profile?.firstName}</div>
       <button type="button" onClick={handleLogin}>
@@ -75,14 +76,14 @@ describe('session', () => {
     });
 
     it('should handle failed login', async () => {
-      (apiMock.login as jest.Mock).mockResolvedValueOnce({ status: 400, data: { error: 'test' } });
+      (apiMock.login as jest.Mock).mockResolvedValueOnce({ status: 400, data: { message: 'test' } });
 
       renderWithStore(<Test />, { store });
 
       fireEvent.click(screen.getByRole('button', { name: 'login' }));
 
       expect(await screen.findByText('rejected')).toBeInTheDocument();
-      expect(screen.getByTestId('error')).toHaveTextContent('Test error');
+      expect(screen.getByTestId('error')).toHaveTextContent('Could not login user');
     });
 
     it('should handle errors while login', async () => {
@@ -93,7 +94,7 @@ describe('session', () => {
       fireEvent.click(screen.getByRole('button', { name: 'login' }));
 
       expect(await screen.findByText('rejected')).toBeInTheDocument();
-      expect(screen.getByTestId('error')).toHaveTextContent('Test error');
+      expect(screen.getByTestId('error')).toHaveTextContent('test');
     });
   });
 
@@ -120,14 +121,14 @@ describe('session', () => {
     });
 
     it('should handle failed logout', async () => {
-      (apiMock.logout as jest.Mock).mockResolvedValueOnce({ status: 400, data: { error: 'test' } });
+      (apiMock.logout as jest.Mock).mockResolvedValueOnce({ status: 400, data: { message: 'test' } });
 
       renderWithStore(<Test />, { store });
 
       fireEvent.click(screen.getByRole('button', { name: 'logout' }));
 
       expect(await screen.findByText('rejected')).toBeInTheDocument();
-      expect(screen.getByTestId('error')).toHaveTextContent('Test error');
+      expect(screen.getByTestId('error')).toHaveTextContent('Could not logout user');
     });
 
     it('should handle errors while logout', async () => {
@@ -138,7 +139,7 @@ describe('session', () => {
       fireEvent.click(screen.getByRole('button', { name: 'logout' }));
 
       expect(await screen.findByText('rejected')).toBeInTheDocument();
-      expect(screen.getByTestId('error')).toHaveTextContent('Test error');
+      expect(screen.getByTestId('error')).toHaveTextContent('test');
     });
   });
 
@@ -180,7 +181,7 @@ describe('session', () => {
       fireEvent.click(screen.getByRole('button', { name: 'session' }));
 
       expect(await screen.findByText('rejected')).toBeInTheDocument();
-      expect(screen.getByTestId('error')).toHaveTextContent('Test error');
+      expect(screen.getByTestId('error')).toHaveTextContent('test');
     });
   });
 });

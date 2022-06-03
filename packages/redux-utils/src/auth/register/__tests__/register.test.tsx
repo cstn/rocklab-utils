@@ -1,14 +1,15 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Store } from '@reduxjs/toolkit';
 import { fireEvent, screen } from '@testing-library/react';
 import renderWithStore from '../../../test/utils';
-import { selectRegisterStatus, selectRegisterErrorMessage } from '../index';
+import { selectRegisterStatus, selectRegisterError } from '../index';
 import setup, { apiMock, actions } from './setup';
+import { useTypedAuthSelector } from '../../authSelectors';
 
 const Test = () => {
-  const status = useSelector(selectRegisterStatus);
-  const error = useSelector(selectRegisterErrorMessage);
+  const status = useTypedAuthSelector(selectRegisterStatus);
+  const error = useTypedAuthSelector(selectRegisterError);
   const dispatch = useDispatch();
   const handleClick = () =>
     dispatch(actions.registerUser({ username: 'test', email: 'test@rocklab.de', password: 'Test123' }));
@@ -16,7 +17,7 @@ const Test = () => {
   return (
     <div>
       <div data-testid="status">{status}</div>
-      <div data-testid="error">{error}</div>
+      <div data-testid="error">{error?.message}</div>
       <button type="button" onClick={handleClick}>
         click
       </button>
@@ -61,14 +62,14 @@ describe('register', () => {
   });
 
   it('should handle failed account registration', async () => {
-    (apiMock.register as jest.Mock).mockResolvedValueOnce({ status: 400, error: { message: 'test' } });
+    (apiMock.register as jest.Mock).mockResolvedValueOnce({ status: 400, data: { message: 'test' } });
 
     renderWithStore(<Test />, { store });
 
     fireEvent.click(screen.getByRole('button', { name: 'click' }));
 
     expect(await screen.findByText('rejected')).toBeInTheDocument();
-    expect(screen.getByTestId('error')).toHaveTextContent('Test error');
+    expect(screen.getByTestId('error')).toHaveTextContent('test');
   });
 
   it('should handle errors while account registration', async () => {
@@ -79,6 +80,6 @@ describe('register', () => {
     fireEvent.click(screen.getByRole('button', { name: 'click' }));
 
     expect(await screen.findByText('rejected')).toBeInTheDocument();
-    expect(screen.getByTestId('error')).toHaveTextContent('Test error');
+    expect(screen.getByTestId('error')).toHaveTextContent('test');
   });
 });

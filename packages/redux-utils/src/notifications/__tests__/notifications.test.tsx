@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { screen, fireEvent } from '@testing-library/react';
 import renderWithStore from '../../test/utils';
 import {
@@ -11,16 +11,17 @@ import {
   createError,
   createWarning,
   createSuccess,
+  useTypedNotificationsSelector,
 } from '../index';
 import setup from './setup';
 
 const Test = () => {
   const dispatch = useDispatch();
-  const notifications = useSelector(selectNotifications);
-  const newNotificationsCount = useSelector(selectNewNotificationsCount);
+  const notifications = useTypedNotificationsSelector(selectNotifications);
+  const newNotificationsCount = useTypedNotificationsSelector(selectNewNotificationsCount);
 
-  const handleRead = (index: number) => () => dispatch(notificationsActions.read({ index }));
-  const handleDelete = (index: number) => () => dispatch(notificationsActions.remove({ index }));
+  const handleRead = (index: number) => () => dispatch(notificationsActions.read(index));
+  const handleDelete = (index: number) => () => dispatch(notificationsActions.remove(index));
 
   return (
     <div>

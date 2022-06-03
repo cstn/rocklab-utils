@@ -1,9 +1,9 @@
 import { Status } from '../../status';
-import { AuthError } from '../types';
+import { AuthError } from '../utils/errors';
 
 export type RegisterState = {
   status: Status;
   username?: string;
   email?: string;
-  error: AuthError | null | undefined;
+  error?: AuthError;
 };

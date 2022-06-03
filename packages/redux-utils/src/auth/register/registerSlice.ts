@@ -2,14 +2,14 @@ import { createSlice } from '@reduxjs/toolkit';
 import initialState from './registerState';
 import createRegisterThunks from './registerThunks';
 import { clear, registerFailure, registerRequest, registerSuccess } from './registerReducer';
-import { AuthAPI, AuthOptions } from '../types';
+import { AuthAPI } from '../types';
 
 const reducers = {
   clear,
 };
 
-const registerSlice = (name: string, api: AuthAPI, options?: AuthOptions) => {
-  const { registerUser } = createRegisterThunks(api, options);
+const registerSlice = (name: string, api: AuthAPI) => {
+  const { registerUser } = createRegisterThunks(api);
 
   const slice = createSlice({
     name,

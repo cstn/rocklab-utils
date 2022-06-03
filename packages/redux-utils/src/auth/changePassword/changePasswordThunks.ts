@@ -1,11 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { AuthAPI, AuthOptions, Payload, AuthError } from '../types';
+import { AuthAPI, Payload } from '../types';
+import { AuthError } from '../utils/errors';
+import getErrorMessage from '../../utils/errors';
 
-const defaultTransformError = () => ({ message: 'Change password error' });
-
-const createChangePasswordThunks = (api: AuthAPI, options?: AuthOptions) => {
-  const transformError = options?.transformError ?? defaultTransformError;
-
+const createChangePasswordThunks = (api: AuthAPI) => {
   const changePassword = createAsyncThunk<
     Payload,
     { oldPassword: string; newPassword: string },
@@ -15,19 +13,25 @@ const createChangePasswordThunks = (api: AuthAPI, options?: AuthOptions) => {
       const response = await api.changePassword(oldPassword, newPassword);
 
       if (response.status >= 400) {
-        return thunkApi.rejectWithValue(transformError(response));
+        return thunkApi.rejectWithValue({
+          status: response.status,
+          message: (response.data?.message as string) ?? 'Could not change the password',
+          data: response.data,
+        });
       }
       if (response.status !== 204 && !response.data) {
         return thunkApi.rejectWithValue({
+          status: 500,
           message: 'No change password response data',
-          status: response.status,
-          statusText: response.statusText,
         });
       }
 
       return response.data || {};
     } catch (ex) {
-      return thunkApi.rejectWithValue(transformError(ex));
+      return thunkApi.rejectWithValue({
+        status: 500,
+        message: getErrorMessage(ex),
+      });
     }
   });
 

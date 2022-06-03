@@ -1,21 +1,22 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Store } from '@reduxjs/toolkit';
 import { fireEvent, screen } from '@testing-library/react';
 import renderWithStore from '../../../test/utils';
-import { selectConfirmedStatus, selectConfirmedErrorMessage } from '../index';
+import { selectConfirmedStatus, selectConfirmedError } from '../index';
 import setup, { apiMock, actions } from './setup';
+import { useTypedAuthSelector } from '../../authSelectors';
 
 const Test = () => {
-  const status = useSelector(selectConfirmedStatus);
-  const error = useSelector(selectConfirmedErrorMessage);
+  const status = useTypedAuthSelector(selectConfirmedStatus);
+  const error = useTypedAuthSelector(selectConfirmedError);
   const dispatch = useDispatch();
   const handleClick = () => dispatch(actions.confirmAccount({ userId: 'user', token: 'token' }));
 
   return (
     <div>
       <div data-testid="status">{status}</div>
-      <div data-testid="error">{error}</div>
+      <div data-testid="error">{error?.message}</div>
       <button type="button" onClick={handleClick}>
         click
       </button>
@@ -67,7 +68,7 @@ describe('confirmAccount', () => {
     fireEvent.click(screen.getByRole('button', { name: 'click' }));
 
     expect(await screen.findByText('rejected')).toBeInTheDocument();
-    expect(screen.getByTestId('error')).toHaveTextContent('Test error');
+    expect(screen.getByTestId('error')).toHaveTextContent('test');
   });
 
   it('should handle errors while account confirmation', async () => {
@@ -78,6 +79,6 @@ describe('confirmAccount', () => {
     fireEvent.click(screen.getByRole('button', { name: 'click' }));
 
     expect(await screen.findByText('rejected')).toBeInTheDocument();
-    expect(screen.getByTestId('error')).toHaveTextContent('Test error');
+    expect(screen.getByTestId('error')).toHaveTextContent('test');
   });
 });

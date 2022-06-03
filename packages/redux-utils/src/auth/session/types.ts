@@ -1,6 +1,6 @@
 import { User, UserProfile } from '@rocklab/react-utils';
 import { Status } from '../../status';
-import { AuthError } from '../types';
+import { AuthError } from '../utils/errors';
 
 export type SessionState = {
   status: Status;
@@ -8,12 +8,5 @@ export type SessionState = {
   profile?: UserProfile;
   accessToken?: string;
   refreshToken?: string;
-  error: AuthError | null | undefined;
-};
-
-export type SessionPayload = {
-  user?: User;
-  profile?: UserProfile;
-  access_token?: string;
-  refresh_token?: string;
+  error?: AuthError;
 };

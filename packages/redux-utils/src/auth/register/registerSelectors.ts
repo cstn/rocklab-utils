@@ -1,17 +1,33 @@
 import { createSelector } from 'reselect';
-import { RootState } from '../../types';
+import { RootState } from '../types';
 import { RegisterState } from './types';
-import { SessionState } from '../session/types';
+import selectAuth from '../authSelectors';
+import { Status } from '../../status';
+import { AuthError } from '../utils/errors';
 
-const selectSelf = (state: RootState) => state.auth.register;
-
-const selectStatus = createSelector(selectSelf, (state: RegisterState) => state.status);
-const selectError = createSelector(selectSelf, (state: RegisterState) => state.error);
-const selectUsername = createSelector(selectSelf, (state: RegisterState) => state.username);
-const selectEmail = createSelector(selectSelf, (state: RegisterState) => state.email);
-const selectErrorMessage = createSelector(
-  selectSelf,
-  (state: SessionState) => state.error?.message ?? 'Register error'
+const selectSelf: <S extends RootState>(state: S) => RegisterState = createSelector(
+  selectAuth,
+  (state) => state.register
 );
 
-export { selectStatus, selectError, selectUsername, selectEmail, selectErrorMessage };
+const selectRegisterStatus: <S extends RootState>(state: S) => Status = createSelector(
+  selectSelf,
+  (state: RegisterState) => state.status
+);
+
+const selectRegisterError: <S extends RootState>(state: S) => AuthError | undefined = createSelector(
+  selectSelf,
+  (state: RegisterState) => state.error
+);
+
+const selectRegisteredUsername: <S extends RootState>(state: S) => string | undefined = createSelector(
+  selectSelf,
+  (state: RegisterState) => state.username
+);
+
+const selectRegisteredEmail: <S extends RootState>(state: S) => string | undefined = createSelector(
+  selectSelf,
+  (state: RegisterState) => state.email
+);
+
+export { selectRegisterStatus, selectRegisterError, selectRegisteredUsername, selectRegisteredEmail };

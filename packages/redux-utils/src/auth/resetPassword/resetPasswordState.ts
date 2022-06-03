@@ -3,7 +3,7 @@ import { Status } from '../../status';
 
 const initialState: ResetPasswordState = {
   status: Status.Idle,
-  error: null,
+  error: undefined,
   email: undefined,
 };
 
