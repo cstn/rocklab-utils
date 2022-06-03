@@ -1,4 +1,5 @@
 export { AuthAPI } from './types';
+export { AuthError } from './utils/errors';
 export { SessionState } from './session/types';
 export { RegisterState } from './register/types';
 export { ConfirmState } from './confirmAccount/types';
@@ -11,5 +12,4 @@ export * from './confirmAccount';
 export * from './changePassword';
 export * from './requestPassword';
 export * from './resetPassword';
-export * from './authSelectors';
 export { default as createAuthReducer } from './authReducer';

@@ -1,15 +1,23 @@
 import { createSelector } from 'reselect';
-import { RootState } from '../../types';
+import { RootState } from '../types';
 import { ResetPasswordState } from './types';
-import { SessionState } from '../session/types';
+import selectAuth from '../authSelectors';
+import { Status } from '../../status';
+import { AuthError } from '../utils/errors';
 
-const selectSelf = (state: RootState) => state.auth.resetPassword;
-
-const selectStatus = createSelector(selectSelf, (state: ResetPasswordState) => state.status);
-const selectError = createSelector(selectSelf, (state: ResetPasswordState) => state.error);
-const selectErrorMessage = createSelector(
-  selectSelf,
-  (state: SessionState) => state.error?.message ?? 'Reset password error'
+const selectSelf: <S extends RootState>(state: S) => ResetPasswordState = createSelector(
+  selectAuth,
+  (state) => state.resetPassword
 );
 
-export { selectStatus, selectError, selectErrorMessage };
+const selectResetPasswordStatus: <S extends RootState>(state: S) => Status = createSelector(
+  selectSelf,
+  (state: ResetPasswordState) => state.status
+);
+
+const selectResetPasswordError: <S extends RootState>(state: S) => AuthError | undefined = createSelector(
+  selectSelf,
+  (state: ResetPasswordState) => state.error
+);
+
+export { selectResetPasswordStatus, selectResetPasswordError };

@@ -1,21 +1,22 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Store } from '@reduxjs/toolkit';
 import { fireEvent, screen } from '@testing-library/react';
 import renderWithStore from '../../../test/utils';
-import { selectChangePasswordErrorMessage, selectChangePasswordStatus } from '../index';
+import { useTypedAuthSelector } from '../../authSelectors';
+import { selectChangePasswordError, selectChangePasswordStatus } from '../index';
 import setup, { apiMock, actions } from './setup';
 
 const Test = () => {
-  const status = useSelector(selectChangePasswordStatus);
-  const error = useSelector(selectChangePasswordErrorMessage);
+  const status = useTypedAuthSelector(selectChangePasswordStatus);
+  const error = useTypedAuthSelector(selectChangePasswordError);
   const dispatch = useDispatch();
   const handleClick = () => dispatch(actions.changePassword({ oldPassword: 'Password', newPassword: 'Test123' }));
 
   return (
     <div>
       <div data-testid="status">{status}</div>
-      <div data-testid="error">{error}</div>
+      <div data-testid="error">{error?.message}</div>
       <button type="button" onClick={handleClick}>
         click
       </button>
@@ -60,14 +61,14 @@ describe('changePassword', () => {
   });
 
   it('should handle failed password change', async () => {
-    (apiMock.changePassword as jest.Mock).mockResolvedValueOnce({ status: 400, data: { message: 'Test' } });
+    (apiMock.changePassword as jest.Mock).mockResolvedValueOnce({ status: 400, data: { message: 'test' } });
 
     renderWithStore(<Test />, { store });
 
     fireEvent.click(screen.getByRole('button', { name: 'click' }));
 
     expect(await screen.findByText('rejected')).toBeInTheDocument();
-    expect(screen.getByTestId('error')).toHaveTextContent('Test');
+    expect(screen.getByTestId('error')).toHaveTextContent('test');
   });
 
   it('should handle errors while password change', async () => {
@@ -78,6 +79,6 @@ describe('changePassword', () => {
     fireEvent.click(screen.getByRole('button', { name: 'click' }));
 
     expect(await screen.findByText('rejected')).toBeInTheDocument();
-    expect(screen.getByTestId('error')).toHaveTextContent('Test error');
+    expect(screen.getByTestId('error')).toHaveTextContent('test');
   });
 });

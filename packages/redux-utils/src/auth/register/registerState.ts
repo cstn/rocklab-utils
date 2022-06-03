@@ -5,7 +5,7 @@ const initialState: RegisterState = {
   status: Status.Idle,
   username: undefined,
   email: undefined,
-  error: null,
+  error: undefined,
 };
 
 export default initialState;

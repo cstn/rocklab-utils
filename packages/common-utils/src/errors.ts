@@ -34,8 +34,8 @@ const toErrorWithMessage = (error: unknown): ErrorWithMessage => {
 
   try {
     return new Error(JSON.stringify(error));
-  } catch {
-    return new Error(String(error));
+  } catch (ex) {
+    return new Error(`${String(ex)}: ${String(error)}`);
   }
 };
 

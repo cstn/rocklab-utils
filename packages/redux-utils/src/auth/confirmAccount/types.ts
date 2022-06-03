@@ -1,10 +1,8 @@
 import { Status } from '../../status';
-import { AuthError } from '../types';
+import { AuthError } from '../utils/errors';
 
 export type ConfirmState = {
   status: Status;
-  userId?: string;
-  error: AuthError | null | undefined;
+  userId?: number;
+  error?: AuthError;
 };
-
-export type ConfirmPayload = { userId: string; token: string };

@@ -2,14 +2,14 @@ import { createSlice } from '@reduxjs/toolkit';
 import initialState from './changePasswordState';
 import createChangePasswordThunks from './changePasswordThunks';
 import { clear, changePasswordFailure, changePasswordRequest, changePasswordSuccess } from './changePasswordReducer';
-import { AuthAPI, AuthOptions } from '../types';
+import { AuthAPI } from '../types';
 
 const reducers = {
   clear,
 };
 
-const changePasswordSlice = (name: string, api: AuthAPI, options?: AuthOptions) => {
-  const { changePassword } = createChangePasswordThunks(api, options);
+const changePasswordSlice = (name: string, api: AuthAPI) => {
+  const { changePassword } = createChangePasswordThunks(api);
 
   const slice = createSlice({
     name,

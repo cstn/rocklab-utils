@@ -1,23 +1,26 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import initialState from './changePasswordState';
 import { Status } from '../../status';
-import { AuthError } from '../types';
 import { ChangePasswordState } from './types';
+import { AuthError } from '../utils/errors';
 
-const clear = () => initialState;
+const clear = (): ChangePasswordState => initialState;
 
-const changePasswordRequest = (state: ChangePasswordState) => ({
+const changePasswordRequest = (state: ChangePasswordState): ChangePasswordState => ({
   ...state,
   status: Status.Pending,
 });
 
-const changePasswordSuccess = (state: ChangePasswordState) => ({
+const changePasswordSuccess = (state: ChangePasswordState): ChangePasswordState => ({
   ...state,
   status: Status.Resolved,
-  error: null,
+  error: undefined,
 });
 
-const changePasswordFailure = (state: ChangePasswordState, action: Partial<PayloadAction<AuthError>>) => ({
+const changePasswordFailure = (
+  state: ChangePasswordState,
+  action: Partial<PayloadAction<AuthError>>
+): ChangePasswordState => ({
   ...state,
   status: Status.Rejected,
   error: action.payload,
