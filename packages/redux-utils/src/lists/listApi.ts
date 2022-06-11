@@ -13,12 +13,12 @@ interface ListResponse<T> {
   items: T[];
 }
 
-type ListApiOptions<T> = FetchBaseQueryArgs & {
+type ListApiOptions<T, R = unknown> = FetchBaseQueryArgs & {
   path: string;
   reducerPath: string;
   tagType: string;
   transformQueryResponse?: (
-    baseQueryReturnValue: unknown,
+    baseQueryReturnValue: R,
     meta: FetchBaseQueryMeta | undefined,
     arg: QueryParams | void
   ) => ListResponse<T> | Promise<ListResponse<T>>;
@@ -32,7 +32,7 @@ type QueryParams = {
   [key: string]: string | number;
 };
 
-const listApi = <T extends Item>({
+const listApi = <T extends Item, R = unknown>({
   baseUrl,
   fetchFn,
   path,
@@ -41,7 +41,7 @@ const listApi = <T extends Item>({
   transformQueryResponse,
   tagType,
   ...passThrough
-}: ListApiOptions<T>) => {
+}: ListApiOptions<T, R>) => {
   const api = createApi({
     reducerPath,
     baseQuery: fetchBaseQuery({ baseUrl, prepareHeaders, fetchFn }),
