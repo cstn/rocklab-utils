@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
-import { screen } from '@testing-library/react';
-import renderWithCurrentUser from './utils';
-import { useCurrentUser, User, UserProfile, withCurrentUser } from '../index';
+import { render, screen } from '@testing-library/react';
+import { CurrentUserProvider, useCurrentUser, User, UserProfile, withCurrentUser } from '../index';
 
 describe('currentUser', () => {
   describe('hook', () => {
@@ -35,14 +34,18 @@ describe('currentUser', () => {
       const username = 'test';
       const email = 'mail@test.local';
 
-      renderWithCurrentUser(<TestComponent />, {
-        user: {
-          id,
-          username,
-          email,
-        },
-        profile: undefined,
-      });
+      render(
+        <CurrentUserProvider
+          profile={undefined}
+          user={{
+            id,
+            username,
+            email,
+          }}
+        >
+          <TestComponent />
+        </CurrentUserProvider>
+      );
 
       expect(screen.getByTitle('userid').innerHTML).toEqual(id.toString());
       expect(screen.getByTitle('username').innerHTML).toEqual(username);
@@ -54,14 +57,18 @@ describe('currentUser', () => {
       const firstName = 'Tom';
       const lastName = 'Test';
 
-      renderWithCurrentUser(<TestComponent />, {
-        user: undefined,
-        profile: {
-          id,
-          firstName,
-          lastName,
-        },
-      });
+      render(
+        <CurrentUserProvider
+          profile={{
+            id,
+            firstName,
+            lastName,
+          }}
+          user={undefined}
+        >
+          <TestComponent />
+        </CurrentUserProvider>
+      );
 
       expect(screen.getByTitle('profileid').innerHTML).toEqual(id.toString());
       expect(screen.getByTitle('firstName').innerHTML).toEqual(firstName);
@@ -102,14 +109,18 @@ describe('currentUser', () => {
       const username = 'test';
       const email = 'mail@test.local';
 
-      renderWithCurrentUser(<TestComponent />, {
-        user: {
-          id,
-          username,
-          email,
-        },
-        profile: undefined,
-      });
+      render(
+        <CurrentUserProvider
+          profile={undefined}
+          user={{
+            id,
+            username,
+            email,
+          }}
+        >
+          <TestComponent />
+        </CurrentUserProvider>
+      );
 
       expect(screen.getByTitle('userid').innerHTML).toEqual(id.toString());
       expect(screen.getByTitle('username').innerHTML).toEqual(username);
@@ -121,14 +132,18 @@ describe('currentUser', () => {
       const firstName = 'Tom';
       const lastName = 'Test';
 
-      renderWithCurrentUser(<TestComponent />, {
-        user: undefined,
-        profile: {
-          id,
-          firstName,
-          lastName,
-        },
-      });
+      render(
+        <CurrentUserProvider
+          profile={{
+            id,
+            firstName,
+            lastName,
+          }}
+          user={undefined}
+        >
+          <TestComponent />
+        </CurrentUserProvider>
+      );
 
       expect(screen.getByTitle('profileid').innerHTML).toEqual(id.toString());
       expect(screen.getByTitle('firstName').innerHTML).toEqual(firstName);
