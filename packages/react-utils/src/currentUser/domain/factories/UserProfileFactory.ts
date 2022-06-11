@@ -12,7 +12,7 @@ const createUserProfile = ({
   fax,
   mobile,
 }: {
-  id: number;
+  id?: number;
   salutation?: string;
   firstName: string;
   lastName: string;
@@ -28,7 +28,7 @@ const createUserProfile = ({
   }
 
   return {
-    id,
+    id: id || 0,
     salutation,
     lastName,
     firstName,

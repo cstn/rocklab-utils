@@ -1,4 +1,4 @@
-import React, { ComponentType, FC, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import { Provider } from 'react-redux';
 import { render, RenderOptions, RenderResult } from '@testing-library/react';
 import { Store } from '@reduxjs/toolkit';
@@ -11,10 +11,11 @@ type Props = {
 const renderWithStore = (ui: ReactElement, options: Omit<RenderOptions, 'wrapper'> & Props): RenderResult => {
   const { store } = options;
 
-  const StoreProvider: FC<Props> = ({ children }) => <Provider store={store}>{children}</Provider>;
+  // eslint-disable-next-line react/prop-types
+  const StoreProvider = ({ children }: { children: ReactElement }) => <Provider store={store}>{children}</Provider>;
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-  return render(ui, { wrapper: StoreProvider as ComponentType });
+  return render(ui, { wrapper: StoreProvider });
 };
 
 export default renderWithStore;
