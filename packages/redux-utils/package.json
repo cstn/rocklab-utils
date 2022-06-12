@@ -1,6 +1,6 @@
 {
   "name": "@rocklab/redux-utils",
-  "version": "1.16.0",
+  "version": "1.16.1",
   "description": "Redux utils",
   "keywords": [
     "rocklab",
@@ -42,9 +42,9 @@
     "@rocklab/react-utils": "^1.16.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-intl": "5.24.8",
-    "react-redux": "7.2.6",
-    "reselect": "4.1.5"
+    "react-intl": "5.25.1",
+    "react-redux": "7.2.8",
+    "reselect": "4.1.6"
   },
   "devDependencies": {
     "@babel/cli": "7.17.10",
@@ -53,8 +53,8 @@
     "@babel/preset-react": "7.17.12",
     "@testing-library/jest-dom": "5.16.4",
     "@testing-library/react": "12.1.5",
-    "@types/react": "17.0.2",
-    "@types/react-dom": "17.0.2",
+    "@types/react": "17.0.45",
+    "@types/react-dom": "17.0.17",
     "babel-eslint": "10.1.0",
     "babel-jest": "27.5.1",
     "cross-env": "7.0.3",
@@ -63,7 +63,7 @@
     "msw": "0.41.1",
     "rimraf": "3.0.2",
     "ts-jest": "27.1.5",
-    "typescript": "4.7.2",
+    "typescript": "4.7.3",
     "whatwg-fetch": "3.6.2"
   },
   "peerDependencies": {
