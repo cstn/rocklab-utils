@@ -18,8 +18,8 @@
     "url": "https://github.com/cstn/rocklab-utils/issues"
   },
   "engines": {
-    "node": ">= 16",
-    "npm": ">= 8"
+    "node": ">= 18",
+    "npm": ">= 9"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
