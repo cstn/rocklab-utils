@@ -8,6 +8,10 @@
  * @returns {*}
  */
 const shallowClone = <T>(original: T | T[] | Date): T | T[] | Date => {
+  if (original === null || original === undefined) {
+    return original;
+  }
+
   if (original instanceof Array) {
     return Array.from(original);
   }
