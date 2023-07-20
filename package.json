@@ -1,6 +1,6 @@
 {
   "name": "@rocklab/utils",
-  "version": "1.1.29",
+  "version": "1.1.30",
   "description": "JavaScript utils",
   "keywords": [
     "rocklab",
@@ -23,15 +23,18 @@
     "node": ">= 18",
     "npm": ">= 9"
   },
+  "workspaces": [
+    "packages/common.utils",
+    "packages/react-utils",
+    "packages/redux-utils"
+  ],
   "scripts": {
     "prepare": "is-ci || husky install",
-    "postinstall": "npm run bootstrap",
     "compile": "lerna run compile",
     "build": "lerna run build",
     "lerna": "lerna",
     "test": "lerna run test",
     "test:coverage": "lerna run test:coverage",
-    "bootstrap": "lerna bootstrap",
     "version": "lerna version --conventional-commits --message \"chore: bump version\"",
     "publish": "lerna publish --message \"chore: publish %s\"",
     "release": "lerna version --conventional-commits --create-release github --message \"chore: release %s\"",
@@ -61,7 +64,6 @@
     "@babel/preset-env": "7.22.9",
     "@babel/preset-typescript": "7.22.5",
     "@commitlint/cli": "17.6.6",
-    "@commitlint/config-lerna-scopes": "17.6.6",
     "@commitlint/prompt-cli": "17.6.6",
     "@rocklab/commitlint-config": "3.2.30",
     "@rocklab/eslint-config-typescript": "3.2.58",
@@ -76,7 +78,7 @@
     "is-ci": "3.0.1",
     "jest": "28.1.3",
     "jest-junit": "16.0.0",
-    "lerna": "5.6.2",
+    "lerna": "7.1.4",
     "lint-staged": "13.2.3",
     "prettier": "3.0.0",
     "react": "17.0.2",
