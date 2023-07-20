@@ -60,4 +60,5 @@ npm run publish -- from-package
 Create a release
 
 ```shell script
-npm run
+npm run release
+```

@@ -23,15 +23,18 @@
     "node": ">= 18",
     "npm": ">= 9"
   },
+  "workspaces": [
+    "packages/common.utils",
+    "packages/react-utils",
+    "packages/redux-utils"
+  ],
   "scripts": {
     "prepare": "is-ci || husky install",
-    "postinstall": "npm run bootstrap",
     "compile": "lerna run compile",
     "build": "lerna run build",
     "lerna": "lerna",
     "test": "lerna run test",
     "test:coverage": "lerna run test:coverage",
-    "bootstrap": "lerna bootstrap",
     "version": "lerna version --conventional-commits --message \"chore: bump version\"",
     "publish": "lerna publish --message \"chore: publish %s\"",
     "release": "lerna version --conventional-commits --create-release github --message \"chore: release %s\"",
@@ -61,7 +64,6 @@
     "@babel/preset-env": "7.22.9",
     "@babel/preset-typescript": "7.22.5",
     "@commitlint/cli": "17.6.6",
-    "@commitlint/config-lerna-scopes": "17.6.6",
     "@commitlint/prompt-cli": "17.6.6",
     "@rocklab/commitlint-config": "3.2.30",
     "@rocklab/eslint-config-typescript": "3.2.58",
