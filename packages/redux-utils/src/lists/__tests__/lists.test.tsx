@@ -1,6 +1,7 @@
 import React from 'react';
 import { Store } from '@reduxjs/toolkit';
 import { screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import renderWithStore from '../../test/utils';
 import getErrorMessage from '../../utils/errors';
 import setup, { api } from './setup';
@@ -66,11 +67,7 @@ describe('lists', () => {
       return (
         <div>
           <h1>Result</h1>
-          <ul>
-            {data?.items?.map((item) => (
-              <li key={item.id}>{item.name}</li>
-            ))}
-          </ul>
+          <ul>{data?.items?.map((item) => <li key={item.id}>{item.name}</li>)}</ul>
           <div data-testid="count">{data?.count}</div>
           <div data-testid="total">{data?.total}</div>
         </div>
@@ -103,11 +100,7 @@ describe('lists', () => {
       return (
         <div>
           <h1>Result</h1>
-          <ul>
-            {data?.items?.map((item) => (
-              <li key={item.id}>{item.name}</li>
-            ))}
-          </ul>
+          <ul>{data?.items?.map((item) => <li key={item.id}>{item.name}</li>)}</ul>
           <div data-testid="count">{data?.count}</div>
           <div data-testid="total">{data?.total}</div>
         </div>

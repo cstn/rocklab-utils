@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { screen, fireEvent } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import renderWithStore from '../../test/utils';
 import {
   Notification,
