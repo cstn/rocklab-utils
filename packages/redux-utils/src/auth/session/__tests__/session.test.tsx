@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Store } from '@reduxjs/toolkit';
 import { fireEvent, screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import renderWithStore from '../../../test/utils';
 import { useTypedAuthSelector } from '../../authSelectors';
 import { selectSessionStatus, selectSessionError, selectSessionUser, selectSessionUserProfile } from '../index';
