@@ -1,6 +1,6 @@
 {
   "name": "@rocklab/react-utils",
-  "version": "1.17.4",
+  "version": "1.17.5",
   "description": "React utils",
   "keywords": [
     "rocklab",
@@ -47,7 +47,7 @@
     "@babel/preset-env": "7.22.20",
     "@testing-library/jest-dom": "5.17.0",
     "@testing-library/react": "12.1.5",
-    "@types/node": "18.17.17",
+    "@types/node": "18.17.19",
     "@types/react": "17.0.65",
     "@types/react-dom": "17.0.20",
     "babel-jest": "28.1.3",
