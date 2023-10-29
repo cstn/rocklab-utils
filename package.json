@@ -24,7 +24,8 @@
     "npm": ">= 9"
   },
   "workspaces": [
-    "packages/common.utils",
+    "packages/common-utils",
+    "packages/logging",
     "packages/react-utils",
     "packages/redux-utils"
   ],
