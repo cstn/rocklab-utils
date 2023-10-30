@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.16.10](https://github.com/cstn/rocklab-utils/compare/@rocklab/common-utils@1.16.0...@rocklab/common-utils@1.16.10) (2023-10-30)
+
+**Note:** Version bump only for package @rocklab/common-utils
+
 # [1.16.0](https://github.com/cstn/rocklab-utils/compare/@rocklab/common-utils@0.2.2...@rocklab/common-utils@1.16.0) (2023-08-18)
 
 ## 1.16.3 (2022-08-18)
