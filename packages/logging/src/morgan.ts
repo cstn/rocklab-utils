@@ -3,6 +3,8 @@ import type { FormatFn } from 'morgan';
 import morgan, { TokenIndexer } from 'morgan';
 import { Logger } from 'winston';
 
+morgan.token('traceId', (req) => req.headers['TRACE-ID'] as string);
+
 /**
  * morgan format function
  * @param tokens
@@ -22,6 +24,7 @@ const format = <Request extends IncomingMessage, Response extends ServerResponse
     response_time: tokens['response-time'](req, res)
       ? Number.parseFloat(tokens['response-time'](req, res) as string)
       : null,
+    traceId: tokens.traceId(req, res),
   });
 
 /**
