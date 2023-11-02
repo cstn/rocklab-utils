@@ -3,17 +3,31 @@ import type { Request as ExpressRequest } from 'express';
 import type { FormatFn } from 'morgan';
 import morgan, { TokenIndexer } from 'morgan';
 import { Logger } from 'winston';
+import { TraceField } from './fields';
 
-const getRequestHeader = (req: ExpressRequest | IncomingMessage, name: string): string | undefined =>
-  (req as ExpressRequest).headers
-    ? ((req as ExpressRequest).header(name) as string)
-    : ((req as IncomingMessage).headers[name] as string);
+const getRequestHeader = (req: ExpressRequest | IncomingMessage, name: string): string | undefined => {
+  if ((req as IncomingMessage).headers[name]) {
+    return (req as IncomingMessage).headers[name] as string;
+  }
+  if ((req as ExpressRequest).header?.(name)) {
+    return (req as ExpressRequest).header(name) as string;
+  }
+  if ((req as ExpressRequest).params?.[name]) {
+    return (req as ExpressRequest).params[name];
+  }
+  if ((req as ExpressRequest).query?.[name]) {
+    return (req as ExpressRequest).query[name] as string;
+  }
+
+  return undefined;
+};
 
 // trace header
-morgan.token('parentId', (req) => getRequestHeader(req, 'parent-id'));
-morgan.token('requestId', (req) => getRequestHeader(req, 'request-id'));
-morgan.token('spanId', (req) => getRequestHeader(req, 'span-id'));
-morgan.token('traceId', (req) => getRequestHeader(req, 'trace-id'));
+morgan.token('parentId', (req) => getRequestHeader(req, TraceField.ParentId));
+morgan.token('requestId', (req) => getRequestHeader(req, TraceField.RequestId));
+morgan.token('spanId', (req) => getRequestHeader(req, TraceField.SpanId));
+morgan.token('traceId', (req) => getRequestHeader(req, TraceField.TraceId));
+morgan.token('transactionId', (req) => getRequestHeader(req, TraceField.TransactionId));
 
 /**
  * morgan format function
@@ -38,6 +52,7 @@ const format = <Request extends IncomingMessage, Response extends ServerResponse
     requestId: tokens.requestId(req, res),
     spanId: tokens.spanId(req, res),
     traceId: tokens.traceId(req, res),
+    transactionId: tokens.transactionId(req, res),
   });
 
 /**
