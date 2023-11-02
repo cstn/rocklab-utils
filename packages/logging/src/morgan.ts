@@ -1,9 +1,19 @@
 import { IncomingMessage, ServerResponse } from 'http';
+import type { Request as ExpressRequest } from 'express';
 import type { FormatFn } from 'morgan';
 import morgan, { TokenIndexer } from 'morgan';
 import { Logger } from 'winston';
 
-morgan.token('traceId', (req) => req.headers['TRACE-ID'] as string);
+const getRequestHeader = (req: ExpressRequest | IncomingMessage, name: string): string | undefined =>
+  (req as ExpressRequest).headers
+    ? ((req as ExpressRequest).header(name) as string)
+    : ((req as IncomingMessage).headers[name] as string);
+
+// trace header
+morgan.token('parentId', (req) => getRequestHeader(req, 'parent-id'));
+morgan.token('requestId', (req) => getRequestHeader(req, 'request-id'));
+morgan.token('spanId', (req) => getRequestHeader(req, 'span-id'));
+morgan.token('traceId', (req) => getRequestHeader(req, 'trace-id'));
 
 /**
  * morgan format function
@@ -24,6 +34,9 @@ const format = <Request extends IncomingMessage, Response extends ServerResponse
     response_time: tokens['response-time'](req, res)
       ? Number.parseFloat(tokens['response-time'](req, res) as string)
       : null,
+    parentId: tokens.requestId(req, res),
+    requestId: tokens.requestId(req, res),
+    spanId: tokens.spanId(req, res),
     traceId: tokens.traceId(req, res),
   });
 
