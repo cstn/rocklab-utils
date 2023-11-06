@@ -1,6 +1,6 @@
 {
   "name": "@rocklab/redux-utils",
-  "version": "1.17.11",
+  "version": "1.17.12",
   "description": "Redux utils",
   "keywords": [
     "rocklab",
@@ -55,7 +55,7 @@
     "@babel/preset-env": "7.23.2",
     "@testing-library/jest-dom": "6.1.4",
     "@testing-library/react": "12.1.5",
-    "@types/node": "18.18.7",
+    "@types/node": "18.18.8",
     "@types/react": "17.0.69",
     "@types/react-dom": "17.0.22",
     "babel-jest": "28.1.3",
