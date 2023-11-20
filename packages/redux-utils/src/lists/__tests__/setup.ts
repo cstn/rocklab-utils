@@ -7,7 +7,7 @@ type TestItem = {
 };
 
 const api = listApi<TestItem>({
-  baseUrl: '/',
+  baseUrl: 'http://localhost:3000/',
   prepareHeaders: (headers) => {
     headers.set('authorization', `Bearer test`);
     return headers;

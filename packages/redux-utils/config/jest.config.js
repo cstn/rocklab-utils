@@ -16,8 +16,12 @@ module.exports = {
   reporters: ['default', ['jest-junit', { outputDirectory: 'reports/tests', outputName: 'TEST-unit.xml' }]],
   rootDir: '../',
   roots: ['./src'],
+  setupFiles: ['<rootDir>/config/jest.polyfills.js'],
   setupFilesAfterEnv: ['<rootDir>/config/jest.setup.ts'],
   testEnvironment: 'jsdom',
+  testEnvironmentOptions: {
+    customExportConditions: [''],
+  },
   testMatch: ['**/*.test.ts', '**/*.test.tsx'],
   transform: {
     '^.+\\.js$': 'babel-jest',

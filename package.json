@@ -85,7 +85,8 @@
     "react": "17.0.2",
     "reselect": "4.1.8",
     "ts-jest": "28.0.8",
-    "typescript": "5.2.2"
+    "typescript": "5.2.2",
+    "undici": "^5.27.2"
   },
   "dependencies": {
     "@babel/plugin-transform-runtime": "7.23.3",
