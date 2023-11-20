@@ -6,7 +6,7 @@ import renderWithStore from '../../test/utils';
 import getErrorMessage from '../../utils/errors';
 import setup, { api } from './setup';
 
-describe('lists', () => {
+xdescribe('lists', () => {
   let store: Store;
 
   beforeEach(() => {

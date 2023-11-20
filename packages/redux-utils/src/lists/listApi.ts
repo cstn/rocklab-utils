@@ -70,7 +70,8 @@ const listApi = <T extends Item, R = unknown>({
               (acc, param) => (typeof params[param] !== 'undefined' ? `${acc}&${param}=${params[param]}` : acc),
               `${path}?`
             )
-            .replace(/\?$/, ''),
+            .replace(/\?$/, '')
+            .replace(/\?&/, '?'),
         providesTags: (result) =>
           result
             ? [...result.items.map(({ id }) => ({ type: tagType, id })), { type: tagType, id: 'FILTERED-LIST' }]
