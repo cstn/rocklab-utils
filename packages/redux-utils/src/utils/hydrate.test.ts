@@ -14,32 +14,32 @@ describe('hydrate utils', () => {
       });
 
       expect(result).toMatchInlineSnapshot(`
-        Object {
-          "payload": Object {
-            "firstReducer": Object {
-              "mutations": Object {},
-              "provided": Object {},
-              "queries": Object {
-                "firstQuery": Object {
-                  "data": Object {
+        {
+          "payload": {
+            "firstReducer": {
+              "mutations": {},
+              "provided": {},
+              "queries": {
+                "firstQuery": {
+                  "data": {
                     "id": 1,
                   },
                   "status": "fulfilled",
                 },
-                "secondQuery": Object {
-                  "data": Object {
+                "secondQuery": {
+                  "data": {
                     "id": 2,
                   },
                   "status": "fulfilled",
                 },
               },
             },
-            "secondReducer": Object {
-              "mutations": Object {},
-              "provided": Object {},
-              "queries": Object {
-                "thirdQuery": Object {
-                  "data": Object {
+            "secondReducer": {
+              "mutations": {},
+              "provided": {},
+              "queries": {
+                "thirdQuery": {
+                  "data": {
                     "id": 3,
                   },
                   "status": "fulfilled",
