@@ -1,6 +1,6 @@
 {
   "name": "@rocklab/redux-utils",
-  "version": "1.17.16",
+  "version": "1.17.17",
   "description": "Redux utils",
   "keywords": [
     "rocklab",
@@ -50,14 +50,14 @@
   },
   "devDependencies": {
     "@babel/cli": "7.23.4",
-    "@babel/core": "7.23.6",
+    "@babel/core": "7.23.7",
     "@babel/eslint-parser": "7.23.3",
-    "@babel/preset-env": "7.23.6",
+    "@babel/preset-env": "7.23.7",
     "@testing-library/jest-dom": "6.1.4",
     "@testing-library/react": "12.1.5",
     "@types/jsdom": "21.1.6",
-    "@types/node": "18.19.3",
-    "@types/react": "17.0.73",
+    "@types/node": "18.19.4",
+    "@types/react": "17.0.74",
     "@types/react-dom": "17.0.25",
     "babel-jest": "29.7.0",
     "cross-env": "7.0.3",
