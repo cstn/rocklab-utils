@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import { render, screen } from '@testing-library/react';
+import React, { FC, useState } from 'react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { CurrentUserProvider, useCurrentUser, User, UserProfile, withCurrentUser } from '../index';
 
 describe('currentUser', () => {
@@ -37,6 +37,8 @@ describe('currentUser', () => {
       render(
         <CurrentUserProvider
           profile={undefined}
+          setProfile={() => {}}
+          setUser={() => {}}
           user={{
             id,
             username,
@@ -64,6 +66,8 @@ describe('currentUser', () => {
             firstName,
             lastName,
           }}
+          setProfile={() => {}}
+          setUser={() => {}}
           user={undefined}
         >
           <TestComponent />
@@ -112,6 +116,8 @@ describe('currentUser', () => {
       render(
         <CurrentUserProvider
           profile={undefined}
+          setProfile={() => {}}
+          setUser={() => {}}
           user={{
             id,
             username,
@@ -139,6 +145,8 @@ describe('currentUser', () => {
             firstName,
             lastName,
           }}
+          setProfile={() => {}}
+          setUser={() => {}}
           user={undefined}
         >
           <TestComponent />
@@ -148,6 +156,45 @@ describe('currentUser', () => {
       expect(screen.getByTitle('profileid').innerHTML).toEqual(id.toString());
       expect(screen.getByTitle('firstName').innerHTML).toEqual(firstName);
       expect(screen.getByTitle('lastName').innerHTML).toEqual(lastName);
+    });
+
+    it('should change the current user', async () => {
+      const id = 1;
+      const username = 'test';
+      const email = 'mail@test.local';
+      const email2 = 'mail2@test.local';
+      const initialUser = {
+        id,
+        username,
+        email,
+      } as User;
+
+      const ComponentWithUser = () => {
+        const [user, setUser] = useState(initialUser);
+
+        const handleClick = () => {
+          setUser({
+            ...initialUser,
+            email: email2,
+          });
+        };
+
+        return (
+          <CurrentUserProvider profile={undefined} setProfile={() => {}} setUser={setUser} user={user}>
+            <TestComponent />
+            <button type="button" onClick={handleClick}>
+              changeUser
+            </button>
+          </CurrentUserProvider>
+        );
+      };
+
+      render(<ComponentWithUser />);
+
+      expect(screen.getByTitle('email').innerHTML).toEqual(email);
+      fireEvent.click(screen.getByText('changeUser'));
+      const mailText = await screen.findByText(email2);
+      expect(mailText).toBeDefined();
     });
   });
 });

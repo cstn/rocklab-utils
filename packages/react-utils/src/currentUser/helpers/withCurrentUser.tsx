@@ -7,11 +7,19 @@ import React, { ComponentType } from 'react';
 import CurrentUserContext from '../context/CurrentUserContext';
 
 function withCurrentUser<T>(WrappedComponent: ComponentType<T>) {
-  const WithCurrentUser = (passThroughProps: Omit<T, 'currentUser' | 'currentUserProfile'>): JSX.Element => (
+  const WithCurrentUser = (
+    passThroughProps: Omit<T, 'currentUser' | 'currentUserProfile' | 'setCurrentUser' | 'setCurrentUserprofile'>
+  ) => (
     <CurrentUserContext.Consumer>
-      {({ user, profile }) => (
-        // eslint-disable-next-line react/jsx-props-no-spreading
-        <WrappedComponent {...(passThroughProps as T)} currentUser={user} currentUserProfile={profile} />
+      {({ user, profile, setUser, setProfile }) => (
+        <WrappedComponent
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...(passThroughProps as T)}
+          currentUser={user}
+          currentUserProfile={profile}
+          setCurrentUser={setUser}
+          setCurrentUserProfile={setProfile}
+        />
       )}
     </CurrentUserContext.Consumer>
   );

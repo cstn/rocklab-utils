@@ -7,7 +7,12 @@ import CurrentUserContext, { ContextType } from '../context/CurrentUserContext';
 import User from '../domain/models/User';
 import UserProfile from '../domain/models/UserProfile';
 
-type ReturnType = { currentUser: User | undefined; currentUserProfile: UserProfile | undefined };
+type ReturnType = {
+  currentUser?: User;
+  currentUserProfile?: UserProfile;
+  setCurrentUser: (user: User) => void;
+  setCurrentUserProfile: (profile: UserProfile) => void;
+};
 
 const useCurrentUser = (): ReturnType => {
   const context: ContextType = useContext(CurrentUserContext);
@@ -19,6 +24,8 @@ const useCurrentUser = (): ReturnType => {
   return {
     currentUser: context.user,
     currentUserProfile: context.profile,
+    setCurrentUser: context.setUser,
+    setCurrentUserProfile: context.setProfile,
   };
 };
 

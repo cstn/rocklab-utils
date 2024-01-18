@@ -10,10 +10,12 @@ import CurrentUserContext from './CurrentUserContext';
 type Props = {
   profile: UserProfile | undefined;
   user: User | undefined;
+  setUser: (user: User) => void;
+  setProfile: (profile: UserProfile) => void;
 };
 
-const CurrentUserProvider: FC<Props> = ({ children, profile, user }): JSX.Element => {
-  const value = useMemo(() => ({ user, profile }), [user, profile]);
+const CurrentUserProvider: FC<Props> = ({ children, profile, user, setUser, setProfile }) => {
+  const value = useMemo(() => ({ user, profile, setUser, setProfile }), [user, profile, setUser, setProfile]);
 
   return <CurrentUserContext.Provider value={value}>{children}</CurrentUserContext.Provider>;
 };
