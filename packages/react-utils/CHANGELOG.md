@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.19](https://github.com/cstn/rocklab-utils/compare/@rocklab/react-utils@1.17.11...@rocklab/react-utils@1.17.19) (2024-01-18)
+
+**Note:** Version bump only for package @rocklab/react-utils
+
 ## [1.17.11](https://github.com/cstn/rocklab-utils/compare/@rocklab/react-utils@1.17.0...@rocklab/react-utils@1.17.11) (2023-10-30)
 
 **Note:** Version bump only for package @rocklab/react-utils
