@@ -1,6 +1,6 @@
 {
   "name": "@rocklab/common-utils",
-  "version": "1.16.18",
+  "version": "1.16.19",
   "description": "Common javascript utils",
   "keywords": [
     "rocklab",
@@ -43,7 +43,7 @@
     "@babel/core": "7.23.7",
     "@babel/eslint-parser": "7.23.3",
     "@babel/preset-env": "7.23.8",
-    "@types/node": "18.19.7",
+    "@types/node": "18.19.8",
     "babel-jest": "29.7.0",
     "cross-env": "7.0.3",
     "jest": "29.7.0",
