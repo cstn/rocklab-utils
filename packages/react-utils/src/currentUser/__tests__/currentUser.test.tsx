@@ -56,6 +56,7 @@ describe('currentUser', () => {
 
     it('should render with current user profile', () => {
       const id = 1;
+      const userId = 2;
       const firstName = 'Tom';
       const lastName = 'Test';
 
@@ -63,6 +64,7 @@ describe('currentUser', () => {
         <CurrentUserProvider
           profile={{
             id,
+            userId,
             firstName,
             lastName,
           }}
@@ -135,6 +137,7 @@ describe('currentUser', () => {
 
     it('should render with current user profile', () => {
       const id = 1;
+      const userId = 2;
       const firstName = 'Tom';
       const lastName = 'Test';
 
@@ -142,6 +145,7 @@ describe('currentUser', () => {
         <CurrentUserProvider
           profile={{
             id,
+            userId,
             firstName,
             lastName,
           }}
