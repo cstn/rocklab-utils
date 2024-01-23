@@ -4,8 +4,8 @@
 
 ## Requirements
 
-- node version 16
-- npm version 8
+- node version >= 18
+- npm version >= 9
 
 ## Install
 

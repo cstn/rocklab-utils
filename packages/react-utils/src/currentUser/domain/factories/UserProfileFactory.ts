@@ -2,6 +2,7 @@ import UserProfile, { Gender } from '../models/UserProfile';
 
 const createUserProfile = ({
   id,
+  userId,
   salutation,
   firstName,
   lastName,
@@ -13,6 +14,7 @@ const createUserProfile = ({
   mobile,
 }: {
   id?: number;
+  userId?: number;
   salutation?: string;
   firstName: string;
   lastName: string;
@@ -29,6 +31,7 @@ const createUserProfile = ({
 
   return {
     id: id || 0,
+    userId: userId || 0,
     salutation,
     lastName,
     firstName,
