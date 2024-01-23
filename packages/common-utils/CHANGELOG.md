@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.17.0](https://github.com/cstn/rocklab-utils/compare/@rocklab/common-utils@1.16.10...@rocklab/common-utils@1.17.0) (2024-01-23)
+
+# 1.21.0 (2024-01-18)
+
+### Features
+
+- set current user and profile in context ([#210](https://github.com/cstn/rocklab-utils/issues/210)) ([755e5c4](https://github.com/cstn/rocklab-utils/commit/755e5c470559d0faf4534a8a7830283b45105e8d))
+
 ## [1.16.18](https://github.com/cstn/rocklab-utils/compare/@rocklab/common-utils@1.16.10...@rocklab/common-utils@1.16.18) (2024-01-18)
 
 **Note:** Version bump only for package @rocklab/common-utils
