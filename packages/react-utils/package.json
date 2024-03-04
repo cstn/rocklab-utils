@@ -1,6 +1,6 @@
 {
   "name": "@rocklab/react-utils",
-  "version": "1.18.5",
+  "version": "1.18.6",
   "description": "React utils",
   "keywords": [
     "rocklab",
@@ -42,13 +42,13 @@
   },
   "devDependencies": {
     "@babel/cli": "7.23.9",
-    "@babel/core": "7.23.9",
+    "@babel/core": "7.24.0",
     "@babel/eslint-parser": "7.23.10",
-    "@babel/preset-env": "7.23.9",
+    "@babel/preset-env": "7.24.0",
     "@testing-library/jest-dom": "6.1.4",
     "@testing-library/react": "12.1.5",
-    "@types/node": "18.19.18",
-    "@types/react": "17.0.75",
+    "@types/node": "18.19.21",
+    "@types/react": "17.0.76",
     "@types/react-dom": "17.0.25",
     "babel-jest": "29.7.0",
     "cross-env": "7.0.3",
