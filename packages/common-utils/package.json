@@ -1,6 +1,6 @@
 {
   "name": "@rocklab/common-utils",
-  "version": "1.17.7",
+  "version": "1.17.8",
   "description": "Common javascript utils",
   "keywords": [
     "rocklab",
@@ -36,21 +36,21 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@babel/preset-react": "7.23.3"
+    "@babel/preset-react": "7.24.1"
   },
   "devDependencies": {
-    "@babel/cli": "7.23.9",
-    "@babel/core": "7.24.0",
-    "@babel/eslint-parser": "7.23.10",
-    "@babel/preset-env": "7.24.0",
-    "@types/node": "18.19.24",
+    "@babel/cli": "7.24.1",
+    "@babel/core": "7.24.3",
+    "@babel/eslint-parser": "7.24.1",
+    "@babel/preset-env": "7.24.3",
+    "@types/node": "18.19.26",
     "babel-jest": "29.7.0",
     "cross-env": "7.0.3",
     "jest": "29.7.0",
     "jest-junit": "16.0.0",
     "rimraf": "5.0.5",
     "ts-jest": "29.1.1",
-    "typescript": "5.4.2"
+    "typescript": "5.4.3"
   },
   "peerDependencies": {
     "typescript": ">= 5"
