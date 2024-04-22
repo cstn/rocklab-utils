@@ -1,6 +1,6 @@
 {
   "name": "@rocklab/utils",
-  "version": "1.1.70",
+  "version": "1.1.71",
   "description": "JavaScript utils",
   "keywords": [
     "rocklab",
@@ -73,7 +73,7 @@
     "@typescript-eslint/eslint-plugin": "7.7.0",
     "@typescript-eslint/parser": "7.7.0",
     "babel-jest": "29.7.0",
-    "eslint": "8.57.0",
+    "eslint": "9.1.1",
     "eslint-config-prettier": "9.1.0",
     "husky": "9.0.11",
     "is-ci": "3.0.1",
